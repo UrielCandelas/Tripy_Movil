@@ -28,6 +28,7 @@ export default function App({navigation}) {
         <Image
           source={require("../images/Default_pfp.png")}
           style={styles.roundImage}
+          onPress={()=> navigation.goBack()}
         />
 
         <Text style={styles.texto2} onPress={()=>navigation.navigate("EditarPerfil")}>Editar perfil</Text>

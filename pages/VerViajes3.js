@@ -3,16 +3,20 @@ import React from 'react'
 import Svg, { Rect, Circle } from 'react-native-svg'
 import GeneralText from '../components/GeneralText'
 import GeneralButton from '../components/GeneralButton'
-import Arrowback from '../components/VerViajes/Arrowback'
+import { Ionicons } from "@expo/vector-icons";
 
-export default function VerMiViaje() {
+
+export default function VerMiViaje({navigation}) {
   const windowWidth = Dimensions.get('window').width
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
-        <Arrowback
-          style={styles.arrow}
-          onPresshandler={() => navigation.navigate('')}
+      <Ionicons
+          style={styles.back}
+          name="arrow-back"
+          size={24}
+          color="black"
+          onPress={()=>navigation.goBack()}
         />
       </View>
 
@@ -39,6 +43,7 @@ export default function VerMiViaje() {
         colorBg="#64CCC5"
         padding={20}
         width={'100%'}
+        marginTop={-30}
       />
     </ScrollView>
   )
@@ -66,5 +71,13 @@ const styles = StyleSheet.create({
   },
   GeneralText: {
     marginTop: 20,
+  },back: {
+    top: -20,
+    left: -150,
+    padding: 16,
+    paddingTop: "15%",
+    marginTop: 20,
+    zIndex: 1
   },
+
 })

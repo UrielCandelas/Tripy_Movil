@@ -39,7 +39,7 @@ const handlePress = () => {
         </View>
 
         <SafeAreaView style={styles.containercards}>
-            <ScrollView horizontal><Cards /></ScrollView>
+            <ScrollView horizontal><Cards onPress={()=>navigation.navigate("UnirseViaje")} /></ScrollView>
         </SafeAreaView>
 
 
@@ -54,7 +54,7 @@ const handlePress = () => {
         </View>
 
         <SafeAreaView style={styles.containerreviews}>
-            <ScrollView><Reseñas /></ScrollView>
+            <ScrollView><Reseñas onPress={()=>navigation.push("PerfilUsuario")}/></ScrollView>
         </SafeAreaView>
         </View>
 

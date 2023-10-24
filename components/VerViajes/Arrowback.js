@@ -3,7 +3,7 @@ import Svg, { Circle, Image } from 'react-native-svg';
 
 export default function Arrowback({ style, onPresshandler }) {
   return (
-    <Svg height="50" width="50" style={style} onPress={onPresshandler}>
+    <Svg height="50" width="50" onPress={onPresshandler} style={style} >
       <Circle cx="25" cy="25" r="20" fill="#F2F2F2" />
       <Image
         x="11"

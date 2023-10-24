@@ -1,20 +1,24 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet,TouchableOpacity} from 'react-native';
 import GeneralLittleTxt from './GeneralLittleTxt';
 
-export default function Boxes({ Txt }) {
+export default function Boxes({ Txt,onPress }) {
   return (
     <View style={styles.container}>
       <View style={styles.box}>
+        <TouchableOpacity onPress={onPress}>
         <View style={styles.inner}>
           <Text style={styles.text}>{Txt}</Text>
         </View>
+        </TouchableOpacity>
         <GeneralLittleTxt Txt="Destino"/>
       </View>
       <View style={styles.box}>
+        <TouchableOpacity onPress={onPress}>
         <View style={styles.inner}>
           <Text style={styles.text}>{Txt}</Text>
         </View>
+        </TouchableOpacity>
         <GeneralLittleTxt Txt="Destino"/>
       </View>
     </View>

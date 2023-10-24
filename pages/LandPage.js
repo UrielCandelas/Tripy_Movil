@@ -42,9 +42,9 @@ export default function LandPage({ navigation }) {
             marginTop: -39,
           }}
         />
-        <Boxes Txt="Box" />
-        <Boxes Txt="Box" />
-        <Boxes Txt="Box" />
+        <Boxes Txt="Box" onPress={()=>navigation.navigate("Destino")}/>
+        <Boxes Txt="Box" onPress={()=>navigation.navigate("Destino")}/>
+        <Boxes Txt="Box" onPress={()=>navigation.navigate("Destino")}/>
       </View>
     </ScrollView>
   );

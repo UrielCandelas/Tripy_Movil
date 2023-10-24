@@ -12,7 +12,7 @@ export default function VerViajes1({ navigation }) {
       <View style={styles.header}>
         <Arrowback
           style={styles.arrow}
-          onPresshandler={() => navigation.navigate('VerViajes2')}
+          onPresshandler={() => navigation.goBack()}
         />
         <GeneralText
           color="#1D1E20"
@@ -63,10 +63,10 @@ export default function VerViajes1({ navigation }) {
         />
       </View>
 
-      <Viaje />
-      <Viaje />
-      <Viaje />
-      <Viaje />
+      <Viaje onPress={()=>navigation.navigate("UnirseViaje")}/>
+      <Viaje onPress={()=>navigation.navigate("UnirseViaje")}/>
+      <Viaje onPress={()=>navigation.navigate("UnirseViaje")}/>
+      <Viaje onPress={()=>navigation.navigate("UnirseViaje")}/>
     </ScrollView>
   )
 }

@@ -3,9 +3,9 @@ import { TouchableOpacity, StyleSheet, Image } from 'react-native'
 import GeneralText from '../GeneralText'
 import React from 'react'
 
-export default function Viaje() {
+export default function Viaje({onPress}) {
   return (
-    <TouchableOpacity style={styles.view}>
+    <TouchableOpacity onPress={onPress} style={styles.view}>
       <GeneralText
         text={'Usuario'}
         color="#fff"
