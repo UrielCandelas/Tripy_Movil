@@ -34,7 +34,7 @@ const handlePress = () => {
         />
 
         <View style={styles.container1}>
-            <Text style={styles.texto3}>Viajes</Text>
+            <Text style={styles.texto3}>Viajes.</Text>
             <Text style={styles.texto4} onPress={()=>navigation.navigate("VerViajes2")}>Ver todo</Text>
         </View>
 
