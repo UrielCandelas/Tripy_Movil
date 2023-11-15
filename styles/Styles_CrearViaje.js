@@ -3,11 +3,24 @@ const styles = StyleSheet.create({
 
 
     LabelCrearViaje: {
-        fontSize: 30,
-        fontWeight:"500",
-        textAlign: "center",
-        marginTop: 40,
+        fontSize: 20,
+        fontWeight: "bold",
+        alignSelf: "center",
+        top: 0,
+        left: 0,
+        padding: 16,
+        paddingTop: "20%",
     },
+
+    texto1: {
+        fontSize: 20,
+        fontWeight: "bold",
+        alignSelf: "center",
+        top: 0,
+        left: 0,
+        padding: 16,
+        paddingTop: "20%",
+      },
 
     btnDrawerIconBtn: {
         left: 20,
@@ -29,9 +42,10 @@ const styles = StyleSheet.create({
     },
 
     LabelsForms: {
-        fontSize: 20,
-        fontWeight: "400",
-        marginTop: 14
+        fontSize: 17,
+        top: 0,
+        left: 0,
+        padding: 16,
 
     },
 
@@ -50,8 +64,8 @@ const styles = StyleSheet.create({
     },   
     
     txtStyle:{
-        borderColor: "#000000",
-      borderWidth: 1,
+        color: "#8F959E",
+        fontSize: 16,
       backgroundColor: "#ffffff",
     },
 
