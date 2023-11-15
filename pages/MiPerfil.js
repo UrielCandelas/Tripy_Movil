@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView, Button, Toucha
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
 import { Ionicons } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
 import Cards from "../components/Cards";
 import Reseñas from "../components/Reseñas";
 
