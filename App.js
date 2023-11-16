@@ -20,7 +20,6 @@ import EditarPerfil from "./pages/EditarPerfil";
 import CrearViaje from "./pages/CrearViaje";
 import Solicitudes from "./pages/Solicitudes";
 import AgendarGastos from "./pages/AgregarGastos";
-import Inicio_ from "./pages/Inicio_";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
