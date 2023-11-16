@@ -1,11 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Animated, Easing } from 'react-native';
 
-export default function AnimatedInput({ label, duration = 200, width, height, labelColor = 'black', secureTextEntry }, style) {
+export default function AnimatedInput({ label, duration = 200, width, height, labelColor = 'black', secureTextEntry,onChange,value }, style) {
   const transY = useRef(new Animated.Value(0));
   const borderWidth = useRef(new Animated.Value(0));
   const backgroundColor = useRef(new Animated.Value(0));
-  const [text, setText] = useState('');
 
   const handleFocus = () => {
     animateTranform(-45);
@@ -14,7 +13,7 @@ export default function AnimatedInput({ label, duration = 200, width, height, la
   };
 
   const handleBlur = () => {
-    if (text) return;
+    if (value) return;
     animateTranform(0);
     animateBorderWidth(0);
     animateBackgroundColor(0);
@@ -56,9 +55,6 @@ export default function AnimatedInput({ label, duration = 200, width, height, la
     extrapolate: 'clamp',
   });
 
-  const handleChangeText = (value) => {
-    setText(value);
-  };
 
   const labelColorAnimation = borderWidth.current.interpolate({
     inputRange: [0, 2],
@@ -82,8 +78,8 @@ export default function AnimatedInput({ label, duration = 200, width, height, la
       </Animated.View>
       <TextInput
         style={styles.input}
-        value={text}
-        onChangeText={handleChangeText}
+        value={value}
+        onChangeText={onChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
         secureTextEntry={secureTextEntry}

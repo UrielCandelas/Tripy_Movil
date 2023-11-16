@@ -4,7 +4,7 @@ import React from "react";
 import { View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const Sidebar = ({ userNav, HomeNav, ExpensesNav, RequestNav, TravelsNav }) => {
+const Sidebar = ({ userNav, HomeNav, ExpensesNav, RequestNav, TravelsNav,LogoutNav }) => {
   return (
     <View style={styles.sidebar}>
       <ScrollView>
@@ -40,7 +40,12 @@ const Sidebar = ({ userNav, HomeNav, ExpensesNav, RequestNav, TravelsNav }) => {
             <GeneralText text="Crear Viaje" />
           </View>
         </TouchableOpacity>
-        {/* Agrega más enlaces según sea necesario */}
+        <TouchableOpacity onPress={LogoutNav} style={styles.section}>
+          <View style={styles.object}>
+            <Ionicons name="log-out" size={20} color="red" style={styles.images}/>
+            <GeneralText text="Cerrar Sesion" color={"red"}/>
+          </View>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );

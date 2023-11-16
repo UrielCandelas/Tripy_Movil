@@ -4,13 +4,12 @@ import GeneralLittleTxt from "../components/GeneralLittleTxt";
 import GeneralTxt from "../components/GeneralTxt";
 import SearchBar from "../components/SearchBar";
 import Boxes from "../components/Boxes";
-import GeneralButton from "../components/GeneralButton";
 import SideBar from "../components/Sidebar/SideBar";
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 
 export default function LandPage({ navigation }) {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   return (
     <ScrollView>
       <View style={styles.view}>
@@ -29,6 +28,7 @@ export default function LandPage({ navigation }) {
             ExpensesNav={()=>navigation.navigate("AgendarGastos")}
             RequestNav={()=>navigation.navigate("Solicitudes")}
             TravelsNav={()=>navigation.navigate("CrearViaje")}
+            LogoutNav={()=>navigation.navigate("Bienvenido")}
           />
         )}
         <SearchBar />

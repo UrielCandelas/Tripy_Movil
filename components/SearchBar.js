@@ -42,15 +42,10 @@ export default function SearchBar() {
         alignItems:'center'
       }
       }>
-        <Feather 
-        name='search'
-        size={20}
-        color='black'
-        style={{marginLeft: 1, marginRight: 4}}/>
         <TextInput value={input} onChangeText={(text) => setInput(text)}
         style={{fontSize: 15}} placeholder='Search'/>
       </View>
-      <SearchFilter data={words} input={input} setInput={setInput}/>
+
     </View>
   )
 }
