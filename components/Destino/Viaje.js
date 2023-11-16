@@ -9,9 +9,10 @@ export default function Viaje({onPress}) {
       <GeneralText
         text={'Usuario'}
         color="#fff"
+        fontWeight={'bold'}
         size={13}
         width_={268}
-        paddingLeft={20}
+        paddingLeft={16}
         paddingRight={20}
         paddingTop={20}
       />
@@ -20,7 +21,7 @@ export default function Viaje({onPress}) {
         color="#fff"
         size={12}
         width_={268}
-        paddingLeft={20}
+        paddingLeft={16}
         paddingRight={20}
         paddingTop={10}
       />
@@ -33,18 +34,10 @@ export default function Viaje({onPress}) {
         color="#fff"
         size={12}
         width_={268}
-        paddingLeft={20}
+        paddingLeft={16}
         paddingRight={20}
         paddingBottom={20}
         marginTop={-15}
-      />
-      <GeneralText
-        text={'Gastos hasta el Momento: $'}
-        color="#fff"
-        size={12}
-        width_={268}
-        padding_={20}
-        marginTop={-40}
       />
     </TouchableOpacity>
   )
@@ -63,7 +56,7 @@ const styles = StyleSheet.create({
   image: {
     width: 12,
     height: 12,
-    marginLeft: 20,
+    marginLeft: 16,
     marginTop: 5,
     marginBottom: 20,
   },

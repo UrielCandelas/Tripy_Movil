@@ -1,79 +1,56 @@
 import React from "react";
-import { Text, View, Image, ScrollView, StyleSheet,TouchableOpacity } from "react-native";
-import { styles } from "../styles/Styles_CrearViaje";
-import { Button } from "@rneui/themed";
+import { Text, View, Image, ScrollView, StyleSheet,TouchableOpacity, SafeAreaView} from "react-native";
+import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
+import Soli from "../components/Soli";
 
 const Solicitudes = ({ navigation }) => {
   return (
     <View style={styles.crearViaje}>
-      <View style={styless.header}>
+      <StatusBar style="auto" />
         <Ionicons
-          style={styless.backButton}
+          style={styles.back}
           name="arrow-back"
-          size={28}
+          size={24}
           color="black"
-          onPress={() => navigation.navigate("LandPage")}
+          onPress={()=> navigation.goBack()}
         />
+        
+        <Text style={styles.texto1}>Solicitudes</Text>
+      
+        <SafeAreaView>
+            <ScrollView>
+              <Soli/>
+              <Soli/>
+              <Soli/>
+            </ScrollView>
+        </SafeAreaView>
 
-        <Text style={styles.LabelCrearViaje}>Solicitudes</Text>
-      </View>
-      <ScrollView style={styles.viewsolicitudes}>
-        <View style={styles.imagestyle}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("PerfilUsuario")}
-          >
-            <Image
-              style={{ alignSelf: "center" }}
-              source={require("../images/row1.png")}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.imagestyle}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("PerfilUsuario")}
-          >
-            <Image
-              style={{ alignSelf: "center" }}
-              source={require("../images/row1.png")}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.imagestyle}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("PerfilUsuario")}
-          >
-            <Image
-              style={{ alignSelf: "center" }}
-              source={require("../images/row1.png")}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.imagestyle}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("PerfilUsuario")}
-          >
-            <Image
-              style={{ alignSelf: "center" }}
-              source={require("../images/row1.png")}
-            />
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
     </View>
   );
 };
-const styless = StyleSheet.create({
+const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
     marginTop: 50,
     marginLeft: 50,
   },
-  backButton: {
-    marginTop: 36,
-    marginRight: 70,
-    marginLeft: -20,
+  back: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    padding: 16,
+    paddingTop: "15%",
+  },
+  texto1: {
+    fontSize: 20,
+    fontWeight: "bold",
+    alignSelf: "center",
+    top: 0,
+    left: 0,
+    padding: 16,
+    paddingTop: "20%",
   },
 });
 

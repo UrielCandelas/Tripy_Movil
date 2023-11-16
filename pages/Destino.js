@@ -1,29 +1,28 @@
 import React from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import Svg, { Circle } from 'react-native-svg'
+import { Ionicons } from "@expo/vector-icons";
 import GeneralText from '../components/GeneralText'
 import Viaje from '../components/Destino/Viaje'
 import Arrowback from '../components/VerViajes/Arrowback'
 import Cuadritos from '../components/Destino/Cuadritos'
+import { StatusBar } from "expo-status-bar";
 
 export default function VerViajes1({ navigation }) {
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.header}>
-        <Arrowback
-          style={styles.arrow}
-          onPresshandler={() => navigation.goBack()}
+      
+      <StatusBar style="auto" />
+        <Ionicons
+          style={styles.back}
+          name="arrow-back"
+          size={24}
+          color="black"
+          onPress={()=> navigation.goBack()}
         />
-        <GeneralText
-          color="#1D1E20"
-          size={17}
-          height={18}
-          text="Destino"
-          marginTop={60}
-          marginLeft={80}
-          marginRight={'28%'}
-        />
-      </View>
+        
+        <Text style={styles.texto1}>Destino</Text>
+
       <View style={styles.row}>
         <Cuadritos
           size={70}
@@ -78,7 +77,6 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    alignItems: 'center',
   },
   arrow: {
     marginTop: 60,
@@ -90,5 +88,21 @@ const styles = StyleSheet.create({
   desc: {
     marginLeft: 30,
     alignSelf: 'flex-start',
+  },
+  back: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    padding: 16,
+    paddingTop: "15%",
+  },
+  texto1: {
+    fontSize: 20,
+    fontWeight: "bold",
+    alignSelf: "center",
+    top: 0,
+    left: 0,
+    padding: 16,
+    paddingTop: "20%",
   },
 })
