@@ -33,6 +33,8 @@ export default function({navigation}) {
         
         <Text style={styles.texto1}>Añadir gasto</Text>
 
+        <View>
+
         <View style={styles.container1}>
         <Text style={styles.texto5}>¿A qué viaje deseas añadir el gasto?</Text>
         <SafeAreaView>
@@ -74,12 +76,27 @@ export default function({navigation}) {
         <TextInput style={styles.input} 
         />
         </SafeAreaView>
-        </View>
-        
-        
 
-        
-      </View>
+        </View>
+
+        </View>
+
+
+        <TouchableOpacity style={{
+          backgroundColor: '#64CCC5',
+          width: '100%',
+          justifyContent: 'center',
+          height: 75,
+          position: 'absolute',
+          bottom: 0,
+          alignItems: 'center',
+        }} onPress={()=>navigation.goBack()}>
+        <Text style={styles.texto6}>Añadir</Text>
+      </TouchableOpacity>
+
+        </View>
+
+      
 
     
   );
@@ -119,6 +136,12 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     padding: 16,
+  },
+
+  texto6: {
+    color: "white",
+    fontWeight: 'bold',
+    fontSize: 17,
   },
 
   dropdown: {

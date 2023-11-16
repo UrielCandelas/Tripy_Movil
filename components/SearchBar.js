@@ -48,9 +48,9 @@ export default function SearchBar() {
         color='black'
         style={{marginLeft: 1, marginRight: 4}}/>
         <TextInput value={input} onChangeText={(text) => setInput(text)}
-        style={{fontSize: 15}} placeholder='Search'/>
+        style={{fontSize: 15}} placeholder='Buscar'/>
       </View>
-      <SearchFilter data={words} input={input} setInput={setInput}/>
+      
     </View>
   )
 }

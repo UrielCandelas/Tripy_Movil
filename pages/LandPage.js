@@ -18,7 +18,7 @@ export default function LandPage({ navigation }) {
         <StatusBar style="auto" />
         <GeneralTxt
           Txt="Bienvenido a Tripy"
-          style={{ width: "80%", fontSize: 30, textAlign: "left" }}
+          style={{ width: "100%", fontSize: 30, textAlign: "left" }}
         />
         <Ionicons name="menu" size={25} onPress={() => setVisible(!visible)}/>
         </View>
@@ -57,7 +57,8 @@ const styles = StyleSheet.create({
   view2:{
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'left',
+    paddingLeft: 16,
     alignItems: 'center'
   }
 })

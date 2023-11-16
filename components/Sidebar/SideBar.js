@@ -25,7 +25,7 @@ const Sidebar = ({ userNav, HomeNav, ExpensesNav, RequestNav, TravelsNav }) => {
         <TouchableOpacity onPress={ExpensesNav} style={styles.section}>
           <View style={styles.object}>
             <Ionicons name="cash" size={20} style={styles.images}/>
-            <GeneralText text="Añadir Gasto" />
+            <GeneralText text="Añadir gasto" />
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={RequestNav} style={styles.section}>
@@ -37,7 +37,7 @@ const Sidebar = ({ userNav, HomeNav, ExpensesNav, RequestNav, TravelsNav }) => {
         <TouchableOpacity onPress={TravelsNav} style={styles.section}>
           <View style={styles.object}>
             <Ionicons name="map" size={20} style={styles.images}/>
-            <GeneralText text="Crear Viaje" />
+            <GeneralText text="Crear viaje" />
           </View>
         </TouchableOpacity>
         {/* Agrega más enlaces según sea necesario */}

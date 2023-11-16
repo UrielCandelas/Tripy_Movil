@@ -34,7 +34,7 @@ const handlePress = () => {
         />
 
         <View style={styles.container1}>
-            <Text style={styles.texto3}>Viajes.</Text>
+            <Text style={styles.texto3}>Viajes</Text>
             <Text style={styles.texto4} onPress={()=>navigation.navigate("VerViajes2")}>Ver todo</Text>
         </View>
 
@@ -48,7 +48,7 @@ const handlePress = () => {
         <Text style={styles.texto3}>Reseñas</Text>
             <View style={{paddingRight:16,}}>
             <TouchableOpacity style={{ backgroundColor: '#DAFFFB', height: 40, borderRadius: 10, width:125, alignItems: 'center', justifyContent: 'center',}} onPress={()=>navigation.navigate("AñadirReseña")}>
-            <Text style={styles.texto5}>Agregar Reseña</Text>
+            <Text style={styles.texto5}>Agregar reseña</Text>
             </TouchableOpacity>
             </View>
         </View>
