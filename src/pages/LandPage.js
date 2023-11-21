@@ -51,7 +51,7 @@ export default function LandPage() {
             marginTop: -39,
           }}
         />
-        <Boxes onPress={()=>navigation.navigate("Destino")}/>
+        <Boxes/>
       </View>
     </ScrollView>
   );

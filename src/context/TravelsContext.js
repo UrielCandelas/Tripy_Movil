@@ -6,13 +6,15 @@ import {
   getSharedTravels,
   addSecondUser,
   deleteSecondUser,
-  registerTravel,
+  registerNewTravel,
   editTravel,
   deleteTravel,
   getMyTravel,
   getMyTravels,
   getSharedTravel,
-  getAllTransports
+  getAllTransports,
+  getAllLocationTravels,
+  getAllExpenses,
 } from '../api/travels.js'
 
 import {useAuth} from '../context/AuthContext'
@@ -32,7 +34,8 @@ const TravelProvider = ({ children }) => {
   const [travels, setTravels] = useState([])
   const [travel, setTravel] = useState({})
   const [transports, setTransports] = useState([]);
-  const {user} = useAuth()
+  const [locationTravels, setLocationTravels] = useState([]);
+  const [expenses, setExpenses] = useState([]);
 
   const getTravels = async () => {
     try {
@@ -85,7 +88,7 @@ const TravelProvider = ({ children }) => {
     }
   }
 
-  const getAllMyTravels = async () => {
+  /*const getAllMyTravels = async () => {
     try {
       const res = await getMyTravels()
       setTravels(res.data)
@@ -96,7 +99,7 @@ const TravelProvider = ({ children }) => {
       }
       setErrors([error.response.data.message])
     }
-  }
+  }*/
 
   const getSomeMyTravel = async (id) => {
     try {
@@ -111,7 +114,7 @@ const TravelProvider = ({ children }) => {
     }
   }
 
-  const registerNewTravel = async (travel) => {
+  const registerNewTravelFunc = async (travel) => {
     try {
       /*const newTravel = {
         id_user1: travel.id_user1,
@@ -125,16 +128,18 @@ const TravelProvider = ({ children }) => {
         id_location: travel.id_location,
         travel_date: travel.travel_date,
         id_transportation: travel.id_transportation,
+        expense: travel.expense,
         quantity: travel.quantity,
         extra: travel.extra,
         companions: travel.companions,
       }
-      const res = await registerTravel(newTravel)
+      const res = await registerNewTravel(travel)
     } catch (error) {
       if (Array.isArray(error.response.data)) {
         return setErrors(error.response.data)
       }
       setErrors([error.response.data.message])
+      console.log(error)
     }
   }
 
@@ -180,7 +185,26 @@ const TravelProvider = ({ children }) => {
       setErrors([error.response.data.message])
     }
   }
+  const getAllLocationTravelsFunc = async(id) => {
+    try {
+      const res = await getAllLocationTravels(id);
+      setLocationTravels(res.data);
+      return res.data;
+      return res.data
+    } catch (error) {
+      setErrors([error.response.data])
+    }
+  }
 
+  const getAllExpensesFunc = async (id) => {
+    try {
+      const res = await getAllExpenses(id)
+      setExpenses(res.data)
+      return res.data
+    } catch (error) {
+      setErrors([error.response.data])
+    }
+  }
 
   useEffect(() => {
     if (errors.length > 0) {
@@ -194,20 +218,23 @@ const TravelProvider = ({ children }) => {
   return (
     <TravelContext.Provider
       value={{
-        registerNewTravel,
+        registerNewTravelFunc,
         editSomeTravel,
         getSomeTravel,
         deleteSomeTravel,
         getTravels,
         getSomeSharedTravel,
         getAllSharedTravels,
-        getAllMyTravels,
         getSomeMyTravel,
         getTransports,
+        getAllLocationTravelsFunc,
+        getAllExpensesFunc,
+        expenses,
         errors,
         travel,
         travels,
         transports,
+        locationTravels,
       }}
     >
       {children}

@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect, createContext } from "react";
 import { setItemAsync, getItemAsync, deleteItemAsync } from "expo-secure-store";
-import { login, registerUser, verifyTokenRequest } from "../api/auth.js";
+import { getUserById, login, registerUser, verifyTokenRequest } from "../api/auth.js";
 
 export const AuthContext = createContext();
 
@@ -17,6 +17,7 @@ const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState([]);
+  const [userById , setUserById] = useState([]);
 
   const createStore = async (key, value) => {
     try {
@@ -88,6 +89,18 @@ const AuthProvider = ({ children }) => {
       setErrors([error.response.data.message]);
     }
   };
+  const getUser = async (id) => {
+    try {
+      const res = await getUserById(id);
+      setUserById(res.data);
+      return res.data;
+    } catch (error) {
+      if (Array.isArray(error.response.data)) {
+        return setErrors(error.response.data);
+      }
+      setErrors([error.response.data.message]);
+    }
+  }
 
   useEffect(() => {
     async function checklogin() {
@@ -127,6 +140,8 @@ const AuthProvider = ({ children }) => {
         isAuthenticated,
         loading,
         errors,
+        userById,
+        getUser,
         signup,
         signin,
         logout,

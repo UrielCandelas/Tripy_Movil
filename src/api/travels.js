@@ -7,6 +7,7 @@ export const getSharedTravels = (id) => axios.get(`/travels/shared/${id}`)
 export const getSharedTravel = (id) => axios.get(`/travels/shared/one/${id}`)
 export const addSecondUser = (id) => axios.put(`/travels/shared/${id}`)
 export const deleteSecondUser = (id) => axios.put(`/travels/secondShared/${id}`)
+export const getAllLocationTravels = (id) => axios.get(`/travels/location/${id}`)
 
 // Mis viajes
 export const getMyTravels = () => axios.get('/my-travels')
@@ -16,3 +17,5 @@ export const editTravel = (travel, id) => axios.put(`/my-travels/${id}`, travel)
 export const deleteTravel = (id) => axios.delete(`/travels/${id}`)
 
 export const getAllTransports = () => axios.get('/transports')
+
+export const getAllExpenses = id => axios.get(`/expenses/${id}`)

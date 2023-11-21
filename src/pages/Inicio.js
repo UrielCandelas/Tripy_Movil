@@ -45,6 +45,7 @@ export default function Inicio() {
           height={60}
           value={email}
           onChange={setEmail}
+          keyboardType={"email-address"}
         />
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>

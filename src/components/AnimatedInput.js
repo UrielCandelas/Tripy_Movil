@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Animated, Easing } from 'react-native';
 
-export default function AnimatedInput({ label, duration = 200, width, height, labelColor = 'black', secureTextEntry,onChange,value }, style) {
+export default function AnimatedInput({ label, duration = 200, width, height, labelColor = 'black', secureTextEntry,onChange,value,keyboardType }, style) {
   const transY = useRef(new Animated.Value(0));
   const borderWidth = useRef(new Animated.Value(0));
   const backgroundColor = useRef(new Animated.Value(0));
@@ -83,6 +83,7 @@ export default function AnimatedInput({ label, duration = 200, width, height, la
         onFocus={handleFocus}
         onBlur={handleBlur}
         secureTextEntry={secureTextEntry}
+        keyboardType={keyboardType}
       />
     </Animated.View>
   );

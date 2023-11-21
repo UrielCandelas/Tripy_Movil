@@ -24,7 +24,7 @@ export default function () {
   const navigation = useNavigation();
   const { locations, getLocations } = useLocations();
   const { user } = useAuth();
-  const { registerNewTravel, transports, getTransports } = useTravels();
+  const { registerNewTravelFunc, transports, getTransports } = useTravels();
 
   const id_user1 = user.id;
   useEffect(() => {
@@ -60,13 +60,16 @@ export default function () {
         id_user1,
         id_location: value.value,
         travel_date,
-        id_transportation: typeTransportation.value,
-        quantity,
+        id_transportation: typeTransportation ? typeTransportation.value: 5,
+        expense: typeOfExpenses,
+        quantity: parseInt(quantity),
         extra,
-        companions,
+        companions: parseInt(companions),
       };
-      const res = await registerNewTravel(newTravel);
+      //console.log(newTravel)
+      const res = await registerNewTravelFunc(newTravel);
       Alert.alert("Viaje creado");
+      navigation.navigate("LandPage");
     } catch (error) {
       Alert.alert("Ha ocurrido un error: " + error);
       console.log(error);
@@ -89,8 +92,7 @@ export default function () {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
-
+      <StatusBar style="auto" backgroundColor="#64CCC5"/>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Ionicons
           style={styles.back}
@@ -182,16 +184,16 @@ export default function () {
                 value={typeOfExpenses}
               >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <RadioButton value="transport" color="#001C30" />
+                  <RadioButton value="Transporte" color="#001C30" />
                   <Text>Transporte</Text>
                 </View>
 
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <RadioButton value="stay" color="#001C30" />
+                  <RadioButton value="Estancia" color="#001C30" />
                   <Text>Estancia</Text>
                 </View>
               </RadioButton.Group>
-              {typeOfExpenses === "transport" ? (
+              {typeOfExpenses === "Transporte" ? (
                 <View>
                   <Dropdown
                     style={[styles.dropdown, { minWidth: 240 }]}
