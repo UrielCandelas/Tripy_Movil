@@ -15,6 +15,8 @@ import {
   getAllTransports,
   getAllLocationTravels,
   getAllExpenses,
+  getAllExtras,
+  addTravelRequest,
 } from '../api/travels.js'
 
 import {useAuth} from '../context/AuthContext'
@@ -36,6 +38,7 @@ const TravelProvider = ({ children }) => {
   const [transports, setTransports] = useState([]);
   const [locationTravels, setLocationTravels] = useState([]);
   const [expenses, setExpenses] = useState([]);
+  const [extra, setExtra] = useState({});
 
   const getTravels = async () => {
     try {
@@ -205,6 +208,22 @@ const TravelProvider = ({ children }) => {
       setErrors([error.response.data])
     }
   }
+  const getAllExtrasFunc = async (id) => {
+    try {
+      const extras = await getAllExtras(id)
+      setExtra(extras.data)
+    } catch (error) {
+      setErrors([error.response.data])
+    }
+  }
+const addRequest = async (data) => {
+  try {
+    const res = await addTravelRequest(data);
+
+  } catch (error) {
+    setErrors([error.response.data])
+  }
+}
 
   useEffect(() => {
     if (errors.length > 0) {
@@ -229,6 +248,9 @@ const TravelProvider = ({ children }) => {
         getTransports,
         getAllLocationTravelsFunc,
         getAllExpensesFunc,
+        getAllExtrasFunc,
+        addRequest,
+        extra,
         expenses,
         errors,
         travel,

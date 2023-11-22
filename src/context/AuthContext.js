@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect, createContext } from "react";
 import { setItemAsync, getItemAsync, deleteItemAsync } from "expo-secure-store";
-import { getUserById, login, registerUser, verifyTokenRequest } from "../api/auth.js";
+import { getUserById, login, registerUser, verifyTokenRequest,getUsersByRequest } from "../api/auth.js";
 
 export const AuthContext = createContext();
 
@@ -18,22 +18,8 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState([]);
   const [userById , setUserById] = useState([]);
+  const [usersByRequest, setUsersByRequest] = useState([]);
 
-  const createStore = async (key, value) => {
-    try {
-      const item = await setItemAsync(key, value);
-      return item;
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-  const getStore = async (key) => {
-    const result = await getItemAsync(key);
-    if (result) {
-      return result;
-    }
-    return null;
-  };
   const signup = async (user) => {
     const confirmPassword = user.confirmPassword
     const password = user.password
@@ -50,7 +36,6 @@ const AuthProvider = ({ children }) => {
     }
     try {
       const res = await registerUser(data);
-      console.log(res.data.token)
       //const store = await createStore("token", res.data.token);
       const store = await setItemAsync("token", res.data.token);
       setIsAuthenticated(true);
@@ -102,6 +87,19 @@ const AuthProvider = ({ children }) => {
     }
   }
 
+  const getUserRequest = async (id) => {
+    try {
+      const res = await getUsersByRequest(id);
+      setUsersByRequest(res.data);
+      return res.data;
+    } catch (error) {
+      if (Array.isArray(error.response.data)) {
+        return setErrors(error.response.data);
+      }
+      setErrors([error.response.data.message]);
+    }
+  }
+
   useEffect(() => {
     async function checklogin() {
       const store = await getItemAsync("token");
@@ -141,6 +139,8 @@ const AuthProvider = ({ children }) => {
         loading,
         errors,
         userById,
+        usersByRequest,
+        getUserRequest,
         getUser,
         signup,
         signin,

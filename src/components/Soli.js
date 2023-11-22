@@ -8,15 +8,15 @@ import {
     import React from "react";
     import { Ionicons } from "@expo/vector-icons";
 
-    export default function Soli({ onPress }) {
+    export default function Soli({ onPress,location,date,user }) {
     return (
         <View style={styles.container1}>
             <TouchableOpacity onPress={onPress}>
                 <View style={styles.container}>
 
                 <View>
-                <Text style={styles.texto2c}>Usuario</Text>
-                <Text style={styles.texto1c}>Viaje y fecha</Text>
+                <Text style={styles.texto2c}>{user}</Text>
+                <Text style={styles.texto1c}>{location + date}</Text>
                 </View>
 
                 <View style={styles.iconContainer}>
@@ -63,6 +63,7 @@ import {
         left: 0,
         paddingBottom: 6,
         paddingLeft: 16,
+        marginRight: -100,
     },
 
     texto2c: {

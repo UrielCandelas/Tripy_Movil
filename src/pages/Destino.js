@@ -21,23 +21,31 @@ export default function VerViajes1() {
   const navigation = useNavigation();
   const route = useRoute();
   const { id } = route.params;
-  const { getAllLocationTravelsFunc, locationTravels,getAllExpensesFunc,expenses } = useTravels();
+  const {
+    getAllLocationTravelsFunc,
+    locationTravels,
+    getAllExpensesFunc,
+    expenses,
+  } = useTravels();
   const { getSomeLocation, location } = useLocations();
-  const { getUser, userById } = useAuth();
+  const { getUser, userById, user } = useAuth();
   useEffect(() => {
     getAllLocationTravelsFunc(id);
     getSomeLocation(id);
     getAllExpensesFunc(id);
     getUser(id);
-  },[]);
+  }, []);
   const names = [];
   for (let index = 0; index < userById.length; index++) {
     names.push(userById[index].name);
   }
   const ex = [];
+  const exName = [];
   for (let index = 0; index < expenses.length; index++) {
-    ex.push(expenses[index].quantity)
+    ex.push(expenses[index].quantity);
+    exName.push(expenses[index].expense);
   }
+  const myId = user.id;
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <StatusBar style="auto" />
@@ -119,16 +127,34 @@ export default function VerViajes1() {
         />
       </View>
 
-      {locationTravels.map((travel, i) => (
-        <Viaje
-          key={i}
-          User={names[i]}
-          Companions={travel.companions}
-          Date={travel.travel_date}
-          Expenses={ex[i]}
-          onPress={() => navigation.navigate("UnirseViaje",{name: names[i],companions: travel.companions})}
-        />
-      ))}
+      {locationTravels.map((travel, i) => {
+        if (myId != travel.id_user1) {
+          return (
+            <Viaje
+              key={i}
+              User={names[i]}
+              Companions={travel.companions}
+              Date={travel.travel_date}
+              Expenses={ex[i]}
+              onPress={() =>
+                navigation.navigate("UnirseViaje", {
+                  name: names[i],
+                  companions: travel.companions,
+                  expenses: ex[i],
+                  typeofExpenses: exName[i],
+                  extras: travel.id_extras,
+                  destination: location.location_name,
+                  id_travel: travel.id,
+                  id_user1: travel.id_user1,
+                })
+              }
+            />
+          );
+        }
+        else{
+          return null
+        }
+      })}
     </ScrollView>
   );
 }

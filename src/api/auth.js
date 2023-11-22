@@ -7,3 +7,5 @@ export const login = (data) => axios.post('/login', data)
 export const verifyTokenRequest = (data) => axios.post('/auth/verifyMobile',data)
 
 export const getUserById = (id) => axios.get(`/user/${id}`)
+
+export const getUsersByRequest = id => axios.get(`/user/request/${id}`)

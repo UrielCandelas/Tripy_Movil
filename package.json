@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
+    "@react-native-community/datetimepicker": "7.2.0",
     "@react-native-picker/picker": "2.4.10",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.15",
@@ -33,7 +34,7 @@
     "react-native-screens": "~3.22.0",
     "react-native-svg": "13.9.0",
     "react-native-vector-icons": "^10.0.0",
-    "@react-native-community/datetimepicker": "7.2.0"
+    "socket.io-client": "^4.7.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

@@ -1,5 +1,5 @@
-import { View, Text, ScrollView,StyleSheet,ActivityIndicator } from "react-native";
-import React, { useState } from "react";
+import { View, Text, ScrollView,StyleSheet,} from "react-native";
+import React, { useState,useEffect } from "react";
 import GeneralLittleTxt from "../components/GeneralComponents/GeneralLittleTxt";
 import GeneralTxt from "../components/GeneralComponents/GeneralTxt";
 import SearchBar from "../components/SearchBar";
@@ -8,13 +8,15 @@ import SideBar from "../components/Sidebar/SideBar";
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { useAuth } from "../context/AuthContext";
-import Loading from "../components/Loading/Loading";
 import { useNavigation } from "@react-navigation/native";
+
+
 
 export default function LandPage() {
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
-  const {logout} = useAuth();
+  const {logout } = useAuth();
+  
   const logoutUser = async () => {
     await logout();
     navigation.navigate("Bienvenido");
@@ -66,6 +68,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'left',
     paddingLeft: 16,
-    alignItems: 'center'
+    alignItems: 'center',
   }
 })

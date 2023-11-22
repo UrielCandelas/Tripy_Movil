@@ -5,11 +5,6 @@ import Cards from "../components/Cards";
 import Reseñas from "../components/Reseñas";
 
 export default function App({navigation}) {
-
-const handlePress = () => {
-    }
-
-
     return (
 
     <ScrollView>

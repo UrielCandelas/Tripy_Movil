@@ -19,3 +19,7 @@ export const deleteTravel = (id) => axios.delete(`/travels/${id}`)
 export const getAllTransports = () => axios.get('/transports')
 
 export const getAllExpenses = id => axios.get(`/expenses/${id}`)
+
+export const getAllExtras = id => axios.get(`/travels/extras/${id}`)
+
+export const addTravelRequest = data => axios.post(`/travels/requests/new`,data)

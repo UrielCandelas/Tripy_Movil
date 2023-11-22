@@ -38,6 +38,9 @@ export default function () {
   });
   let data2 = [];
   transports.map((transports, i) => {
+    if (transports.id == 5) {
+      return;
+    }
     data2.push({ label: transports.transport, value: transports.id });
   });
 
@@ -60,16 +63,31 @@ export default function () {
         id_user1,
         id_location: value.value,
         travel_date,
-        id_transportation: typeTransportation ? typeTransportation.value: 5,
+        id_transportation: typeTransportation ? typeTransportation.value : 5,
         expense: typeOfExpenses,
         quantity: parseInt(quantity),
         extra,
         companions: parseInt(companions),
       };
+      Alert.alert(
+        "Crear Viaje",
+        "¿Estás seguro de que quieres crear un viaje?",
+        [
+          {
+            text: "Cancelar",
+            style: "cancel",
+          },
+          {
+            text: "Confirmar",
+            onPress: async () => {
+              const res = await registerNewTravelFunc(newTravel);
+              navigation.navigate("LandPage");
+            },
+          },
+        ],
+        { cancelable: false }
+      );
       //console.log(newTravel)
-      const res = await registerNewTravelFunc(newTravel);
-      Alert.alert("Viaje creado");
-      navigation.navigate("LandPage");
     } catch (error) {
       Alert.alert("Ha ocurrido un error: " + error);
       console.log(error);
@@ -87,12 +105,11 @@ export default function () {
       : new Date();
     setShowDatePicker(Platform.OS === "ios");
     setTravel_date(currentDate);
-    console.log(travel_date);
   };
 
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" backgroundColor="#64CCC5"/>
+      <StatusBar style="auto" backgroundColor="#64CCC5" />
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Ionicons
           style={styles.back}
@@ -142,8 +159,8 @@ export default function () {
             <Text style={styles.texto5}>Fecha del inicio del viaje</Text>
             <SafeAreaView>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Ionicons
-              style={{marginLeft: 20}}
+                <Ionicons
+                  style={{ marginLeft: 20 }}
                   name="calendar-sharp"
                   size={24}
                   color="black"

@@ -6,6 +6,7 @@ import {
   getLocation,
   deleteLocation,
   getAllLocations,
+  getLocationByTravel
 } from "../api/locations";
 
 export const LocationContext = createContext();
@@ -22,6 +23,7 @@ const LocationProvider = ({ children }) => {
   const [errors, setErrors] = useState([]);
   const [locations, setLocations] = useState([]);
   const [location, setLocation] = useState({});
+  const [locationByTravel, setLocationByTravel] = useState({});
   const registerNewLocation = async (location) => {
     try {
       const costint = parseFloat(location.cost)
@@ -96,6 +98,19 @@ const LocationProvider = ({ children }) => {
       setErrors([error.response.data.message]);
     }
   };
+  const getLocationByTravelID = async (id) => {
+    try {
+      const res = await getLocationByTravel(id);
+      setLocationByTravel(res.data);
+    } catch (error) {
+      if (Array.isArray(error.response.data)) {
+        return setErrors(error.response.data);
+      }
+      setErrors([error.response.data.message]);
+    }
+  };
+
+
   useEffect(() => {
     if (errors.length > 0) {
       const timmer = setTimeout(() => {
@@ -113,6 +128,8 @@ const LocationProvider = ({ children }) => {
         getSomeLocation,
         deleteSomeLocation,
         getLocations,
+        getLocationByTravelID,
+        locationByTravel,
         errors,
         location,
         locations,
