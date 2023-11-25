@@ -9,12 +9,9 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
-import { useAuth } from "../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
 import Soli from "../components/Soli";
 import { useTravels } from "../context/TravelsContext";
-import { useLocations } from "../context/LocationContext";
-import io from "socket.io-client";
 
 const Solicitudes = () => {
   const navigation = useNavigation();
