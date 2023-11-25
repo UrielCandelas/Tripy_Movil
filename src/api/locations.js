@@ -10,4 +10,4 @@ export const deleteLocation = id => axios.delete(`/locations/${id}`)
 
 export const getAllLocations = () => axios.get("/locations")
 
-export const getLocationByTravel =id=>axios.get(`/locations/travel/${id}`)
+export const getLocationByTravel = data =>axios.get(`/locations/travel`, data)

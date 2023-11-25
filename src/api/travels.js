@@ -5,7 +5,7 @@ export const getAllTravels = () => axios.get('/travels')
 export const getTravel = (id) => axios.get(`/travels/${id}`)
 export const getSharedTravels = (id) => axios.get(`/travels/shared/${id}`)
 export const getSharedTravel = (id) => axios.get(`/travels/shared/one/${id}`)
-export const addSecondUser = (id) => axios.put(`/travels/shared/${id}`)
+export const addSecondUser = (data) => axios.put(`/travels/shared`, data)
 export const deleteSecondUser = (id) => axios.put(`/travels/secondShared/${id}`)
 export const getAllLocationTravels = (id) => axios.get(`/travels/location/${id}`)
 

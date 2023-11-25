@@ -19,6 +19,8 @@ import {
   addTravelRequest,
 } from '../api/travels.js'
 
+import io from 'socket.io-client'
+
 import {useAuth} from '../context/AuthContext'
 
 export const TravelContext = createContext()
@@ -39,6 +41,13 @@ const TravelProvider = ({ children }) => {
   const [locationTravels, setLocationTravels] = useState([]);
   const [expenses, setExpenses] = useState([]);
   const [extra, setExtra] = useState({});
+  const [datosDesdeBD, setDatosDesdeBD] = useState([]);
+
+  const { user, getUserRequest, usersByRequest } = useAuth();
+
+  const socket = io.connect("http://192.168.0.10:3000", {
+    query: { id_user1: user ? user.id : 0 },
+  });
 
   const getTravels = async () => {
     try {
@@ -116,7 +125,7 @@ const TravelProvider = ({ children }) => {
       setErrors([error.response.data.message])
     }
   }
-
+  
   const registerNewTravelFunc = async (travel) => {
     try {
       /*const newTravel = {
@@ -225,6 +234,14 @@ const addRequest = async (data) => {
   }
 }
 
+const addTravelSecondUser = async (data) => {
+  try {
+    const res = await addSecondUser(data);
+  } catch (error) {
+    setErrors([error.response.data])
+  }
+}
+
   useEffect(() => {
     if (errors.length > 0) {
       const timmer = setTimeout(() => {
@@ -233,6 +250,15 @@ const addRequest = async (data) => {
       return () => clearTimeout(timmer)
     }
   }, [errors])
+
+  useEffect(() => {
+    socket.on("send_request", (data) => {
+      setDatosDesdeBD(data);
+    });
+    return () => {
+      socket.disconnect();
+    };
+  }, [socket]);
 
   return (
     <TravelContext.Provider
@@ -250,7 +276,9 @@ const addRequest = async (data) => {
         getAllExpensesFunc,
         getAllExtrasFunc,
         addRequest,
+        addTravelSecondUser,
         extra,
+        datosDesdeBD,
         expenses,
         errors,
         travel,
