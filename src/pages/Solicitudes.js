@@ -63,7 +63,7 @@ const Solicitudes = () => {
 
       <SafeAreaView>
         <ScrollView>
-          {requests.map((data, i) => {
+          {requests.lenght > 0 ? requests.map((data, i) => {
             if (data.isActive) {
               return (
                 <Soli
@@ -71,15 +71,18 @@ const Solicitudes = () => {
                   location={locations[i].location_name}
                   date={travels[i].travel_date}
                   user={users[i].name}
-                  onPress={handleAccept({
-                    id_user2: users[i].id,
-                    id_travel: travels[i].id,
-                    id_request: data.id,
-                  })}
+                  onPressAccept={()=>{
+                    const values = {
+                      id_user2: users[i].id,
+                      id_travel: travels[i].id,
+                      id_request: data.id,
+                    }
+                    return handleAccept(values)
+                  }}
                 />
               );
             }
-          })}
+          }) : <Text style={styles.texto2}>Parece que no tienes solicitudes pendientes...</Text> }
         </ScrollView>
       </SafeAreaView>
     </View>
@@ -107,6 +110,12 @@ const styles = StyleSheet.create({
     left: 0,
     padding: 16,
     paddingTop: "20%",
+  },
+  texto2: {
+    fontSize: 20,
+    padding: 16,
+    paddingTop: "10%",
+    color: "#176B87",
   },
 });
 
