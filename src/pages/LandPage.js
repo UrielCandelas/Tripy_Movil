@@ -41,8 +41,9 @@ export default function LandPage() {
           />
         )}
         <SearchBar />
+        <View>
         <GeneralLittleTxt
-          Txt="Escoje un destino"
+          Txt="Escoge un destino"
           style={{
             width: "100%",
             fontSize: 20,
@@ -52,6 +53,7 @@ export default function LandPage() {
           }}
         />
         <Boxes/>
+        </View>
       </View>
     </ScrollView>
   );

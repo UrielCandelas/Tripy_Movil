@@ -20,6 +20,9 @@ import EditarPerfil from "./src/pages/EditarPerfil";
 import CrearViaje from "./src/pages/CrearViaje";
 import Solicitudes from "./src/pages/Solicitudes";
 import AgendarGastos from "./src/pages/AgregarGastos";
+import EditarMyViajes from "./src/pages/EditarMyViajes";
+import Chat from "./src/pages/Chat";
+import Contactos from "./src/pages/Contactos";
 
 import AuthProvider from "./src/context/AuthContext.js";
 import LocationProvider from "./src/context/LocationContext.js";
@@ -33,7 +36,7 @@ export default function App() {
       <LocationProvider>
         <TravelProvider>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName="Bienvenido">
+            <Stack.Navigator initialRouteName="LandPage">
               <Stack.Screen
                 name="Bienvenido"
                 component={Home}
@@ -65,12 +68,17 @@ export default function App() {
                 component={MiPerfil}
                 options={{ headerShown: false }}
               />
-
               <Stack.Screen
                 name="CreateAccount"
                 component={CreateAccount}
                 options={{ headerShown: false }}
               />
+              <Stack.Screen
+                name="EditarMyViajes"
+                component={EditarMyViajes}
+                options={{ headerShown: false }}
+              />
+
               <Stack.Screen
                 name="CreateAccount2"
                 component={CreateAccount2}
@@ -123,6 +131,18 @@ export default function App() {
               <Stack.Screen
                 name="CrearViaje"
                 component={CrearViaje}
+                options={{ headerShown: false }}
+              />
+
+              <Stack.Screen
+                name="Contactos"
+                component={Contactos}
+                options={{ headerShown: false }}
+              />
+              
+              <Stack.Screen
+                name="Chat"
+                component={Chat}
                 options={{ headerShown: false }}
               />
 

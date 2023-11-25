@@ -2,10 +2,10 @@ import React from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import Svg, { Circle } from 'react-native-svg'
 import GeneralText from '../components/GeneralComponents/GeneralText'
-import Viaje from '../components/VerViajes/Viaje'
+import Viaje from '../components/VerViajes/UpdateViaje'
 import Arrowback from '../components/VerViajes/Arrowback'
 
-export default function VerViajes1({ navigation }) {
+export default function EditarMyViajes({ navigation }) {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
@@ -13,12 +13,13 @@ export default function VerViajes1({ navigation }) {
           style={styles.arrow}
           onPresshandler={() => navigation.goBack()}
           color="#F2F2F2"
+
         />
         <GeneralText
           color="#1D1E20"
           size={17}
           height={18}
-          text="Usuario"
+          text="UserName"
           marginTop={60}
           marginLeft={80}
           marginRight={'28%'}
@@ -31,14 +32,16 @@ export default function VerViajes1({ navigation }) {
         color="#1D1E20"
         size={17}
         height={18}
-        text="Ver Viajes"
-        marginTop={50}
+        text="Viajes en progreso"
+        marginTop={10}
         marginBottom={20}
       />
       <Viaje />
       <Viaje />
       <Viaje />
-      <Viaje />
+      <Viaje 
+      Txt="Guardar"
+      />
     </ScrollView>
   )
 }
