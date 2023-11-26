@@ -4,7 +4,7 @@ import React from "react";
 import { View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const Sidebar = ({ userNav, HomeNav, ExpensesNav, RequestNav, TravelsNav,LogoutNav }) => {
+const Sidebar = ({ userNav, HomeNav, ContactsNav, ExpensesNav, RequestNav, TravelsNav, LogoutNav }) => {
   return (
     <View style={styles.sidebar}>
       <ScrollView>
@@ -12,38 +12,47 @@ const Sidebar = ({ userNav, HomeNav, ExpensesNav, RequestNav, TravelsNav,LogoutN
           onPress={userNav}
           style={[styles.section, styles.header]}
         >
-          <>
-            <GeneralText text="Usuario" />
-          </>
+          <TouchableOpacity onPress={userNav} style={styles.section}>
+            <View style={styles.object}>
+              <Ionicons name="person" size={20} style={styles.images} />
+              <GeneralText text="Usuario" />
+            </View>
+          </TouchableOpacity>
         </TouchableOpacity>
         <TouchableOpacity onPress={HomeNav} style={styles.section}>
           <View style={styles.object}>
-            <Ionicons name="home" size={20} style={styles.images}/>
+            <Ionicons name="home" size={20} style={styles.images} />
             <GeneralText text="Inicio" />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={ContactsNav} style={styles.section}>
+          <View style={styles.object}>
+            <Ionicons name="people" size={20} style={styles.images} />
+            <GeneralText text="Contactos" />
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={ExpensesNav} style={styles.section}>
           <View style={styles.object}>
-            <Ionicons name="cash" size={20} style={styles.images}/>
+            <Ionicons name="cash" size={20} style={styles.images} />
             <GeneralText text="Añadir gasto" />
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={RequestNav} style={styles.section}>
           <View style={styles.object}>
-            <Ionicons name="notifications" size={20} style={styles.images}/>
+            <Ionicons name="notifications" size={20} style={styles.images} />
             <GeneralText text="Solicitudes" />
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={TravelsNav} style={styles.section}>
           <View style={styles.object}>
-            <Ionicons name="map" size={20} style={styles.images}/>
+            <Ionicons name="map" size={20} style={styles.images} />
             <GeneralText text="Crear viaje" />
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={LogoutNav} style={styles.section}>
           <View style={styles.object}>
-            <Ionicons name="log-out" size={20} color="red" style={styles.images}/>
-            <GeneralText text="Cerrar Sesion" color={"red"}/>
+            <Ionicons name="log-out" size={20} color="red" style={styles.images} />
+            <GeneralText text="Cerrar Sesion" color={"red"} />
           </View>
         </TouchableOpacity>
       </ScrollView>
@@ -73,7 +82,7 @@ const styles = StyleSheet.create({
   object: {
     flexDirection: 'row'
   },
-  images:{
+  images: {
     marginRight: 10
   }
 });

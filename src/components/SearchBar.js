@@ -33,7 +33,7 @@ export default function SearchBar() {
     ]
   const [input, setInput] = useState("");
     return (
-    <View style={{marginTop:-60, marginBottom: 40,margin: 15, width:'90%'}}>
+    <View style={{marginTop:20, marginBottom: 10,margin: 15, width:'90%'}}>
       <View style={{
         padding:10, flexDirection: 'row',
         width: '95%',
