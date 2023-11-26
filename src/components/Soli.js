@@ -34,6 +34,7 @@ import {
                 opacity={0.7}
                 size={30}
                 color="#176B87"
+                onPress={onPressReject}
                 />
                 </View>
                 

@@ -16,7 +16,7 @@ import { useTravels } from "../context/TravelsContext";
 const Solicitudes = () => {
   const navigation = useNavigation();
   //const { user, getUserRequest, usersByRequest } = useAuth();
-  const { datosDesdeBD, sendResponse, addTravelSecondUser } = useTravels();
+  const { datosDesdeBD, sendResponse, addTravelSecondUser,deleteRequest } = useTravels();
   //const { getLocationByTravelID, locationByTravel } = useLocations();
   const requests = datosDesdeBD.request;
   const travels = datosDesdeBD.travels;
@@ -45,8 +45,28 @@ const Solicitudes = () => {
       console.log(error);
     }
   };
-  const handleDecline = () => {
-    sendResponse("decline");
+  const handleDecline = (data) => {
+    try {
+      Alert.alert(
+        "Eliminar Solicitud",
+        "¿Estás seguro de que quieres eliminar la solicitud de este usuario?",
+        [
+          {
+            text: "Cancelar",
+            style: "cancel",
+          },
+          {
+            text: "Confirmar",
+            onPress: async () => {
+              await deleteRequest(data);
+            },
+          },
+        ],
+        { cancelable: false }
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <View style={styles.crearViaje}>
@@ -63,7 +83,7 @@ const Solicitudes = () => {
 
       <SafeAreaView>
         <ScrollView>
-          {requests.lenght > 0 ? requests.map((data, i) => {
+          {requests.map((data, i) => {
             if (data.isActive) {
               return (
                 <Soli
@@ -79,10 +99,13 @@ const Solicitudes = () => {
                     }
                     return handleAccept(values)
                   }}
+                  onPressReject={()=>{
+                    return handleDecline({id_request:data.id})
+                  }}
                 />
               );
             }
-          }) : <Text style={styles.texto2}>Parece que no tienes solicitudes pendientes...</Text> }
+          })}
         </ScrollView>
       </SafeAreaView>
     </View>

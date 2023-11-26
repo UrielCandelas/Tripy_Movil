@@ -15,7 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 export default function LandPage() {
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
-  const {logout } = useAuth();
+  const { logout,user } = useAuth();
   
   const logoutUser = async () => {
     await logout();
@@ -34,6 +34,7 @@ export default function LandPage() {
         </View>
         {visible && (
           <SideBar
+            userName={user ? user.name : ""}
             userNav={() => navigation.navigate("MiPerfil")}
             HomeNav={() => navigation.navigate("LandPage")}
             ExpensesNav={()=>navigation.navigate("AgendarGastos")}
@@ -43,8 +44,9 @@ export default function LandPage() {
           />
         )}
         <SearchBar />
+        <View>
         <GeneralLittleTxt
-          Txt="Escoje un destino"
+          Txt="Escoge un destino"
           style={{
             width: "100%",
             fontSize: 20,
@@ -54,6 +56,7 @@ export default function LandPage() {
           }}
         />
         <Boxes/>
+        </View>
       </View>
     </ScrollView>
   );

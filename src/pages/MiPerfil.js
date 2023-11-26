@@ -3,12 +3,15 @@ import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView, Button, Toucha
 import { Ionicons } from "@expo/vector-icons";
 import Cards from "../components/Cards";
 import Reseñas from "../components/Reseñas";
+import { useAuth } from "../context/AuthContext";
+import { useNavigation } from "@react-navigation/native";
 
-export default function App({navigation}) {
+export default function App() {
 
+  const navigation = useNavigation();
+  const { user } = useAuth();
 
   return (
-
     <ScrollView>
       <View style={styles.container}>
         <StatusBar style="auto" />
@@ -20,7 +23,7 @@ export default function App({navigation}) {
           onPress={()=> navigation.goBack()}
         />
 
-        <Text style={styles.texto1}>Usuario</Text>
+        <Text style={styles.texto1}>{user.name}</Text>
 
         <Image
           source={require("../images/Default_pfp.png")}
@@ -36,7 +39,7 @@ export default function App({navigation}) {
         </View>
 
         <SafeAreaView style={styles.containercards}>
-          <ScrollView horizontal><Cards onPress={()=>navigation.navigate("VerViajesExis")}/></ScrollView>
+          <ScrollView horizontal><Cards/></ScrollView>
         </SafeAreaView>
 
         <SafeAreaView style={styles.containerreviews}>
