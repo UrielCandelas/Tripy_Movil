@@ -5,43 +5,34 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { useTravels } from "../context/TravelsContext";
+import { useAuth } from "../context/AuthContext";
+
 
 export default function Cards({ onPress }) {
+  const { getTravelsActive, travelsActive } = useTravels();
+  const { user } = useAuth();
+
+  useEffect(() => {
+    getTravelsActive(user.id);
+  },[])
   return (
     <View>
       <ScrollView horizontal={true}>
-        <TouchableOpacity onPress={onPress}>
-          <View style={styles.card}>
-            <Text style={styles.texto1c}>Gastos a compartir</Text>
-            <Text style={styles.texto2c}>
-              <FontAwesome5 name="user-friends" size={15} color="white" />
-            </Text>
-            <Text style={styles.texto2c}>$</Text>
-            <Text style={styles.texto2c}>Fecha del viaje</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={onPress}>
-          <View style={styles.card}>
-            <Text style={styles.texto1c}>Gastos a compartir</Text>
-            <Text style={styles.texto2c}>
-              <FontAwesome5 name="user-friends" size={15} color="white" />
-            </Text>
-            <Text style={styles.texto2c}>$</Text>
-            <Text style={styles.texto2c}>Fecha del viaje</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={onPress}>
-          <View style={styles.card}>
-            <Text style={styles.texto1c}>Gastos a compartir</Text>
-            <Text style={styles.texto2c}>
-              <FontAwesome5 name="user-friends" size={15} color="white" />
-            </Text>
-            <Text style={styles.texto2c}>$</Text>
-            <Text style={styles.texto2c}>Fecha del viaje</Text>
-          </View>
-        </TouchableOpacity>
+        {travelsActive.map((travel, i) => (
+          <TouchableOpacity onPress={onPress} key={i}>
+            <View style={styles.card}>
+              <Text style={styles.texto1c}>Gastos a compartir</Text>
+              <Text style={styles.texto2c}>
+                <FontAwesome5 name="user-friends" size={15} color="white" />
+              </Text>
+              <Text style={styles.texto2c}>${travel.id_expense}</Text>
+              <Text style={styles.texto2c}>Fecha del viaje</Text>
+            </View>
+          </TouchableOpacity>
+        ))}
       </ScrollView>
     </View>
   );

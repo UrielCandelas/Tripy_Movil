@@ -4,7 +4,7 @@ import React from "react";
 import { View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const Sidebar = ({ userNav, HomeNav, ExpensesNav, RequestNav, TravelsNav,LogoutNav }) => {
+const Sidebar = ({ userNav, HomeNav, ExpensesNav, RequestNav, TravelsNav,LogoutNav,userName }) => {
   return (
     <View style={styles.sidebar}>
       <ScrollView>
@@ -13,7 +13,7 @@ const Sidebar = ({ userNav, HomeNav, ExpensesNav, RequestNav, TravelsNav,LogoutN
           style={[styles.section, styles.header]}
         >
           <>
-            <GeneralText text="Usuario" />
+            <GeneralText text={userName} />
           </>
         </TouchableOpacity>
         <TouchableOpacity onPress={HomeNav} style={styles.section}>

@@ -23,3 +23,9 @@ export const getAllExpenses = id => axios.get(`/expenses/${id}`)
 export const getAllExtras = id => axios.get(`/travels/extras/${id}`)
 
 export const addTravelRequest = data => axios.post(`/travels/requests/new`,data)
+
+export const declineRequest = id => axios.put(`/travels/requests/decline`,id)
+
+export const getTravelsI = id => axios.get(`/travels/requested/inactive/${id}`)
+
+export const getTravelsA = id => axios.get(`/travels/requested/active/${id}`)

@@ -36,7 +36,7 @@ export default function App() {
       <LocationProvider>
         <TravelProvider>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName="LandPage">
+            <Stack.Navigator initialRouteName="Bienvenido">
               <Stack.Screen
                 name="Bienvenido"
                 component={Home}
