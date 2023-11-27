@@ -9,3 +9,5 @@ export const verifyTokenRequest = (data) => axios.post('/auth/verifyMobile',data
 export const getUserById = (id) => axios.get(`/user/${id}`)
 
 export const getUsersByRequest = id => axios.get(`/user/request/${id}`)
+
+export const editUserAcount = data => axios.put('/user/edit', data)
