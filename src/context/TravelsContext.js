@@ -283,7 +283,6 @@ const TravelProvider = ({ children }) => {
         addRequest,
         addTravelSecondUser,
         deleteRequest,
-        getTravelsInactive,
         getTravelsActive,
         travelsActive,
         travelsInactive,

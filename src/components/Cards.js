@@ -7,32 +7,24 @@ import {
 } from "react-native";
 import React, { useEffect } from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { useTravels } from "../context/TravelsContext";
-import { useAuth } from "../context/AuthContext";
 
 
-export default function Cards({ onPress }) {
-  const { getTravelsActive, travelsActive } = useTravels();
-  const { user } = useAuth();
-
-  useEffect(() => {
-    getTravelsActive(user.id);
-  },[])
+export default function Cards({ onPress,expense,location,date,companions }) {
   return (
     <View>
       <ScrollView horizontal={true}>
-        {travelsActive.map((travel, i) => (
-          <TouchableOpacity onPress={onPress} key={i}>
+          <TouchableOpacity onPress={onPress} >
             <View style={styles.card}>
               <Text style={styles.texto1c}>Gastos a compartir</Text>
+              <Text style={styles.texto2c}>{location}</Text>
               <Text style={styles.texto2c}>
-                <FontAwesome5 name="user-friends" size={15} color="white" />
+                <FontAwesome5 name="user-friends" size={15} color="white"  />
+                <Text style={styles.texto2d}>{companions}</Text>
               </Text>
-              <Text style={styles.texto2c}>${travel.id_expense}</Text>
-              <Text style={styles.texto2c}>Fecha del viaje</Text>
+              <Text style={styles.texto2c}>${expense}</Text>
+              <Text style={styles.texto2c}>{date}</Text>
             </View>
           </TouchableOpacity>
-        ))}
       </ScrollView>
     </View>
   );
@@ -41,7 +33,7 @@ export default function Cards({ onPress }) {
 const styles = StyleSheet.create({
   card: {
     width: 230,
-    height: 160,
+    height: 190,
     backgroundColor: "#001C30",
     borderRadius: 10,
     padding: 16,
@@ -72,5 +64,14 @@ const styles = StyleSheet.create({
     paddingTop: 6,
     paddingBottom: 10,
     paddingLeft: 16,
+  },
+  texto2d: {
+    fontSize: 12,
+    color: "white",
+    top: 0,
+    paddingTop: 6,
+    paddingBottom: 10,
+    paddingLeft: 16,
+    marginLeft: 5
   },
 });

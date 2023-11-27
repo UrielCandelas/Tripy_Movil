@@ -1,6 +1,13 @@
 import { useContext, useState, useEffect, createContext } from "react";
 import { setItemAsync, getItemAsync, deleteItemAsync } from "expo-secure-store";
-import { getUserById, login, registerUser, verifyTokenRequest,getUsersByRequest } from "../api/auth.js";
+import {
+  getUserById,
+  login,
+  registerUser,
+  verifyTokenRequest,
+  getUsersByRequest,
+  editUserAcount,
+} from "../api/auth.js";
 
 export const AuthContext = createContext();
 
@@ -17,12 +24,12 @@ const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState([]);
-  const [userById , setUserById] = useState([]);
+  const [userById, setUserById] = useState([]);
   const [usersByRequest, setUsersByRequest] = useState([]);
 
   const signup = async (user) => {
-    const confirmPassword = user.confirmPassword
-    const password = user.password
+    const confirmPassword = user.confirmPassword;
+    const password = user.password;
     if (password != confirmPassword) {
       setErrors(["No coninciden las 2 contraseñas"]);
     }
@@ -33,7 +40,7 @@ const AuthProvider = ({ children }) => {
       userName: user.userName,
       email: user.email,
       password: user.password,
-    }
+    };
     try {
       const res = await registerUser(data);
       //const store = await createStore("token", res.data.token);
@@ -85,7 +92,7 @@ const AuthProvider = ({ children }) => {
       }
       setErrors([error.response.data.message]);
     }
-  }
+  };
 
   const getUserRequest = async (id) => {
     try {
@@ -98,7 +105,26 @@ const AuthProvider = ({ children }) => {
       }
       setErrors([error.response.data.message]);
     }
-  }
+  };
+
+  const editAcount = async (user) => {
+    try {
+      const password = user.newPassword;
+      const confirmPassword = user.confirmNewPassword;
+      if (password != confirmPassword) {
+        return setErrors(["No coninciden las 2 contraseñas"]);
+      }
+      const data = {
+        userName: user.userName,
+        email: user.email,
+        newPassword: user.newPassword,
+        password: user.password,
+      };
+      const res = await editUserAcount(data);
+    } catch (error) {
+      setErrors([error.response.data]);
+    }
+  };
 
   useEffect(() => {
     async function checklogin() {
@@ -110,7 +136,7 @@ const AuthProvider = ({ children }) => {
         return;
       }
       try {
-        const res = await verifyTokenRequest({token: store});
+        const res = await verifyTokenRequest({ token: store });
         if (!res) {
           setUser(null);
           setIsAuthenticated(false);
@@ -145,6 +171,7 @@ const AuthProvider = ({ children }) => {
         signup,
         signin,
         logout,
+        editAcount,
       }}
     >
       {children}

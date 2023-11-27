@@ -1,15 +1,25 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView, Button, TouchableOpacity, TextInput} from "react-native";
+import { StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity, TextInput} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../context/AuthContext";
+import { useState } from "react";
 
-export default function EditarPerfil({navigation}) {
 
-  const handlePress = () => {
+export default function EditarPerfil() {
+  const {user,editAcount} = useAuth();
+  const navigation = useNavigation();
+  const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = () => {
+    
   }
 
-
   return (
-
     <View style={styles.container}>
       <StatusBar style="auto" />
         <Ionicons
@@ -32,56 +42,40 @@ export default function EditarPerfil({navigation}) {
         <Text style={styles.texto5}>Guardar cambios</Text>
       </TouchableOpacity>
     </View>
-
-
-
     <SafeAreaView style={{width: '92%', alignSelf:'center', paddingTop:20, }}>
-
       <Text style={styles.texto6}>Usuario</Text>
       <TextInput
         style={styles.input}
-        placeholder=""
+        placeholder={user.userName}
+        onChange={setUserName}
       />
-
-
       <Text style={styles.texto6}>Correo electrónico</Text>
       <TextInput
         style={styles.input}
-        placeholder=""
+        placeholder={user.email}
+        onChangeText={setEmail}
       />
-
       <Text style={styles.texto6}>Contraseña anterior</Text>
       <TextInput
         style={styles.input}
         placeholder=""
+        onChange={setPassword}
       />
-
       <Text style={styles.texto6}>Nueva contraseña</Text>
       <TextInput
         style={styles.input}
         placeholder=""
+        onChange={setNewPassword}
       />
-
       <Text style={styles.texto6}>Confirmar nueva contraseña</Text>
       <TextInput
         style={styles.input}
         placeholder=""
+        onChange={setConfirmNewPassword}
       />      
-      
     </SafeAreaView>
-
-
     <Text style={styles.eliminar}>Eliminar cuenta</Text>
-
-
-
-
-
-
     </View>
-
-
-    
   );
 }
 

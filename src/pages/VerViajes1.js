@@ -1,11 +1,19 @@
-import React from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import Svg, { Circle } from 'react-native-svg'
-import GeneralText from '../components/GeneralComponents/GeneralText'
-import Viaje from '../components/VerViajes/Viaje'
-import Arrowback from '../components/VerViajes/Arrowback'
+import React from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import Svg, { Circle } from "react-native-svg";
+import GeneralText from "../components/GeneralComponents/GeneralText";
+import Viaje from "../components/VerViajes/Viaje";
+import Arrowback from "../components/VerViajes/Arrowback";
+import { useNavigation } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
+import { useAuth } from "../context/AuthContext";
 
-export default function VerViajes1({ navigation }) {
+export default function VerViajes1() {
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { user } = useAuth();
+  const { travels, extras, locations, expenses } = route.params;
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
@@ -18,10 +26,10 @@ export default function VerViajes1({ navigation }) {
           color="#1D1E20"
           size={17}
           height={18}
-          text="Usuario"
+          text={user.name}
           marginTop={60}
-          marginLeft={80}
-          marginRight={'28%'}
+          marginLeft={110}
+          marginRight={"28%"}
         />
       </View>
       <Svg height="200" width="200">
@@ -35,25 +43,40 @@ export default function VerViajes1({ navigation }) {
         marginTop={50}
         marginBottom={20}
       />
-      <Viaje />
-      <Viaje />
-      <Viaje />
-      <Viaje />
+      {travels.map((travel, i) => (
+        <Viaje
+          companions={travel.companions}
+          key={i}
+          location={locations[i].location_name}
+          extras={extras[i]}
+          expenses={expenses[i].quantity}
+          date={travel.travel_date}
+          isActive={travel.isActive}
+          onPress={() => navigation.navigate("VerViajesExis", {
+            location: locations[i].location_name,
+            companions: travel.companions,
+            expenses: expenses[i].quantity,
+            expenses_name: expenses[i].expense,
+            extras: extras[i] ? extras[i].extra_commentary: "Sin extras",
+            isActive: travel.isActive,
+          })}
+        />
+      ))}
     </ScrollView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#FEFEFE',
-    alignItems: 'center',
+    backgroundColor: "#FEFEFE",
+    alignItems: "center",
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   arrow: {
     marginTop: 60,
-    marginLeft: -12,
+    marginLeft: -50,
   },
-})
+});
