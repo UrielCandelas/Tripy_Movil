@@ -14,7 +14,8 @@ export const getMyTravels = () => axios.get('/my-travels')
 export const getMyTravel = (id) => axios.get(`/my-travels/${id}`)
 export const registerNewTravel = (travel) => axios.post('/my-travels', travel)
 export const editTravel = (travel, id) => axios.put(`/my-travels/${id}`, travel)
-export const deleteTravel = (id) => axios.delete(`/travels/${id}`)
+
+export const deleteTravel = id => axios.delete(`/travels/${id}`)
 
 export const getAllTransports = () => axios.get('/transports')
 

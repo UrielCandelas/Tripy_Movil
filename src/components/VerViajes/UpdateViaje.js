@@ -2,11 +2,11 @@ import { TouchableOpacity, StyleSheet, Image, Text, View } from "react-native";
 import GeneralText from "../GeneralComponents/GeneralText";
 import React from "react";
 
-export default function Viaje({ Txt, OnPress, color }) {
+export default function Viaje({ Txt, OnPress, color, companions,date,expenses,location, killTravel }) {
   const longText = "Gastos a compartir \n Fecha del viaje\nGastos hasta el momento: $";
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.view}>
+      <TouchableOpacity style={styles.view} onPress={OnPress}>
         <GeneralText
           text={"Gastos a compartir"}
           color="#fff"
@@ -16,9 +16,29 @@ export default function Viaje({ Txt, OnPress, color }) {
           paddingRight={20}
           paddingTop={20}
         />
-        <Image source={require("../../images/userIcon.png")} style={styles.image} />
         <GeneralText
-          text={"Fecha del viaje"}
+          text={location}
+          color="#fff"
+          size={12}
+          width_={268}
+          paddingLeft={20}
+          paddingRight={20}
+        />
+        <View style={styles.imageContainer}>
+          <Image source={require("../../images/userIcon.png")} style={styles.image} />
+          <GeneralText
+          text={companions}
+          color="#fff"
+          size={12}
+          width_={268}
+          paddingLeft={5}
+          paddingRight={20}
+          marginTop={3}
+        />
+        </View>
+        
+        <GeneralText
+          text={date}
           color="#fff"
           size={12}
           width_={268}
@@ -28,20 +48,18 @@ export default function Viaje({ Txt, OnPress, color }) {
           marginTop={-15}
         />
         <GeneralText
-          text={"Gastos hasta el Momento: $"}
+          text={`$${expenses}`}
           color="#fff"
           size={12}
           width_={268}
           padding_={20}
           marginTop={-40}
+          marginBottom={-20}
         />
         <Text style={[styles.buttonText, color]}>{Txt}</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.addButton} onPress={OnPress}>
-        <Text style={styles.addButtonText}>+</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.deleteButton} onPress={OnPress}>
-        <Text style={styles.addButtonText}>-</Text>
+      <TouchableOpacity style={styles.addButton} onPress={killTravel}>
+        <Text style={styles.addButtonText}>Dar de baja</Text>
       </TouchableOpacity>
     </View>
   );
@@ -74,27 +92,26 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 10,
     right: 5,
-    backgroundColor: "green", // Change the color as needed
-    borderRadius: 50,
-    width: 50,
+    backgroundColor: "red", // Change the color as needed
+    borderRadius: 30,
     height: 50,
+    padding: 10,
     alignItems: "center",
     justifyContent: "center",
   },
   addButtonText: {
     color: "#fff",
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: 15,
   },
   deleteButton:{
     position: "absolute",
     bottom: 10,
     right: 60,
-    backgroundColor: "red", // Change the color as needed
-    borderRadius: 50,
-    width: 50,
-    height: 50,
+    backgroundColor: "red",
     alignItems: "center",
     justifyContent: "center",
+  },
+  imageContainer:{
+    flexDirection: "row",
   }
 });

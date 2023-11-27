@@ -10,4 +10,8 @@ export const getUserById = (id) => axios.get(`/user/${id}`)
 
 export const getUsersByRequest = id => axios.get(`/user/request/${id}`)
 
-export const editUserAcount = data => axios.put('/user/edit', data)
+export const editUserAcount = data => axios.put('/auth/edit-acount', data)
+
+export const registerCommentaries = data => axios.post('/user/commentary', data)
+
+export const getComentariesByID = id => axios.get(`/user/commentary/all-commentaries/${id}`)

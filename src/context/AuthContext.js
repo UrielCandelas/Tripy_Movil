@@ -7,6 +7,8 @@ import {
   verifyTokenRequest,
   getUsersByRequest,
   editUserAcount,
+  registerCommentaries,
+  getComentariesByID
 } from "../api/auth.js";
 
 export const AuthContext = createContext();
@@ -26,6 +28,7 @@ const AuthProvider = ({ children }) => {
   const [errors, setErrors] = useState([]);
   const [userById, setUserById] = useState([]);
   const [usersByRequest, setUsersByRequest] = useState([]);
+  const [commentaries, setCommentaries] = useState([]);
 
   const signup = async (user) => {
     const confirmPassword = user.confirmPassword;
@@ -117,15 +120,44 @@ const AuthProvider = ({ children }) => {
       const data = {
         userName: user.userName,
         email: user.email,
+        newEmail: user.newEmail,
         newPassword: user.newPassword,
         password: user.password,
+        id: user.id
       };
       const res = await editUserAcount(data);
+      setUser(res.data);
+      setIsAuthenticated(true);
+      return res.data;
     } catch (error) {
       setErrors([error.response.data]);
     }
   };
 
+  const registerNewCommentary = async (commentary) => {
+    try {
+      const res = await registerCommentaries(commentary);
+      return res.data;
+    } catch (error) {
+      if (Array.isArray(error.response.data)) {
+        return setErrors(error.response.data);
+      }
+      setErrors([error.response.data.message]);
+    }
+  }
+
+  const getComentaries = async (id) => {
+    try {
+      const res = await getComentariesByID(id);
+      setCommentaries(res.data);
+      return res.data;
+    } catch (error) {
+      if (Array.isArray(error.response.data)) {
+        return setErrors(error.response.data);
+      }
+      setErrors([error.response.data.message]);
+    }
+  }
   useEffect(() => {
     async function checklogin() {
       const store = await getItemAsync("token");
@@ -166,12 +198,15 @@ const AuthProvider = ({ children }) => {
         errors,
         userById,
         usersByRequest,
+        commentaries,
         getUserRequest,
         getUser,
         signup,
         signin,
         logout,
         editAcount,
+        registerNewCommentary,
+        getComentaries
       }}
     >
       {children}

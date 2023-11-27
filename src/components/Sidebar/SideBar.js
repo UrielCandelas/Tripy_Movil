@@ -4,7 +4,7 @@ import React from "react";
 import { View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const Sidebar = ({ userNav, HomeNav, ExpensesNav, RequestNav, TravelsNav,LogoutNav,userName }) => {
+const Sidebar = ({ userNav, HomeNav, RequestNav, TravelsNav,LogoutNav,userName,TravelsConsultNav,ChatNav }) => {
   return (
     <View style={styles.sidebar}>
       <ScrollView>
@@ -22,10 +22,16 @@ const Sidebar = ({ userNav, HomeNav, ExpensesNav, RequestNav, TravelsNav,LogoutN
             <GeneralText text="Inicio" />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={ExpensesNav} style={styles.section}>
+        <TouchableOpacity onPress={TravelsConsultNav} style={styles.section}>
           <View style={styles.object}>
-            <Ionicons name="cash" size={20} style={styles.images}/>
-            <GeneralText text="Añadir gasto" />
+            <Ionicons name="map" size={20} style={styles.images}/>
+            <GeneralText text="Consultar viajes" />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={ChatNav} style={styles.section}>
+          <View style={styles.object}>
+            <Ionicons name="md-chatbubbles-sharp" size={20} style={styles.images}/>
+            <GeneralText text="Mensajes" />
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={RequestNav} style={styles.section}>
@@ -36,7 +42,7 @@ const Sidebar = ({ userNav, HomeNav, ExpensesNav, RequestNav, TravelsNav,LogoutN
         </TouchableOpacity>
         <TouchableOpacity onPress={TravelsNav} style={styles.section}>
           <View style={styles.object}>
-            <Ionicons name="map" size={20} style={styles.images}/>
+            <Ionicons name="add-circle" size={20} style={styles.images}/>
             <GeneralText text="Crear viaje" />
           </View>
         </TouchableOpacity>
@@ -74,7 +80,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   images:{
-    marginRight: 10
+    marginRight: 10,
   }
 });
 

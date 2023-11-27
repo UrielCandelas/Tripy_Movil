@@ -50,7 +50,7 @@ const TravelProvider = ({ children }) => {
 
   const { user } = useAuth();
 
-  const socket = io.connect("http://192.168.0.10:3000", {
+  const socket = io.connect("http://10.126.26.54:3000", {
     query: { id_user1: user ? user.id : 0 },
   });
 
@@ -120,7 +120,7 @@ const TravelProvider = ({ children }) => {
 
   const getTravelsActive = async (id) => {
     try {
-      const res = await getTravelsA(data)
+      const res = await getTravelsA(id)
       setTravelsActive(res.data)
       return res.data
     } catch (error) {
@@ -174,7 +174,6 @@ const TravelProvider = ({ children }) => {
   const deleteSomeTravel = async (id) => {
     try {
       const res = await deleteTravel(id);
-      setTravel({});
     } catch (error) {
       if (Array.isArray(error.response.data)) {
         return setErrors(error.response.data);

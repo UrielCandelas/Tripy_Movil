@@ -1,80 +1,124 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image, SafeAreaView, TouchableOpacity, TextInput} from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  SafeAreaView,
+  TouchableOpacity,
+  TextInput,
+  Alert,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 
-
 export default function EditarPerfil() {
-  const {user,editAcount} = useAuth();
+  const { user, editAcount } = useAuth();
   const navigation = useNavigation();
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
+  const [newEmail, setNewEmail] = useState("");
 
-  const handleSubmit = () => {
-    
-  }
+  const handleSubmit = async () => {
+    if ((!password || !newPassword || !confirmNewPassword || !userName || !newEmail)) {
+      return Alert.alert("Todos los campos son requeridos");
+    }
+    const data = {
+      newPassword,
+      confirmNewPassword,
+      userName,
+      newEmail,
+      password,
+      email: user.email,
+      id: user.id
+    };
+    try {
+      await editAcount(data);
+      navigation.goBack();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-        <Ionicons
-          style={styles.back}
-          name="arrow-back"
-          size={24}
-          color="black"
-          onPress={()=>navigation.goBack()}
-        />
+      <Ionicons
+        style={styles.back}
+        name="arrow-back"
+        size={24}
+        color="black"
+        onPress={() => navigation.goBack()}
+      />
 
       <Text style={styles.edit}>Editar perfil</Text>
 
-    <Image
-      source={require("../images/Default_pfp.png")}
-      style={styles.roundImage}
-    />
+      <Image
+        source={require("../images/Default_pfp.png")}
+        style={styles.roundImage}
+      />
 
-    <View style={{paddingTop:20, paddingBottom: 10,}}>
-    <TouchableOpacity style={{ backgroundColor: '#DAFFFB', padding: 10, borderRadius: 10, width:125, alignSelf: "center"}} onPress={()=>navigation.navigate("LandPage")}>
-        <Text style={styles.texto5}>Guardar cambios</Text>
-      </TouchableOpacity>
-    </View>
-    <SafeAreaView style={{width: '92%', alignSelf:'center', paddingTop:20, }}>
-      <Text style={styles.texto6}>Usuario</Text>
-      <TextInput
-        style={styles.input}
-        placeholder={user.userName}
-        onChange={setUserName}
-      />
-      <Text style={styles.texto6}>Correo electrónico</Text>
-      <TextInput
-        style={styles.input}
-        placeholder={user.email}
-        onChangeText={setEmail}
-      />
-      <Text style={styles.texto6}>Contraseña anterior</Text>
-      <TextInput
-        style={styles.input}
-        placeholder=""
-        onChange={setPassword}
-      />
-      <Text style={styles.texto6}>Nueva contraseña</Text>
-      <TextInput
-        style={styles.input}
-        placeholder=""
-        onChange={setNewPassword}
-      />
-      <Text style={styles.texto6}>Confirmar nueva contraseña</Text>
-      <TextInput
-        style={styles.input}
-        placeholder=""
-        onChange={setConfirmNewPassword}
-      />      
-    </SafeAreaView>
-    <Text style={styles.eliminar}>Eliminar cuenta</Text>
+      <View style={{ paddingTop: 20, paddingBottom: 10 }}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#DAFFFB",
+            padding: 10,
+            borderRadius: 10,
+            width: 125,
+            alignSelf: "center",
+          }}
+          onPress={handleSubmit}
+        >
+          <Text style={styles.texto5}>Guardar cambios</Text>
+        </TouchableOpacity>
+      </View>
+      <SafeAreaView
+        style={{ width: "92%", alignSelf: "center", paddingTop: 20 }}
+      >
+        <Text style={styles.texto6}>Usuario</Text>
+        <TextInput
+          style={styles.input}
+          placeholder={user.userName}
+          onChangeText={setUserName}
+          value={userName}
+        />
+        <Text style={styles.texto6}>Correo electrónico</Text>
+        <TextInput
+          style={styles.input}
+          keyboardType="email-address"
+          placeholder={user.email}
+          onChangeText={setNewEmail}
+          value={newEmail}
+        />
+        <Text style={styles.texto6}>Contraseña anterior</Text>
+        <TextInput
+          style={styles.input}
+          secureTextEntry={true} 
+          onChangeText={setPassword}
+          value={password}
+        />
+        <Text style={styles.texto6}>Nueva contraseña</Text>
+        <TextInput
+          style={styles.input}
+          secureTextEntry={true}  
+          onChangeText={setNewPassword}
+          value={newPassword}
+        />
+        <Text style={styles.texto6}>Confirmar nueva contraseña</Text>
+        <TextInput
+          style={styles.input}
+          secureTextEntry={true} 
+          onChangeText={setConfirmNewPassword}
+          value={confirmNewPassword}
+        />
+      </SafeAreaView>
+      {user.isAdmin && (
+        <Text style={styles.eliminar}>Eliminar cuenta</Text>
+      )}
     </View>
   );
 }
@@ -98,7 +142,7 @@ const styles = StyleSheet.create({
     color: "black",
     top: 0,
     right: 0,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
 
   roundImage: {
@@ -112,7 +156,7 @@ const styles = StyleSheet.create({
     height: 40,
     margin: 12,
     borderWidth: 1,
-    borderColor: '#E2E2E2',
+    borderColor: "#E2E2E2",
     padding: 10,
     borderRadius: 5,
   },
@@ -122,15 +166,15 @@ const styles = StyleSheet.create({
     color: "#6B7888",
     top: 0,
     right: 0,
-    paddingLeft:16,
+    paddingLeft: 16,
   },
 
   eliminar: {
     fontSize: 15,
-    color: '#FF5757',
-    fontWeight: 'bold',
+    color: "#FF5757",
+    fontWeight: "bold",
     paddingTop: 25,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
 
   edit: {
@@ -142,5 +186,4 @@ const styles = StyleSheet.create({
     padding: 25,
     paddingTop: "15%",
   },
-
 });
