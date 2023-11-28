@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import Svg, { Circle, Image } from 'react-native-svg';
 import GeneralText from '../components/GeneralComponents/GeneralText';
@@ -9,7 +9,28 @@ import ProfilePhoto from '../components/Chat/ProfilePhoto';
 import Messages from '../components/Chat/Messages';
 import SendButton from '../components/Chat/SendButton';
 
-export default function Chat({ navigation }) {
+import { useNavigation } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
+import { useTravels } from '../context/TravelsContext';
+
+export default function Chat({  }) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { name, id,room } = route.params;
+  const { sendMessage,messages } = useTravels();
+  const [message2, setMessage] = useState('');
+
+  console.log(messages)
+
+  const onSubmit = () => {
+    const data = {
+      id_user2: id,
+      message: message2,
+      room: room
+    }
+    sendMessage(data)
+    setMessage('')
+  }
   return (
     <View style={{ flex: 1, backgroundColor: '#FEFEFE' }}>
       <View style={styles.header}>
@@ -26,7 +47,7 @@ export default function Chat({ navigation }) {
           color="#1D1E20"
           size={17}
           height={18}
-          text="Usuario_Nombre"
+          text={name}
           marginTop={60}
           marginLeft={5}
           marginRight={'28%'}
@@ -50,7 +71,7 @@ export default function Chat({ navigation }) {
           color="#1D1E20"
           size={17}
           height={18}
-          text="NombreDelOtroUsuario"
+          text={name}
           marginTop={0}
           marginBottom={20}
         />
@@ -83,10 +104,12 @@ export default function Chat({ navigation }) {
       <View style={styles.messagecontainer}>
         <InputChat
           placeholder={'Escribe un mensaje...'}
-
+          onChangeText={setMessage}
+          value={message2}
         />
         <SendButton
           filcolor='#FEFEFE'
+          onPresshandler={onSubmit}
         />
       </View>
     </View>

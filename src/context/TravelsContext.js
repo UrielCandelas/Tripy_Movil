@@ -47,10 +47,13 @@ const TravelProvider = ({ children }) => {
   const [datosDesdeBD, setDatosDesdeBD] = useState([]);
   const [travelsInactive, setTravelsInactive] = useState([]);
   const [travelsActive, setTravelsActive] = useState([]);
+  const [contacts, setContacts] = useState([]);
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState("");
 
   const { user } = useAuth();
 
-  const socket = io.connect("http://192.168.0.10:3000", {
+  const socket = io("http://192.168.0.10:3000", {
     query: { id: user ? user.id : 0 },
   });
 
@@ -107,29 +110,29 @@ const TravelProvider = ({ children }) => {
 
   const getTravelsInactive = async (id) => {
     try {
-      const res = await getTravelsI(id)
-      setTravelsInactive(res.data)
-      return res.data
+      const res = await getTravelsI(id);
+      setTravelsInactive(res.data);
+      return res.data;
     } catch (error) {
       if (Array.isArray(error.response.data)) {
-        return setErrors(error.response.data)
+        return setErrors(error.response.data);
       }
-      setErrors([error.response.data.message])
+      setErrors([error.response.data.message]);
     }
-  }
+  };
 
   const getTravelsActive = async (id) => {
     try {
-      const res = await getTravelsA(id)
-      setTravelsActive(res.data)
-      return res.data
+      const res = await getTravelsA(id);
+      setTravelsActive(res.data);
+      return res.data;
     } catch (error) {
       if (Array.isArray(error.response.data)) {
-        return setErrors(error.response.data)
+        return setErrors(error.response.data);
       }
-      setErrors([error.response.data.message])
+      setErrors([error.response.data.message]);
     }
-  }
+  };
 
   const registerNewTravelFunc = async (travel) => {
     try {
@@ -199,7 +202,6 @@ const TravelProvider = ({ children }) => {
       const res = await getAllLocationTravels(id);
       setLocationTravels(res.data);
       return res.data;
-      return res.data;
     } catch (error) {
       setErrors([error.response.data]);
     }
@@ -246,6 +248,13 @@ const TravelProvider = ({ children }) => {
     }
   };
 
+  const sendMessage = async (data) => {
+    socket.emit("sendMessage", data);
+  };
+  const joinRoom = async (data) => {
+    socket.emit("joinRoom", data);
+  };
+
   useEffect(() => {
     if (errors.length > 0) {
       const timmer = setTimeout(() => {
@@ -256,13 +265,40 @@ const TravelProvider = ({ children }) => {
   }, [errors]);
 
   useEffect(() => {
-    socket.on("send_request", (data) => {
+    const handleSendRequest = (data) => {
       setDatosDesdeBD(data);
-    });
-    return () => {
-      socket.disconnect();
     };
+    const handleSendContacts = (data) => {
+      setContacts(data);
+    }
+  
+    const handleSendPreviousMessages = (data) => {
+      setMessages(data);
+    }
+
+    const handleSendReceiveMessage = (data) => {
+      setMessage(data);
+    }
+    socket.on("send_request", handleSendRequest);
+  
+    
+    socket.on("send_contacts", handleSendContacts);
+
+
+    socket.on("previous_messages",handleSendPreviousMessages)
+
+
+    socket.on("receive_message",handleSendReceiveMessage);
+
+    return () => {
+      socket.off("send_request", handleSendRequest);
+      socket.off("send_contacts", handleSendContacts);
+      socket.off("previous_messages",handleSendPreviousMessages);
+      socket.off("receive_message",handleSendReceiveMessage);
+    };
+
   }, [socket]);
+
 
   return (
     <TravelContext.Provider
@@ -283,6 +319,11 @@ const TravelProvider = ({ children }) => {
         addTravelSecondUser,
         deleteRequest,
         getTravelsActive,
+        sendMessage,
+        joinRoom,
+        messages,
+        message,
+        contacts,
         travelsActive,
         travelsInactive,
         extra,

@@ -3,9 +3,27 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import GeneralText from '../components/GeneralComponents/GeneralText';
 import Arrowback from '../components/VerViajes/Arrowback';
 import Container from '../components/Contactos/Container';
+import { useNavigation } from '@react-navigation/native';
+import { useTravels } from '../context/TravelsContext';
+import { useAuth } from '../context/AuthContext';
 
 
-export default function Contactos({ navigation }) {
+export default function Contactos() {
+  const navigation = useNavigation();
+  const { contacts,joinRoom } = useTravels();
+  const { user } = useAuth();
+  const handleSelect = async (id,name,userName)=>{
+    const data = {
+      id_user2: id,
+      room: user.id > id ? `room-${user.userName}-${userName}`: `room-${userName}-${user.userName}`,
+    }
+    navigation.navigate('Chat',{
+      id: id,
+      name: name,
+      room: data.room
+    })
+    await joinRoom(data)
+  }
   return (
     <View style={{flex: 1, backgroundColor: '#FEFEFE'}}>
       <View style={styles.header}>
@@ -35,78 +53,14 @@ export default function Contactos({ navigation }) {
         contentContainerStyle={styles.scrollContainer}
         showsVerticalScrollIndicator={false}
       >
-        <Container
-        text='Juan Perez'
-        txtTrip='Viaje a Xochimilco'
-        txtMessage='Este es mi primer mensaje'
-        onPresshandler={() => navigation.navigate('Chat')}
-        />
-        <Container
-        text='Juan Perez'
-        txtTrip='Viaje a Xochimilco'
-        txtMessage='Este es mi primer mensaje'
-        onPresshandler={() => navigation.navigate('Chat')}
-        />
-        <Container
-        text='Juan Perez'
-        txtTrip='Viaje a Xochimilco'
-        txtMessage='Este es mi primer mensaje'
-        onPresshandler={() => navigation.navigate('Chat')}
-        />
-        <Container
-        text='Juan Perez'
-        txtTrip='Viaje a Xochimilco'
-        txtMessage='Este es mi primer mensaje'
-        onPresshandler={() => navigation.navigate('Chat')}
-        />
-        <Container
-        text='Juan Perez'
-        txtTrip='Viaje a Xochimilco'
-        txtMessage='Este es mi primer mensaje'
-        onPresshandler={() => navigation.navigate('Chat')}
-        />
-        <Container
-        text='Juan Perez'
-        txtTrip='Viaje a Xochimilco'
-        txtMessage='Este es mi primer mensaje' 
-        onPresshandler={() => navigation.navigate('Chat')}
-        />
-        <Container
-        text='Juan Perez'
-        txtTrip='Viaje a Xochimilco'
-        txtMessage='Este es mi primer mensaje'
-        onPresshandler={() => navigation.navigate('Chat')}
-        />
-        <Container
-        text='Juan Perez'
-        txtTrip='Viaje a Xochimilco'
-        txtMessage='Este es mi primer mensaje'
-        onPresshandler={() => navigation.navigate('Chat')}
-        />
-        <Container
-        text='Juan Perez'
-        txtTrip='Viaje a Xochimilco'
-        txtMessage='Este es mi primer mensaje'
-        onPresshandler={() => navigation.navigate('Chat')}
-        />
-        <Container
-        text='Juan Perez'
-        txtTrip='Viaje a Xochimilco'
-        txtMessage='Este es mi primer mensaje'
-        onPresshandler={() => navigation.navigate('Chat')}
-        />
-        <Container
-        text='Juan Perez'
-        txtTrip='Viaje a Xochimilco'
-        txtMessage='Este es mi primer mensaje'
-        onPresshandler={() => navigation.navigate('Chat')}
-        />
-        <Container
-        text='Juan Perez'
-        txtTrip='Viaje a Xochimilco'
-        txtMessage='Este es mi primer mensaje' 
-        onPresshandler={() => navigation.navigate('Chat')}
-        />
+        {contacts?.map((contact,i)=>(
+          <Container
+          text={contact.name}
+          onPresshandler={()=>handleSelect(contact.id,contact.name,contact.userName)}
+          key={i}
+          />
+        ))}
+        
         
       </ScrollView>
     </View>

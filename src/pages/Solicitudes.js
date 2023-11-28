@@ -83,7 +83,7 @@ const Solicitudes = () => {
 
       <SafeAreaView>
         <ScrollView>
-          {requests.map((data, i) => {
+          {requests?.map((data, i) => {
             if (data.isActive) {
               return (
                 <Soli

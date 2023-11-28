@@ -23,7 +23,6 @@ export default function Container({
       <View style={styles.textcontainer}>
         <View style={styles.userinfo}>
           <Text style={styles.text}>{text}</Text>
-          <Text style={styles.infoviaje}>{txtTrip}</Text>
         </View>
         <View style={styles.messages}>
           <Text style={styles.txtMessage}>{txtMessage}</Text>
