@@ -50,8 +50,8 @@ const TravelProvider = ({ children }) => {
 
   const { user } = useAuth();
 
-  const socket = io.connect("http://10.126.26.54:3000", {
-    query: { id_user1: user ? user.id : 0 },
+  const socket = io.connect("http://192.168.0.10:3000", {
+    query: { id: user ? user.id : 0 },
   });
 
   const getTravels = async () => {

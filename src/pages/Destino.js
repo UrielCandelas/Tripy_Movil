@@ -128,7 +128,7 @@ export default function VerViajes1() {
       </View>
 
       {locationTravels.map((travel, i) => {
-        if (myId != travel.id_user1) {
+        if (myId != travel.id_user1 && travel.isActive == true) {
           return (
             <Viaje
               key={i}
