@@ -9,8 +9,9 @@ import {
 } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { useTravels } from "../context/TravelsContext";
 
-export default function Reseñas({ onPress }) {
+export default function Reseñas({ onPress,user,date,comentary,rate }) {
   return (
     <View>
       <TouchableOpacity onPress={onPress}>
@@ -22,17 +23,16 @@ export default function Reseñas({ onPress }) {
                 style={styles.roundImage}
               />
               <Text style={styles.texto1} onPress={onPress}>
-                Usuario
+                {user}
               </Text>
             </View>
             <Text style={styles.texto3}>
-              4.5 <Ionicons name="star" size={15} color="#FF981F" />
+              {rate} <Ionicons name="star" size={15} color="#FF981F" />
             </Text>
           </View>
-          <Text style={styles.texto2}>Fecha</Text>
+          <Text style={styles.texto2}>{date}</Text>
           <Text style={styles.texto3}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Pellentesque malesuada eget vitae amet...
+            {comentary}
           </Text>
         </View>
       </TouchableOpacity>

@@ -53,7 +53,7 @@ const TravelProvider = ({ children }) => {
 
   const { user } = useAuth();
 
-  const socket = io("http://192.168.0.10:3000", {
+  const socket = io("http://10.1.1.26:3000", {
     query: { id: user ? user.id : 0 },
   });
 
@@ -250,9 +250,14 @@ const TravelProvider = ({ children }) => {
 
   const sendMessage = async (data) => {
     socket.emit("sendMessage", data);
+    socket.on("receive_message", (data) => {
+      console.log(data)
+      setMessages([...messages, data]);
+    })
   };
   const joinRoom = async (data) => {
     socket.emit("joinRoom", data);
+
   };
 
   useEffect(() => {
@@ -271,13 +276,9 @@ const TravelProvider = ({ children }) => {
     const handleSendContacts = (data) => {
       setContacts(data);
     }
-  
-    const handleSendPreviousMessages = (data) => {
-      setMessages(data);
-    }
 
     const handleSendReceiveMessage = (data) => {
-      setMessage(data);
+      setMessages((prev)=>[...prev,data]);
     }
     socket.on("send_request", handleSendRequest);
   
@@ -285,16 +286,14 @@ const TravelProvider = ({ children }) => {
     socket.on("send_contacts", handleSendContacts);
 
 
-    socket.on("previous_messages",handleSendPreviousMessages)
+    socket.on("receive_message",(data=>{
+      setMessages((prev)=>[...prev,data]);
+    }));
 
-
-    socket.on("receive_message",handleSendReceiveMessage);
 
     return () => {
       socket.off("send_request", handleSendRequest);
       socket.off("send_contacts", handleSendContacts);
-      socket.off("previous_messages",handleSendPreviousMessages);
-      socket.off("receive_message",handleSendReceiveMessage);
     };
 
   }, [socket]);

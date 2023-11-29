@@ -43,7 +43,7 @@ export default function VerViajes1() {
         marginTop={50}
         marginBottom={20}
       />
-      {travels.map((travel, i) => (
+      {travels?.map((travel, i) => (
         <Viaje
           companions={travel.companions}
           key={i}

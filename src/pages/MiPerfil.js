@@ -20,12 +20,20 @@ import { useEffect } from "react";
 
 export default function App() {
   const navigation = useNavigation();
-  const { user } = useAuth();
-  const { getTravelsInactive, travelsInactive } = useTravels();
+  const { user,getComentaries,
+    commentaries, } = useAuth();
+  const {
+    getTravelsInactive,
+    travelsInactive,
+  } = useTravels();
 
   useEffect(() => {
+    getComentaries(user.id)
     getTravelsInactive(user.id);
   }, []);
+
+  //const users = commentaries.users;
+  const comentaries = commentaries.commentaries;
 
   const travels = travelsInactive.travels;
   const expenses = travelsInactive.expenses;
@@ -54,8 +62,7 @@ export default function App() {
 
         <Text
           style={styles.texto2}
-          onPress={() => navigation.navigate("EditarPerfil")
-        }
+          onPress={() => navigation.navigate("EditarPerfil")}
         >
           Editar perfil
         </Text>
@@ -64,12 +71,14 @@ export default function App() {
           <Text style={styles.texto3}>Mis viajes</Text>
           <Text
             style={styles.texto4}
-            onPress={() => navigation.navigate("VerViajes1",{
-              travels: travels,
-              expenses: expenses,
-              locations: locations,
-              extras: extras
-            })}
+            onPress={() =>
+              navigation.navigate("VerViajes1", {
+                travels: travels,
+                expenses: expenses,
+                locations: locations,
+                extras: extras,
+              })
+            }
           >
             Ver todo
           </Text>
@@ -92,7 +101,9 @@ export default function App() {
                         companions: travel.companions,
                         expenses: expenses[i].quantity,
                         expenses_name: expenses[i].expense,
-                        extras: extras[i] ? extras[i].extra_commentary : "Sin extras",
+                        extras: extras[i]
+                          ? extras[i].extra_commentary
+                          : "Sin extras",
                         isActive: travel.isActive,
                       })
                     }
@@ -105,7 +116,15 @@ export default function App() {
 
         <SafeAreaView style={styles.containerreviews}>
           <ScrollView>
-            <Reseñas onPress={() => navigation.navigate("PerfilUsuario")} />
+            {comentaries?.map((comentary, i) => (
+              <Reseñas
+                onPress={() => navigation.navigate("PerfilUsuario")}
+                comentary={comentary.commentary_text}
+                date={comentary.createdAt}
+                rate={comentary.rate}
+                user={"asasa"}
+              />
+            ))}
           </ScrollView>
         </SafeAreaView>
       </View>
