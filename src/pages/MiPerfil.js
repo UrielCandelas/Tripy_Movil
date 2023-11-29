@@ -32,7 +32,7 @@ export default function App() {
     getTravelsInactive(user.id);
   }, []);
 
-  //const users = commentaries.users;
+  const users = commentaries.users;
   const comentaries = commentaries.commentaries;
 
   const travels = travelsInactive.travels;
@@ -122,7 +122,7 @@ export default function App() {
                 comentary={comentary.commentary_text}
                 date={comentary.createdAt}
                 rate={comentary.rate}
-                user={"asasa"}
+                user={users[i].userName}
               />
             ))}
           </ScrollView>

@@ -53,7 +53,7 @@ const TravelProvider = ({ children }) => {
 
   const { user } = useAuth();
 
-  const socket = io("http://10.1.1.26:3000", {
+  const socket = io("http://10.126.26.54:3000", {
     query: { id: user ? user.id : 0 },
   });
 
