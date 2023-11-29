@@ -102,6 +102,10 @@ const Solicitudes = () => {
                   onPressReject={()=>{
                     return handleDecline({id_request:data.id})
                   }}
+                  onPress={() => navigation.navigate("PerfilUsuario",{
+                    name: users[i].name,
+                    id: users[i].id
+                })}
                 />
               );
             }

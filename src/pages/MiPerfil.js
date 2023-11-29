@@ -77,6 +77,7 @@ export default function App() {
                 expenses: expenses,
                 locations: locations,
                 extras: extras,
+                name: user.name
               })
             }
           >

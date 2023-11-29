@@ -50,6 +50,7 @@ const TravelProvider = ({ children }) => {
   const [contacts, setContacts] = useState([]);
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
+  const [images, setImages] = useState([]);
 
   const { user } = useAuth();
 
@@ -155,6 +156,11 @@ const TravelProvider = ({ children }) => {
       console.log(error);
     }
   };
+
+  const getImages = ()=>{
+    const arrimages = [];
+    setImages(arrimages);
+  }
 
   const editSomeTravel = async (travel, id) => {
     try {
@@ -320,6 +326,8 @@ const TravelProvider = ({ children }) => {
         getTravelsActive,
         sendMessage,
         joinRoom,
+        getImages,
+        images,
         messages,
         message,
         contacts,

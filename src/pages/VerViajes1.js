@@ -12,7 +12,7 @@ export default function VerViajes1() {
   const navigation = useNavigation();
   const route = useRoute();
   const { user } = useAuth();
-  const { travels, extras, locations, expenses } = route.params;
+  const { travels, extras, locations, expenses,name } = route.params;
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -26,7 +26,7 @@ export default function VerViajes1() {
           color="#1D1E20"
           size={17}
           height={18}
-          text={user.name}
+          text={name}
           marginTop={60}
           marginLeft={110}
           marginRight={"28%"}
