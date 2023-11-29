@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { useEffect,useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -59,7 +60,7 @@ export default function App() {
           <Text
             style={styles.texto4}
             onPress={() =>
-              navigation.navigate("VerViajes2", {
+              navigation.navigate("VerViajes1", {
                 name: users[0].name,
                 travels: travels,
                 expenses: expenses,
@@ -81,7 +82,6 @@ export default function App() {
                     date={travel.travel_date}
                     expense={expenses[i].quantity}
                     location={locations[i].location_name}
-                    key={i}
                     companions={travel.companions}
                     onPress={() =>
                       navigation.navigate("VerViajesExis", {
@@ -115,7 +115,9 @@ export default function App() {
                   alignItems: "center",
                   justifyContent: "center",
                 }}
-                onPress={() => navigation.navigate("AñadirReseña")}
+                onPress={() => navigation.navigate("AñadirReseña",{
+                    id:id
+                })}
               >
                 <Text style={styles.texto5}>Agregar reseña</Text>
               </TouchableOpacity>
@@ -126,11 +128,12 @@ export default function App() {
             <ScrollView>
             {comentaries?.map((comentary, i) => (
               <Reseñas
+              key={i}
                 onPress={() => navigation.navigate("PerfilUsuario",{
                     name: users[i].name,
                     id: users[i].id
                 })}
-                comentary={comentary.commentary_text}
+                comentary={comentary.comentary_text}
                 date={comentary.createdAt}
                 rate={comentary.rate}
                 user={users[i].userName}

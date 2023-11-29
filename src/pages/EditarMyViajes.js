@@ -10,14 +10,16 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function EditarMyViajes() {
   const navigation = useNavigation();
-  const { getTravelsActive, travelsActive,deleteSomeTravel } = useTravels();
+  const { getTravelsActive, travelsActive, deleteSomeTravel } = useTravels();
   const { user } = useAuth();
   useEffect(() => {
     getTravelsActive(user.id);
   }, []);
 
   const travels = travelsActive.travels;
+  const usersU1 = travelsActive.usersU1;
   const sharedTravels = travelsActive.sharedTravels;
+  const usersU2 = travelsActive.usersU2;
   const locations_user1 = travelsActive.locations_user1;
   const expenses_user1 = travelsActive.expenses_user1;
   const extras_user1 = travelsActive.extras_user1;
@@ -25,13 +27,30 @@ export default function EditarMyViajes() {
   const expenses_user2 = travelsActive.expenses_user2;
   const extras_user2 = travelsActive.extras_user2;
 
-  const killSomeTravel = async(id)=>{
+  const killSomeTravel = async (id) => {
     try {
-      const res = await deleteSomeTravel(id)
+      Alert.alert(
+        "Dar de baja Viaje",
+        "¿Estás seguro de que quieres dar de baja este viaje?",
+        [
+          {
+            text: "Cancelar",
+            style: "cancel",
+          },
+          {
+            text: "Confirmar",
+            onPress: async () => {
+              const res = await deleteSomeTravel(id);
+              navigation.navigate("LandPage");
+            },
+          },
+        ],
+        { cancelable: false }
+      );
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -63,17 +82,26 @@ export default function EditarMyViajes() {
           marginTop={10}
           marginBottom={20}
         />
-        {travels?.map((travel, i) => (
-          <Viaje
-            key={i}
-            companions={travel.companions}
-            date={travel.travel_date}
-            expenses={expenses_user1[i].quantity}
-            location={locations_user1[i].location_name}
-            killTravel={killSomeTravel(travel.id)}
-            OnPress={() =>Alert.alert("conssultar travel")}
-          />
-        ))}
+        {travels?.map((travel, i) => {
+          if (travel.id_user2 != null) {
+            return (
+              <Viaje
+                key={i}
+                companions={travel.companions}
+                date={travel.travel_date}
+                expenses={expenses_user1[i].quantity}
+                location={locations_user1[i].location_name}
+                killTravel={() => killSomeTravel(travel.id)}
+                onPress={() =>
+                  navigation.navigate("PerfilUsuario", {
+                    name: usersU1[i].name,
+                    id: usersU1[i].id,
+                  })
+                }
+              />
+            );
+          }
+        })}
       </View>
       <View>
         <GeneralText
@@ -91,6 +119,12 @@ export default function EditarMyViajes() {
             date={travel.travel_date}
             expenses={expenses_user2[i].quantity}
             location={locations_user2[i].location_name}
+            onPress={() =>
+              navigation.navigate("PerfilUsuario", {
+                name: usersU2[i].name,
+                id: usersU2[i].id,
+              })
+            }
           />
         ))}
       </View>

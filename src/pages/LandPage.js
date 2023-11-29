@@ -37,7 +37,6 @@ export default function LandPage() {
             userName={user ? user.name : ""}
             userNav={() => navigation.navigate("MiPerfil")}
             HomeNav={() => navigation.navigate("LandPage")}
-            ChatNav={() => navigation.navigate("Contactos")}
             TravelsConsultNav={() => navigation.navigate("EditarMyViajes")}
             RequestNav={()=>navigation.navigate("Solicitudes")}
             TravelsNav={()=>navigation.navigate("CrearViaje")}

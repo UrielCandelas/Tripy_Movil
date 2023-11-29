@@ -1,69 +1,106 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView, Button, TouchableOpacity, TextInput} from "react-native";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import React, { useEffect, useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+  SafeAreaView,
+  Button,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../context/AuthContext";
+import { useRoute } from "@react-navigation/native";
 
 import { Ionicons } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
-import Cards from "../components/Cards";
-import Reseñas from "../components/Reseñas";
 
-export default function AddReview({navigation}) {
+export default function AddReview() {
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { registerNewCommentary,user } = useAuth();
+  const {id} = route.params;
 
   const [rating, setRating] = useState(0);
+  const [comentary, setComentary] = useState("");
 
   const handleStarPress = (selectedRating) => {
     setRating(selectedRating);
-  }
-
-  const handlePress = () => {
-  }
+  };
+  const handleSubmit = async () => {
+    try {
+      const res = await registerNewCommentary({
+        comentary,
+        rating,
+        id_userComent: user.id,
+        id_userComented: id
+      });
+      //navigation.goBack();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
-
     <View>
       <StatusBar style="auto" />
-        <Ionicons
-          style={styles.back}
-          name="arrow-back"
-          size={24}
-          color="black"
-          onPress={()=>navigation.goBack()}
+      <Ionicons
+        style={styles.back}
+        name="arrow-back"
+        size={24}
+        color="black"
+        onPress={() => navigation.goBack()}
+      />
+
+      <Text style={styles.texto1}>Añadir reseña</Text>
+
+      <Text style={styles.texto5}>¿Cómo fue tu experiencia?</Text>
+      <SafeAreaView style={styles.input}>
+        <TextInput
+          style={{ padding: 8 }}
+          placeholder="Describe tu experiencia con este usuario"
+          value={comentary}
+          onChangeText={setComentary}
         />
+      </SafeAreaView>
 
-        <Text style={styles.texto1}>Añadir reseña</Text>
+      <Text style={styles.texto5}>Calificación</Text>
 
-        <Text style={styles.texto5}>¿Cómo fue tu experiencia?</Text>
-        <SafeAreaView style={styles.input}>
-        <TextInput style={{ padding: 8,}} placeholder="Describe tu experiencia con este usuario"/>
-        </SafeAreaView>
-
-        <Text style={styles.texto5}>Calificación</Text>
-
-        <View style={styles.container3}>
+      <View style={styles.container3}>
         <View style={styles.starContainer}>
-        {[1, 2, 3, 4, 5].map((index) => (
-          <TouchableOpacity
-            key={index}
-            onPress={() => handleStarPress(index)}
-          >
-            <Ionicons
-              name={index <= rating ? 'star' : 'star-outline'}
-              size={30}
-              color="gold"
-            />
-          </TouchableOpacity>))}
-      </View>
+          {[1, 2, 3, 4, 5].map((index) => (
+            <TouchableOpacity
+              key={index}
+              onPress={() => {
+                handleStarPress(index);
+              }}
+            >
+              <Ionicons
+                name={index <= rating ? "star" : "star-outline"}
+                size={30}
+                color="gold"
+              />
+            </TouchableOpacity>
+          ))}
         </View>
+      </View>
 
-
-    <TouchableOpacity style={{backgroundColor: '#64CCC5', width:'100%', justifyContent: 'center', height: 75, bottom: 0, alignItems: 'center'}} onPress={()=>navigation.goBack()}>
+      <TouchableOpacity
+        style={{
+          backgroundColor: "#64CCC5",
+          width: "100%",
+          justifyContent: "center",
+          height: 75,
+          bottom: 0,
+          alignItems: "center",
+        }}
+        onPress={handleSubmit}
+      >
         <Text style={styles.texto6}>Enviar reseña</Text>
       </TouchableOpacity>
     </View>
-
-
-
   );
 }
 
@@ -145,19 +182,18 @@ const styles = StyleSheet.create({
   texto5: {
     color: "black",
     fontSize: 17,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     top: 0,
     left: 0,
     padding: 16,
-    paddingTop: '17%',
+    paddingTop: "17%",
   },
 
   texto6: {
     color: "white",
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 17,
   },
-
 
   roundImage: {
     width: 100,
@@ -175,15 +211,13 @@ const styles = StyleSheet.create({
   },
 
   container3: {
-    alignItems: 'center',
-    alignSelf: 'center',
-    paddingBottom: '18%',
+    alignItems: "center",
+    alignSelf: "center",
+    paddingBottom: "18%",
   },
 
   starContainer: {
     paddingTop: 10,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
-
-
 });

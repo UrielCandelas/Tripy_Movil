@@ -4,7 +4,7 @@ import React from "react";
 import { View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const Sidebar = ({ userNav, HomeNav, RequestNav, TravelsNav,LogoutNav,userName,TravelsConsultNav,ChatNav }) => {
+const Sidebar = ({ userNav, HomeNav, RequestNav, TravelsNav,LogoutNav,userName,TravelsConsultNav }) => {
   return (
     <View style={styles.sidebar}>
       <ScrollView>
@@ -26,12 +26,6 @@ const Sidebar = ({ userNav, HomeNav, RequestNav, TravelsNav,LogoutNav,userName,T
           <View style={styles.object}>
             <Ionicons name="map" size={20} style={styles.images}/>
             <GeneralText text="Consultar viajes" />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={ChatNav} style={styles.section}>
-          <View style={styles.object}>
-            <Ionicons name="md-chatbubbles-sharp" size={20} style={styles.images}/>
-            <GeneralText text="Mensajes" />
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={RequestNav} style={styles.section}>

@@ -134,9 +134,15 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const registerNewCommentary = async (commentary) => {
+  const registerNewCommentary = async (data) => {
+    const review = {
+      commentary_text: data.comentary,
+      rate: data.rating,
+      id_userComented: data.id_userComented,
+      id_userComent: data.id_userComent,
+    }
     try {
-      const res = await registerCommentaries(commentary);
+      const res = await registerCommentaries(review);
       return res.data;
     } catch (error) {
       if (Array.isArray(error.response.data)) {

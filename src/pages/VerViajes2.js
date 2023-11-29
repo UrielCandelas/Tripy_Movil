@@ -10,7 +10,7 @@ import { useRoute } from "@react-navigation/native";
 export default function VerViajes2() {
   const navigation = useNavigation();
   const route = useRoute();
-  const { name, travels, expenses, locations, extras } = route.params;
+  const { name, travels, expenses, locations, extras, userShared} = route.params;
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

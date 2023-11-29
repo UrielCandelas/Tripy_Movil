@@ -36,54 +36,6 @@ export default function Reseñas({ onPress,user,date,comentary,rate }) {
           </Text>
         </View>
       </TouchableOpacity>
-
-      <TouchableOpacity onPress={onPress}>
-        <View style={styles.review}>
-          <View style={styles.container1}>
-            <View style={styles.leftContent}>
-              <Image
-                source={require("../images/Default_pfp.png")}
-                style={styles.roundImage}
-              />
-              <Text style={styles.texto1} onPress={onPress}>
-                Usuario
-              </Text>
-            </View>
-            <Text style={styles.texto3}>
-              4.5 <Ionicons name="star" size={15} color="#FF981F" />
-            </Text>
-          </View>
-          <Text style={styles.texto2}>Fecha</Text>
-          <Text style={styles.texto3}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Pellentesque malesuada eget vitae amet...
-          </Text>
-        </View>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={onPress}>
-        <View style={styles.review}>
-          <View style={styles.container1}>
-            <View style={styles.leftContent}>
-              <Image
-                source={require("../images/Default_pfp.png")}
-                style={styles.roundImage}
-              />
-              <Text style={styles.texto1} onPress={onPress}>
-                Usuario
-              </Text>
-            </View>
-            <Text style={styles.texto3}>
-              4.5 <Ionicons name="star" size={15} color="#FF981F" />
-            </Text>
-          </View>
-          <Text style={styles.texto2}>Fecha</Text>
-          <Text style={styles.texto3}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Pellentesque malesuada eget vitae amet...
-          </Text>
-        </View>
-      </TouchableOpacity>
     </View>
   );
 }
