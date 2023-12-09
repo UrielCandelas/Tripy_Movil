@@ -37,7 +37,7 @@ export default function AddReview() {
         id_userComent: user.id,
         id_userComented: id
       });
-      //navigation.goBack();
+      navigation.goBack();
     } catch (error) {
       console.log(error);
     }

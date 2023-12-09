@@ -91,13 +91,13 @@ export default function EditarMyViajes() {
                 date={travel.travel_date}
                 expenses={expenses_user1[i].quantity}
                 location={locations_user1[i].location_name}
-                killTravel={() => killSomeTravel(travel.id)}
                 onPress={() =>
                   navigation.navigate("PerfilUsuario", {
                     name: usersU1[i].name,
                     id: usersU1[i].id,
                   })
                 }
+                isOwner={true}
               />
             );
           }
@@ -125,6 +125,7 @@ export default function EditarMyViajes() {
                 id: usersU2[i].id,
               })
             }
+            isOwner={false}
           />
         ))}
       </View>

@@ -157,11 +157,17 @@ const TravelProvider = ({ children }) => {
     }
   };
 
-  const getImages = ()=>{
-    const arrimages = [];
-    setImages(arrimages);
-  }
-
+  const getImages = () => {
+    const arrimages = [
+      'https://raw.githubusercontent.com/ElliotFrias/imgsTripy/main/images/defaultTestA.jpg',
+      'https://raw.githubusercontent.com/ElliotFrias/imgsTripy/main/images/defaultTestC.jpg',
+      'https://raw.githubusercontent.com/ElliotFrias/imgsTripy/main/images/defaultTestE.jpg',
+      'https://raw.githubusercontent.com/ElliotFrias/imgsTripy/main/images/defaultTestI.jpg',
+      'https://raw.githubusercontent.com/ElliotFrias/imgsTripy/main/images/defaultTestM.jpg',
+      'https://raw.githubusercontent.com/ElliotFrias/imgsTripy/main/images/defaultTestU.jpg',
+    ]
+    setImages(arrimages)
+  }
   const editSomeTravel = async (travel, id) => {
     try {
       const newTravel = {

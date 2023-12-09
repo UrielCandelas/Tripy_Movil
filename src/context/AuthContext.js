@@ -34,7 +34,7 @@ const AuthProvider = ({ children }) => {
     const confirmPassword = user.confirmPassword;
     const password = user.password;
     if (password != confirmPassword) {
-      setErrors(["No coninciden las 2 contraseñas"]);
+      return setErrors(["No coninciden las 2 contraseñas"]);
     }
     const data = {
       name: user.name,

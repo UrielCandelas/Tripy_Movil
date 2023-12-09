@@ -119,6 +119,7 @@ export default function App() {
           <ScrollView>
             {comentaries?.map((comentary, i) => (
               <Reseñas
+              key={i}
                 onPress={() => navigation.navigate("PerfilUsuario")}
                 comentary={comentary.commentary_text}
                 date={comentary.createdAt}

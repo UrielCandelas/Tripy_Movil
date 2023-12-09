@@ -9,9 +9,9 @@ import React, { useEffect } from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 
-export default function Cards({ onPress,expense,location,date,companions,key }) {
+export default function Cards({ onPress,expense,location,date,companions }) {
   return (
-    <View key={key}>
+    <View>
       <ScrollView horizontal={true}>
           <TouchableOpacity onPress={onPress} >
             <View style={styles.card}>

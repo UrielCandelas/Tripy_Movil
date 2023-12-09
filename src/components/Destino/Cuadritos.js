@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
+import { Image } from 'react-native'
 
 const Cuadritos = ({
   size,
@@ -7,6 +8,7 @@ const Cuadritos = ({
   marginRight,
   marginBottom,
   marginTop,
+  uri2,
 }) => {
   return (
     <View
@@ -21,7 +23,12 @@ const Cuadritos = ({
           marginBottom,
         },
       ]}
-    ></View>
+    >
+      <Image
+        source={{ uri: uri2 }}
+        style={{ width: '100%', height: '100%', borderRadius }}
+      />
+    </View>
   )
 }
 

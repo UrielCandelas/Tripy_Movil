@@ -1,51 +1,45 @@
-import React, { useEffect, useState } from "react";
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  Alert,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import GeneralText from "../components/GeneralComponents/GeneralText";
-import Viaje from "../components/Destino/Viaje";
-import Cuadritos from "../components/Destino/Cuadritos";
-import { StatusBar } from "expo-status-bar";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { useTravels } from "../context/TravelsContext";
-import { useLocations } from "../context/LocationContext";
-import { useAuth } from "../context/AuthContext";
+import React, { useEffect, useState } from 'react'
+import { ScrollView, StyleSheet, Text, View, Button, Alert } from 'react-native'
+import { Ionicons } from '@expo/vector-icons'
+import GeneralText from '../components/GeneralComponents/GeneralText'
+import Viaje from '../components/Destino/Viaje'
+import Cuadritos from '../components/Destino/Cuadritos'
+import { StatusBar } from 'expo-status-bar'
+import { useNavigation, useRoute } from '@react-navigation/native'
+import { useTravels } from '../context/TravelsContext'
+import { useLocations } from '../context/LocationContext'
+import { useAuth } from '../context/AuthContext'
 
 export default function VerViajes1() {
-  const navigation = useNavigation();
-  const route = useRoute();
-  const { id } = route.params;
+  const navigation = useNavigation()
+  const route = useRoute()
+  const { id, uri } = route.params
   const {
     getAllLocationTravelsFunc,
     locationTravels,
     getAllExpensesFunc,
     expenses,
-  } = useTravels();
-  const { getSomeLocation, location } = useLocations();
-  const { getUser, userById, user } = useAuth();
+  } = useTravels()
+  const { getSomeLocation, location } = useLocations()
+  const { getUser, userById, user } = useAuth()
   useEffect(() => {
-    getAllLocationTravelsFunc(id);
-    getSomeLocation(id);
-    getAllExpensesFunc(id);
-    getUser(id);
-  }, []);
-  const names = [];
+    getAllLocationTravelsFunc(id)
+    getSomeLocation(id)
+    getAllExpensesFunc(id)
+    getUser(id)
+  }, [])
+  const names = []
   for (let index = 0; index < userById.length; index++) {
-    names.push(userById[index].name);
+    names.push(userById[index].name)
   }
-  const ex = [];
-  const exName = [];
+  const ex = []
+  const exName = []
   for (let index = 0; index < expenses.length; index++) {
-    ex.push(expenses[index].quantity);
-    exName.push(expenses[index].expense);
+    ex.push(expenses[index].quantity)
+    exName.push(expenses[index].expense)
   }
-  const myId = user.id;
+  const myId = user.id
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <StatusBar style="auto" />
@@ -65,18 +59,7 @@ export default function VerViajes1() {
           borderRadius={10}
           marginRight={20}
           marginTop={20}
-        />
-        <Cuadritos
-          size={70}
-          borderRadius={10}
-          marginRight={20}
-          marginTop={20}
-        />
-        <Cuadritos
-          size={70}
-          borderRadius={10}
-          marginRight={20}
-          marginTop={20}
+          uri2={uri}
         />
       </View>
       <View style={styles.desc}>
@@ -137,7 +120,7 @@ export default function VerViajes1() {
               Date={travel.travel_date}
               Expenses={ex[i]}
               onPress={() =>
-                navigation.navigate("UnirseViaje", {
+                navigation.navigate('UnirseViaje', {
                   name: names[i],
                   companions: travel.companions,
                   expenses: ex[i],
@@ -149,49 +132,48 @@ export default function VerViajes1() {
                 })
               }
             />
-          );
-        }
-        else{
+          )
+        } else {
           return null
         }
       })}
     </ScrollView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#FEFEFE",
-    alignItems: "center",
+    backgroundColor: '#FEFEFE',
+    alignItems: 'center',
   },
   header: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   arrow: {
     marginTop: 60,
     marginLeft: -50,
   },
   row: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   desc: {
     marginLeft: 30,
-    alignSelf: "flex-start",
+    alignSelf: 'flex-start',
   },
   back: {
-    position: "absolute",
+    position: 'absolute',
     top: 0,
     left: 0,
     padding: 16,
-    paddingTop: "15%",
+    paddingTop: '15%',
   },
   texto1: {
     fontSize: 20,
-    fontWeight: "bold",
-    alignSelf: "center",
+    fontWeight: 'bold',
+    alignSelf: 'center',
     top: 0,
     left: 0,
     padding: 16,
-    paddingTop: "20%",
+    paddingTop: '20%',
   },
-});
+})

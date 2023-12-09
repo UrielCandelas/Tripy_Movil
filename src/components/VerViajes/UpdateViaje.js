@@ -2,7 +2,7 @@ import { TouchableOpacity, StyleSheet, Image, Text, View } from "react-native";
 import GeneralText from "../GeneralComponents/GeneralText";
 import React from "react";
 
-export default function Viaje({ Txt, OnPress, color, companions,date,expenses,location, killTravel }) {
+export default function Viaje({ Txt, OnPress, color, companions,date,expenses,location, killTravel,isOwner }) {
   const longText = "Gastos a compartir \n Fecha del viaje\nGastos hasta el momento: $";
   return (
     <View style={styles.container}>
@@ -58,9 +58,11 @@ export default function Viaje({ Txt, OnPress, color, companions,date,expenses,lo
         />
         <Text style={[styles.buttonText, color]}>{Txt}</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.addButton} onPress={killTravel}>
+      {isOwner && (
+        <TouchableOpacity style={styles.addButton} onPress={killTravel}>
         <Text style={styles.addButtonText}>Dar de baja</Text>
       </TouchableOpacity>
+      )}
     </View>
   );
 }
