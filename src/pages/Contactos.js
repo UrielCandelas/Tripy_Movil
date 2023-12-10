@@ -1,31 +1,30 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import GeneralText from "../components/GeneralComponents/GeneralText";
 import Arrowback from "../components/VerViajes/Arrowback";
-import Container from "../components/Contactos/Container";
+
+import ContactsContainer  from '../components/Chat/ContactsContainer';
 import { useNavigation } from "@react-navigation/native";
 import { useTravels } from "../context/TravelsContext";
 import { useAuth } from "../context/AuthContext";
+import { io } from "socket.io-client";
 
 export default function Contactos() {
   const navigation = useNavigation();
-  const { contacts, joinRoom } = useTravels();
-  const { user } = useAuth();
-  const handleSelect = async (id, name, userName) => {
-    const data = {
-      room:
-        user.id > id
-          ? `room-${user.userName}-${userName}`
-          : `room-${userName}-${user.userName}`,
-    };
-    navigation.navigate("Chat", {
-      id: id,
-      name: name,
-      room: data.room,
-    });
-    console.log({ id: id, name: name, room: data.room });
-    await joinRoom(data);
-  };
+  //const socket = useRef();
+  const { user, getUserContacts, contacts } = useAuth();
+  const [currentChat, setCurrentChat] = useState(undefined);
+  /*const host = "http://192.168.0.10:3000";
+  useEffect(() => {
+    if (user) {
+      socket.current = io(host);
+      socket.current.emit("add-user", user.id);
+    }
+  }, [user]);*/
+  useEffect(() => {
+    getUserContacts(user ? user.id : 0);
+  }, []);
+
   return (
     <View style={{ flex: 1, backgroundColor: "#FEFEFE" }}>
       <View style={styles.header}>
@@ -51,20 +50,7 @@ export default function Contactos() {
           />
         </View>
       </View>
-      <ScrollView
-        contentContainerStyle={styles.scrollContainer}
-        showsVerticalScrollIndicator={false}
-      >
-        {contacts?.map((contact, i) => (
-          <Container
-            text={contact.name}
-            onPresshandler={() =>
-              handleSelect(contact.id, contact.name, contact.userName)
-            }
-            key={i}
-          />
-        ))}
-      </ScrollView>
+        <ContactsContainer contacts = {contacts} /*socket = {socket}*//>
     </View>
   );
 }
@@ -86,11 +72,6 @@ const styles = StyleSheet.create({
   arrow: {
     marginTop: 40,
     marginLeft: 10,
-  },
-  scrollContainer: {
-    backgroundColor: "#FEFEFE",
-    alignItems: "center",
-    paddingTop: 120,
   },
   messagecontainer: {
     backgroundColor: "transparent",

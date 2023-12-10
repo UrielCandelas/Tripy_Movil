@@ -1,14 +1,19 @@
 import { useContext, useState, useEffect, createContext } from "react";
 import { setItemAsync, getItemAsync, deleteItemAsync } from "expo-secure-store";
 import {
-  getUserById,
-  login,
   registerUser,
-  verifyTokenRequest,
-  getUsersByRequest,
+  login,
+  verifyToken,
+  logout,
   editUserAcount,
+  getComentariesByID,
   registerCommentaries,
-  getComentariesByID
+  getUserById,
+  getUsersByRequest,
+  getContacts,
+  sendMessage,
+  getUserMessages,
+  verifyTokenRequest,
 } from "../api/auth.js";
 
 export const AuthContext = createContext();
@@ -29,6 +34,8 @@ const AuthProvider = ({ children }) => {
   const [userById, setUserById] = useState([]);
   const [usersByRequest, setUsersByRequest] = useState([]);
   const [commentaries, setCommentaries] = useState([]);
+  const [contacts, setContacts] = useState([])
+  const [messages, setMessages] = useState([])
 
   const signup = async (user) => {
     const confirmPassword = user.confirmPassword;
@@ -164,6 +171,43 @@ const AuthProvider = ({ children }) => {
       setErrors([error.response.data.message]);
     }
   }
+  const getUserContacts = async (id) => {
+    try {
+      const res = await getContacts(id)
+      setContacts(res.data)
+      return res.data
+    } catch (error) {
+      if (Array.isArray(error.response.data)) {
+        return setErrors(error.response.data)
+      }
+      setErrors([error.response.data.message])
+    }
+  }
+  const registerNewMessage = async (data) => {
+    try {
+      const res = await sendMessage(data)
+      return res.data
+    } catch (error) {
+      console.log(error)
+      if (Array.isArray(error.response.data)) {
+        return setErrors(error.response.data)
+      }
+      setErrors([error.response.data.message])
+    }
+  }
+
+  const getMessages = async (data) => {
+    try {
+      const res = await getUserMessages(data)
+      setMessages(res.data)
+      return res.data
+    } catch (error) {
+      if (Array.isArray(error.response.data)) {
+        return setErrors(error.response.data)
+      }
+      setErrors([error.response.data.message])
+    }
+  }
   useEffect(() => {
     async function checklogin() {
       const store = await getItemAsync("token");
@@ -189,7 +233,8 @@ const AuthProvider = ({ children }) => {
         setIsAuthenticated(false);
         setUser(null);
         setLoading(false);
-        setErrors(error.response.data);
+        setErrors(error.data);
+        console.log(error)
       }
     }
     checklogin();
@@ -205,6 +250,12 @@ const AuthProvider = ({ children }) => {
         userById,
         usersByRequest,
         commentaries,
+        contacts,
+        messages,
+        setMessages,
+        getUserContacts,
+        getMessages,
+        registerNewMessage,
         getUserRequest,
         getUser,
         signup,

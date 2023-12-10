@@ -40,6 +40,7 @@ export default function LandPage() {
             TravelsConsultNav={() => navigation.navigate("EditarMyViajes")}
             RequestNav={()=>navigation.navigate("Solicitudes")}
             TravelsNav={()=>navigation.navigate("CrearViaje")}
+            ChatNav={()=>navigation.navigate("Contactos")}
             LogoutNav={logoutUser}
           />
         )}

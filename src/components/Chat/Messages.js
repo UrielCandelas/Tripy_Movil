@@ -32,6 +32,6 @@ const styles = StyleSheet.create({
     position: 'relative',
     marginTop: 10,
     fontSize: 10,
-    alignSelf: 'flex-end', // Align the date to the right
+    alignSelf: 'flex-end',
   },
 });
