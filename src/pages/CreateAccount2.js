@@ -3,7 +3,9 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert,
 } from "react-native";
+import Toast from "react-native-toast-message";
 import React, { useState, useEffect } from "react";
 import GeneralButton2 from "../components/GeneralComponents/GeneralButton2";
 import GeneralLittleTxt from "../components/GeneralComponents/GeneralLittleTxt";
@@ -15,7 +17,7 @@ import Loading from "../components/Loading/Loading";
 import { useTranslation } from "react-i18next";
 
 export default function CreateAccount2() {
-  const { signup, isAuthenticated } = useAuth();
+  const { signup, isAuthenticated, errors: registerErrors } = useAuth();
   const navigation = useNavigation();
   const route = useRoute();
   const data = route.params;
@@ -23,7 +25,7 @@ export default function CreateAccount2() {
     if (isAuthenticated) {
       navigation.navigate("LandPage");
     }
-  },[isAuthenticated])
+  }, [isAuthenticated]);
 
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -33,6 +35,25 @@ export default function CreateAccount2() {
     Keyboard.dismiss();
   };
   const handleSubmit = () => {
+    if (
+      userName === "" ||
+      email === "" ||
+      password === "" ||
+      confirmPassword === "" ||
+      userName === " " ||
+      email === " " ||
+      password === " "
+    ) {
+      Toast.show({
+        type: "error",
+        text1: "Ocurrio un error",
+        text2: "Por favor rellene todos los campos",
+        visibilityTime: 3000,
+        position: "bottom",
+        bottomOffset: 50,
+      });
+      return;
+    }
     signup({
       name: data.name,
       lastName: data.lastName,
@@ -43,10 +64,20 @@ export default function CreateAccount2() {
       confirmPassword,
     });
   };
+  registerErrors.forEach((error, index) => {
+    Toast.show({
+      type: "error",
+      text1: "Ocurrio un error",
+      text2: error,
+      visibilityTime: 3000,
+      position: "bottom",
+      bottomOffset: 50,
+    });
+  });
   const {t, i18n} = useTranslation();
   return (
     <View style={styles.centeredContainer}>
-      <GeneralTxt Txt={t('CreateAccount')} style={{ width: 175 }} />
+      <GeneralTxt Txt="Crear cuenta" style={{ width: 175 }} />
       <GeneralLittleTxt
         Txt={t('PersonalInfo')}
         marginTop={-150}
@@ -66,6 +97,7 @@ export default function CreateAccount2() {
         <AnimatedInput
           label={t('Email')}
           duration={300}
+          keyboardType={"email-address"}
           width={"70%"}
           height={60}
           onChange={setEmail}

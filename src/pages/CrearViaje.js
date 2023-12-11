@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import DateTimePicker from "@react-native-community/datetimepicker";
+//import DateTimePicker from "@react-native-community/datetimepicker";
+//import DatePicker from "react-native-date-picker";
+import DatePicker from "react-native-modern-datepicker";
+import { getToday,getFormatedDate } from "react-native-modern-datepicker";
 import GeneralButton from "../components/GeneralComponents/GeneralButton";
 import {
   StyleSheet,
@@ -11,6 +14,7 @@ import {
   TouchableOpacity,
   TextInput,
   Alert,
+  Modal,
 } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import { Ionicons } from "@expo/vector-icons";
@@ -23,6 +27,8 @@ import { useTranslation } from "react-i18next";
 
 export default function () {
   const navigation = useNavigation();
+  const today = new Date()
+  const startdate = getFormatedDate(today.setDate(today.getDate() + 1), "YYYY-MM-DD");
   const { locations, getLocations } = useLocations();
   const { user } = useAuth();
   const { registerNewTravelFunc, transports, getTransports } = useTravels();
@@ -53,10 +59,10 @@ export default function () {
   const [quantity, setQuantity] = useState("");
   const [companions, setCompanions] = useState("");
   const [extra, setExtra] = useState("");
-  const [travel_date, setTravel_date] = useState(new Date());
+  const [travel_date, setTravel_date] = useState(startdate);
   const [typeOfExpenses, setTypeOfExpenses] = useState("");
   const [typeTransportation, setTypeTransportation] = useState(null);
-  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleSubmit = async () => {
     try {
@@ -100,12 +106,20 @@ export default function () {
     maxDate.setFullYear(maxDate.getFullYear() + 1);
     return maxDate;
   };
-  const onChangeDate = (selectedDate) => {
+  /*const onChangeDate = (selectedDate) => {
     const currentDate = selectedDate.nativeEvent.timestamp
       ? new Date(selectedDate.nativeEvent.timestamp)
       : new Date();
     setShowDatePicker(Platform.OS === "ios");
     setTravel_date(currentDate);
+  };*/
+
+  const handleDateChange = (date) => {
+    setTravel_date(date);
+  }
+
+  const handleOpen = () => {
+    setOpen(!open);
   };
 const {t, i18next} = useTranslation();
   return (
@@ -165,31 +179,33 @@ const {t, i18next} = useTranslation();
                   name="calendar-sharp"
                   size={24}
                   color="black"
-                  onPress={() => setShowDatePicker(true)}
+                  onPress={handleOpen}
                 />
                 <GeneralButton
-                  text={travel_date.toLocaleDateString()}
-                  onPressHandler={() => setShowDatePicker(true)}
+                  text={travel_date}
+                  onPressHandler={handleOpen}
                   width={100}
                   height={40}
                   padding={5}
                 />
               </View>
 
-              {showDatePicker && (
-                <DateTimePicker
-                  testID="dateTimePicker"
-                  value={travel_date}
-                  mode="date"
-                  is24Hour={true}
-                  display="spinner"
-                  onChange={onChangeDate}
-                  minimumDate={new Date()}
-                  maximumDate={new Date().setFullYear(
-                    new Date().getFullYear() + 1
-                  )}
-                />
-              )}
+              <Modal animationType="slide" transparent={true} visible={open}>
+                <View style={styles.centeredView}>
+                  <View style={styles.modalView}>
+                    <DatePicker
+                      mode="calendar"
+                      minimumDate={startdate}
+                      selected={travel_date}
+                      onDateChange={handleDateChange}
+                    />
+                    <GeneralButton
+                      text={"Cerrar"}
+                      onPressHandler={handleOpen}
+                    />
+                  </View>
+                </View>
+              </Modal>
             </SafeAreaView>
           </View>
 
@@ -383,5 +399,27 @@ const styles = StyleSheet.create({
     borderColor: "#8F959E",
     fontSize: 16,
     height: 107,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    width: "90%",
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
 });

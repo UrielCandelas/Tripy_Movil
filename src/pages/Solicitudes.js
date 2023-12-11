@@ -12,17 +12,23 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import Soli from "../components/Soli";
 import { useTravels } from "../context/TravelsContext";
+import { useAuth } from "../context/AuthContext";
 import { useTranslation } from "react-i18next";
 
 const Solicitudes = () => {
   const navigation = useNavigation();
-  //const { user, getUserRequest, usersByRequest } = useAuth();
-  const { datosDesdeBD, sendResponse, addTravelSecondUser,deleteRequest } = useTravels();
-  //const { getLocationByTravelID, locationByTravel } = useLocations();
-  const requests = datosDesdeBD.request;
-  const travels = datosDesdeBD.travels;
-  const locations = datosDesdeBD.locations;
-  const users = datosDesdeBD.users;
+  const { user } = useAuth();
+  const { getUserRequest, setRequests, requests,addTravelSecondUser,deleteRequest } = useTravels();
+
+  useEffect(() => {
+    getUserRequest(user ? user.id : 0);
+  },[])
+
+  const request = requests.request;
+  const travels = requests.travels;
+  const locations = requests.locations;
+  const users = requests.users;
+
   const handleAccept = async (data) => {
     try {
       Alert.alert(
@@ -37,6 +43,7 @@ const Solicitudes = () => {
             text: "Confirmar",
             onPress: async () => {
               await addTravelSecondUser(data);
+              navigation.navigate("LandPage")
             },
           },
         ],
@@ -89,7 +96,7 @@ const Solicitudes = () => {
 
       <SafeAreaView>
         <ScrollView>
-          {requests?.map((data, i) => {
+          {request?.map((data, i) => {
             if (data.isActive) {
               return (
                 <Soli
