@@ -13,6 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import Soli from "../components/Soli";
 import { useTravels } from "../context/TravelsContext";
 import { useAuth } from "../context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 const Solicitudes = () => {
   const navigation = useNavigation();
@@ -54,16 +55,20 @@ const Solicitudes = () => {
   };
   const handleDecline = (data) => {
     try {
+      const cancelText = t("Cancel");
+      const confirmText = t("Confirm");
       Alert.alert(
         "Eliminar Solicitud",
         "¿Estás seguro de que quieres eliminar la solicitud de este usuario?",
         [
           {
-            text: "Cancelar",
+            text: cancelText,
+            //text: "Cancel"
             style: "cancel",
           },
           {
-            text: "Confirmar",
+            text: confirmText,
+            //text: "Confirmar"
             onPress: async () => {
               await deleteRequest(data);
             },
@@ -75,6 +80,7 @@ const Solicitudes = () => {
       console.log(error);
     }
   };
+  const {t, i18next} = useTranslation();
   return (
     <View style={styles.crearViaje}>
       <StatusBar style="auto" />
@@ -86,7 +92,7 @@ const Solicitudes = () => {
         onPress={() => navigation.goBack()}
       />
 
-      <Text style={styles.texto1}>Solicitudes</Text>
+      <Text style={styles.texto1}>{t("SideBarRequests")}</Text>
 
       <SafeAreaView>
         <ScrollView>

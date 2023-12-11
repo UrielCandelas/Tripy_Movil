@@ -7,13 +7,14 @@ import Arrowback from "../components/VerViajes/Arrowback";
 import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
 import { useAuth } from "../context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 export default function VerViajes1() {
   const navigation = useNavigation();
   const route = useRoute();
   const { user } = useAuth();
   const { travels, extras, locations, expenses,name } = route.params;
-
+  const {t, i18n} = useTranslation();
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
@@ -39,7 +40,7 @@ export default function VerViajes1() {
         color="#1D1E20"
         size={17}
         height={18}
-        text="Ver Viajes"
+        text={t("ViewTrips")}
         marginTop={50}
         marginBottom={20}
       />

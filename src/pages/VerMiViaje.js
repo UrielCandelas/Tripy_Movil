@@ -5,7 +5,8 @@ import GeneralText from '../components/GeneralComponents/GeneralText'
 import GeneralButton from '../components/GeneralComponents/GeneralButton'
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
-import { useRoute } from '@react-navigation/native'
+import { useRoute } from '@react-navigation/native';
+import { useTranslation } from "react-i18next";
 
 export default function VerMiViaje() {
   const windowWidth = Dimensions.get('window').width
@@ -19,6 +20,7 @@ export default function VerMiViaje() {
     extras,
     isActive,
   } = route.params;
+  const {t, i18n} = useTranslation();
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
@@ -37,20 +39,20 @@ export default function VerMiViaje() {
         </Svg>
       </View>
       <GeneralText text={location} color="#1D1E20" fontWeight="bold" marginBottom={20} size={20}/>
-      <GeneralText text="Se comparten los gastos de" color="#1D1E20" size={20}/>
+      <GeneralText text={t("ShareSpent")} color="#1D1E20" size={20}/>
       <GeneralText text={expenses_name} color="#176B87" size={20} marginBottom={-25} marginTop={5}/>
       <Image source={require('../images/userIcon.png')} style={styles.image} />
-      <GeneralText text="maximo de personas en el viaje" color="#1D1E20" size={20}/>
+      <GeneralText text={t("MaxPerson")} color="#1D1E20" size={20}/>
       <GeneralText text={`#${companions}`} color="#176B87" size={20}/>
-      <GeneralText text="Gasto total Aproximado" color="#1D1E20" size={20}/>
+      <GeneralText text={t("TotalCost2")} color="#1D1E20" size={20}/>
       <GeneralText text={`$${expenses}`} color="#176B87" size={20}/>
-      <GeneralText text="Gastos totales hasta el momento" color="#1D1E20" size={20}/>
+      <GeneralText text={t("Total")} color="#1D1E20" size={20}/>
       <GeneralText text={`$${expenses}`} color="#176B87" size={20}/>
-      <GeneralText text="Requisitos Extra" color="#1D1E20" marginBottom={5}  size={20}/>
+      <GeneralText text={t("XRequests")} color="#1D1E20" marginBottom={5}  size={20}/>
       <GeneralText text={extras} color="#1D1E20" marginBottom={"61%"} size={20}/>
       {isActive?
       <GeneralButton
-      text="Eliminar viaje"
+      text={t("Delete")}
       colorText="#FEFEFE"
       colorBg="#64CCC5"
       padding={20}

@@ -5,6 +5,8 @@ import GeneralButton2 from "../components/GeneralComponents/GeneralButton2";
 import GeneralLittleTxt from "../components/GeneralComponents/GeneralLittleTxt";
 import GeneralTxt from "../components/GeneralComponents/GeneralTxt";
 import AnimatedInput from "../components/AnimatedInput";
+import { useTranslation } from "react-i18next";
+
 
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../context/AuthContext";
@@ -53,14 +55,14 @@ export default function Inicio() {
   },[loginErrors])
   return (
     <View style={styles.centeredContainer}>
-      <GeneralTxt Txt="Iniciar sesión" style={{ width: 175 }} />
+      <GeneralTxt Txt={t('Login2')} style={{ width: 175 }} />
       <GeneralLittleTxt
-        Txt="Ingresa tus datos para continuar"
+        Txt={t('EnterDetails')}
         style={{ marginTop: -150, marginBottom: 20 }}
       />
       <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
         <AnimatedInput
-          label="Correo electrónico"
+          label={t('Email')}
           duration={300}
           width={"70%"}
           height={60}
@@ -71,7 +73,7 @@ export default function Inicio() {
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
         <AnimatedInput
-          label="Contraseña"
+          label={t('Password')}
           duration={300}
           width={"70%"}
           height={60}
@@ -81,7 +83,7 @@ export default function Inicio() {
         />
       </TouchableWithoutFeedback>
       <GeneralButton2
-        Txt="Continuar"
+        Txt={t('Continue')}
         style={{
           backgroundColor: "#64CCC5",
           marginTop: 50,

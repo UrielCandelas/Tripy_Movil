@@ -28,6 +28,8 @@ import AuthProvider from "./src/context/AuthContext.js";
 import LocationProvider from "./src/context/LocationContext.js";
 import TravelProvider from "./src/context/TravelsContext.js";
 
+import i18n from "./src/languages/i18n";
+
 export default function App() {
   const Stack = createNativeStackNavigator();
   StatusBar.setBackgroundColor("#64CCC5");

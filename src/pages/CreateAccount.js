@@ -13,6 +13,7 @@ import GeneralTxt from "../components/GeneralComponents/GeneralTxt";
 import AnimatedInput from "../components/AnimatedInput";
 import { useAuth } from "../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 
 export default function CreateAccount() {
   const navigation = useNavigation();
@@ -47,15 +48,15 @@ export default function CreateAccount() {
   };
   return (
     <View style={styles.centeredContainer}>
-      <GeneralTxt Txt="Crear cuenta" style={{ width: 175 }} />
+      <GeneralTxt Txt={t('CreateAccount')} style={{ width: 175 }} />
       <GeneralLittleTxt
-        Txt="Información Personal"
+        Txt={t('PersonalInfo')}
         marginTop={-150}
         marginBottom={20}
       />
       <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
         <AnimatedInput
-          label="Nombre(s)"
+          label={t('Name')}
           duration={300}
           width={"70%"}
           height={60}
@@ -65,7 +66,7 @@ export default function CreateAccount() {
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
         <AnimatedInput
-          label="Apellido Paterno"
+          label={t('LastName1')}
           duration={300}
           width={"70%"}
           height={60}
@@ -76,7 +77,7 @@ export default function CreateAccount() {
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
         <AnimatedInput
-          label="Apellido Materno"
+          label={t('LastName2')}
           duration={300}
           width={"70%"}
           height={60}
@@ -86,7 +87,7 @@ export default function CreateAccount() {
         />
       </TouchableWithoutFeedback>
       <GeneralButton2
-        Txt="Continuar"
+        Txt={t('Continue')}
         style={{
           backgroundColor: "#64CCC5",
           marginTop: 50,

@@ -17,6 +17,7 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
 import { useTravels } from "../context/TravelsContext";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function App() {
   const navigation = useNavigation();
@@ -39,7 +40,7 @@ export default function App() {
   const expenses = travelsInactive.expenses;
   const locations = travelsInactive.locations;
   const extras = travelsInactive.extras;
-
+  const {t, i18n} = useTranslation();
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -64,11 +65,11 @@ export default function App() {
           style={styles.texto2}
           onPress={() => navigation.navigate("EditarPerfil")}
         >
-          Editar perfil
+          {t("EditProfile")}
         </Text>
 
         <View style={styles.container1}>
-          <Text style={styles.texto3}>Mis viajes</Text>
+          <Text style={styles.texto3}>{t("MyTrips")}</Text>
           <Text
             style={styles.texto4}
             onPress={() =>
@@ -81,7 +82,7 @@ export default function App() {
               })
             }
           >
-            Ver todo
+            {t("Xtra")}
           </Text>
         </View>
 

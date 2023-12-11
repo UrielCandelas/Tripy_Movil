@@ -8,6 +8,7 @@ import Loading from "../components/Loading/Loading";
 import { useAuth } from "../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
 import { ActivityIndicator } from "react-native-paper";
+import { useTranslation } from "react-i18next";
 
 export default function Home() {
   const navigation = useNavigation();
@@ -17,24 +18,24 @@ export default function Home() {
       navigation.navigate("LandPage");
     }
   }, [isAuthenticated]);
-
+  const  {t, i18n} = useTranslation();
   return (
     <View>
-          <GeneralTxt Txt="Bienvenido a Tripy" />
+          <GeneralTxt Txt={t('WelcomeText')} />
           <GeneralButton2
-        Txt="Crear una cuenta"
+        Txt={t('CreateAccount')}
         color="white"
         onPress={() => {
           navigation.navigate("CreateAccount");
         }}
       />
       <GeneralLittleTxt
-        Txt="¿Ya tienes una cuenta?"
+        Txt={t('Login1')}
         marginTop={20}
         marginBottom={20}
       />
       <GeneralButton2
-        Txt="Iniciar sesión"
+        Txt={t('Login2')}
         style={{ backgroundColor: "#DAFFFB" }}
         onPress={() => {
           navigation.navigate("Inicio");

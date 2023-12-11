@@ -13,6 +13,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function EditarPerfil() {
   const { user, editAcount } = useAuth();
@@ -22,6 +23,7 @@ export default function EditarPerfil() {
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [userName, setUserName] = useState("");
   const [newEmail, setNewEmail] = useState("");
+
 
   const handleSubmit = async () => {
     if ((!password || !newPassword || !confirmNewPassword || !userName || !newEmail)) {
@@ -43,7 +45,7 @@ export default function EditarPerfil() {
       console.error(error);
     }
   };
-
+  const {t, i18next} = useTranslation();
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
@@ -55,7 +57,7 @@ export default function EditarPerfil() {
         onPress={() => navigation.goBack()}
       />
 
-      <Text style={styles.edit}>Editar perfil</Text>
+      <Text style={styles.edit}>{t("EditProfile")}</Text>
 
       <Image
         source={require("../images/Default_pfp.png")}
@@ -73,20 +75,20 @@ export default function EditarPerfil() {
           }}
           onPress={handleSubmit}
         >
-          <Text style={styles.texto5}>Guardar cambios</Text>
+          <Text style={styles.texto5}>{t("SaveChanges")}</Text>
         </TouchableOpacity>
       </View>
       <SafeAreaView
         style={{ width: "92%", alignSelf: "center", paddingTop: 20 }}
       >
-        <Text style={styles.texto6}>Usuario</Text>
+        <Text style={styles.texto6}>{t("User")}</Text>
         <TextInput
           style={styles.input}
           placeholder={user.userName}
           onChangeText={setUserName}
           value={userName}
         />
-        <Text style={styles.texto6}>Correo electrónico</Text>
+        <Text style={styles.texto6}>{t("Email")}</Text>
         <TextInput
           style={styles.input}
           keyboardType="email-address"
@@ -94,21 +96,21 @@ export default function EditarPerfil() {
           onChangeText={setNewEmail}
           value={newEmail}
         />
-        <Text style={styles.texto6}>Contraseña anterior</Text>
+        <Text style={styles.texto6}>{t("OldPassword")}</Text>
         <TextInput
           style={styles.input}
           secureTextEntry={true} 
           onChangeText={setPassword}
           value={password}
         />
-        <Text style={styles.texto6}>Nueva contraseña</Text>
+        <Text style={styles.texto6}>{t("NewPassword")}</Text>
         <TextInput
           style={styles.input}
           secureTextEntry={true}  
           onChangeText={setNewPassword}
           value={newPassword}
         />
-        <Text style={styles.texto6}>Confirmar nueva contraseña</Text>
+        <Text style={styles.texto6}>{t("ConfirmNewPassword")}</Text>
         <TextInput
           style={styles.input}
           secureTextEntry={true} 
@@ -117,7 +119,7 @@ export default function EditarPerfil() {
         />
       </SafeAreaView>
       {user.isAdmin && (
-        <Text style={styles.eliminar}>Eliminar cuenta</Text>
+        <Text style={styles.eliminar}>{t("DeleteAccount")}</Text>
       )}
     </View>
   );

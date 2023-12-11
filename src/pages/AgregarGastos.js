@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, ScrollView, SafeAreaView, Button, TouchableOpacity, TextInput} from "react-native";
 import { Dropdown } from 'react-native-element-dropdown';
 import { Ionicons } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 
 
 const data = [
@@ -18,7 +19,7 @@ export default function({navigation}) {
     const [value, setValue] = useState(null)
 
 
-    
+  const {t, i18n} = useTranslation();
   return (
 
       <View style={styles.container}>
@@ -31,12 +32,12 @@ export default function({navigation}) {
           onPress={()=> navigation.goBack()}
         />
         
-        <Text style={styles.texto1}>Añadir gasto</Text>
+        <Text style={styles.texto1}>{t("Add2")}</Text>
 
         <View>
 
         <View style={styles.container1}>
-        <Text style={styles.texto5}>¿A qué viaje deseas añadir el gasto?</Text>
+        <Text style={styles.texto5}>{t("AddExpense")}</Text>
         <SafeAreaView>
         <Dropdown
         style={styles.dropdown}
@@ -48,7 +49,7 @@ export default function({navigation}) {
         maxHeight={300}
         labelField="label"
         valueField="value"
-        placeholder="Selecciona un viaje"
+        placeholder={t("SelectTrip")}
         searchPlaceholder="Buscar"
         value={value}
         onChange={item => {
@@ -59,7 +60,7 @@ export default function({navigation}) {
         </View>
 
         <View style={styles.container1}>
-        <Text style={styles.texto5}>Número de usuarios entre los que se divide</Text>
+        <Text style={styles.texto5}>{t("UserNumber2")}</Text>
         <SafeAreaView>
         <TextInput style={styles.input}
         />
@@ -67,11 +68,11 @@ export default function({navigation}) {
         </View>
 
         <View style={styles.container1}>
-        <Text style={styles.texto5}>Usuarios</Text>
+        <Text style={styles.texto5}>{t("Users")}:</Text>
         </View>
 
         <View style={styles.container1}>
-        <Text style={styles.texto5}>Gasto por usuario</Text>
+        <Text style={styles.texto5}>{t("ExpensesPerUser")}</Text>
         <SafeAreaView>
         <TextInput style={styles.input} 
         />
@@ -91,7 +92,7 @@ export default function({navigation}) {
           bottom: 0,
           alignItems: 'center',
         }} onPress={()=>navigation.goBack()}>
-        <Text style={styles.texto6}>Añadir</Text>
+        <Text style={styles.texto6}>{t("Add")}</Text>
       </TouchableOpacity>
 
         </View>
