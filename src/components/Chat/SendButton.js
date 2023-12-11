@@ -19,8 +19,8 @@ export default function SendButton({ style, filcolor, onPresshandler }) {
 const styles = StyleSheet.create({
   circle: {
     padding: 10,
-    marginLeft: '40%',
-    margin: 10
-     
+    right: 10,
+    margin: 10,
+    position: 'absolute',
   }
 });

@@ -98,6 +98,7 @@ export default function EditarMyViajes() {
                     id: usersU1[i].id,
                   })
                 }
+                killTravel={() => killSomeTravel(travel.id)}
                 isOwner={true}
               />
             );

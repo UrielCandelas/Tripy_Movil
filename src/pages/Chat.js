@@ -189,5 +189,6 @@ const styles = StyleSheet.create({
     borderTopColor: "#E8E8E8",
     display: "flex",
     flexDirection: "row",
+    marginTop: 20,
   },
 });
