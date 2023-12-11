@@ -15,6 +15,7 @@ import { useTravels } from "../context/TravelsContext";
 import { useAuth } from "../context/AuthContext";
 import ChatContainer from "../components/Chat/ChatContainer";
 import { io } from "socket.io-client";
+import { useTranslation } from "react-i18next";
 
 export default function Chat() {
   const navigation = useNavigation();
@@ -92,7 +93,7 @@ export default function Chat() {
     arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
     scrollToBottom();
   }, [arrivalMessage]);
-
+const {t, i18next} = useTranslation();
   return (
     <View style={{ flex: 1, backgroundColor: "#FEFEFE" }}>
       <View style={styles.header}>
@@ -150,7 +151,7 @@ export default function Chat() {
       </ScrollView>
       <View style={styles.messagecontainer}>
         <InputChat
-          placeholder={"Escribe un mensaje..."}
+          placeholder={t("PlaceHolderChat")}
           onChangeText={setMessage}
           value={message}
         />

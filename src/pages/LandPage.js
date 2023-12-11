@@ -9,6 +9,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { useAuth } from "../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 
 
 
@@ -21,13 +22,14 @@ export default function LandPage() {
     await logout();
     navigation.navigate("Bienvenido");
   }
+  const {t, i18next} = useTranslation();
   return (
       <ScrollView>
       <View style={styles.view}>
         <View style = {styles.view2}>
         <StatusBar style="auto" />
         <GeneralTxt
-          Txt="Bienvenido a Tripy"
+          Txt={t("WelcomeText")}
           style={{ width: "100%", fontSize: 30, textAlign: "left" }}
         />
         <Ionicons name="menu" size={30} style={{ marginLeft: 50 }} onPress={() => setVisible(!visible)}/>
@@ -47,7 +49,7 @@ export default function LandPage() {
         <SearchBar />
         <View>
         <GeneralLittleTxt
-          Txt="Escoge un destino"
+          Txt={t("ChooseDestination")}
           style={{
             width: "100%",
             fontSize: 20,

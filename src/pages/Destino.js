@@ -9,6 +9,7 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import { useTravels } from '../context/TravelsContext'
 import { useLocations } from '../context/LocationContext'
 import { useAuth } from '../context/AuthContext'
+import { useTranslation } from 'react-i18next'
 
 export default function VerViajes1() {
   const navigation = useNavigation()
@@ -39,7 +40,7 @@ export default function VerViajes1() {
     exName.push(expenses[index].expense)
   }
   const myId = user.id
-
+  const {t, i18next} = useTranslation();
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <StatusBar style="auto" />
@@ -67,7 +68,7 @@ export default function VerViajes1() {
           color="#1D1E20"
           size={17}
           height={18}
-          text="Descripción:"
+          text={t("Description")}
           marginTop={50}
         />
         <GeneralText
@@ -82,7 +83,7 @@ export default function VerViajes1() {
           color="#1D1E20"
           size={17}
           height={18}
-          text="Ubicación:"
+          text={t("Location")}
           marginTop={20}
         />
         <GeneralText
@@ -97,7 +98,7 @@ export default function VerViajes1() {
           color="#1D1E20"
           size={17}
           height={18}
-          text="Horario:"
+          text={t("Schedule")}
           marginTop={20}
         />
         <GeneralText

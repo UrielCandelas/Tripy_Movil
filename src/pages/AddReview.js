@@ -14,7 +14,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../context/AuthContext";
 import { useRoute } from "@react-navigation/native";
-
+import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function AddReview() {
@@ -42,9 +42,9 @@ export default function AddReview() {
       console.log(error);
     }
   };
-
+const {t, i18next} = useTranslation();
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <StatusBar style="auto" />
       <Ionicons
         style={styles.back}
@@ -54,19 +54,19 @@ export default function AddReview() {
         onPress={() => navigation.goBack()}
       />
 
-      <Text style={styles.texto1}>Añadir reseña</Text>
+      <Text style={styles.texto1}>{t("AddReview")}</Text>
 
-      <Text style={styles.texto5}>¿Cómo fue tu experiencia?</Text>
+      <Text style={styles.texto5}>{t("Question")}</Text>
       <SafeAreaView style={styles.input}>
         <TextInput
           style={{ padding: 8 }}
-          placeholder="Describe tu experiencia con este usuario"
+          placeholder={t("UserDescription")}
           value={comentary}
           onChangeText={setComentary}
         />
       </SafeAreaView>
 
-      <Text style={styles.texto5}>Calificación</Text>
+      <Text style={styles.texto5}>{t("Qualification")}</Text>
 
       <View style={styles.container3}>
         <View style={styles.starContainer}>
@@ -93,13 +93,15 @@ export default function AddReview() {
           width: "100%",
           justifyContent: "center",
           height: 75,
-          bottom: 0,
           alignItems: "center",
+          position: 'absolute',
+          bottom: 0,
         }}
         onPress={handleSubmit}
       >
-        <Text style={styles.texto6}>Enviar reseña</Text>
-      </TouchableOpacity>
+  <Text style={styles.texto6}>{t("SendReview")}</Text>
+</TouchableOpacity>
+
     </View>
   );
 }

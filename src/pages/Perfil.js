@@ -16,6 +16,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useTravels } from "../context/TravelsContext";
 import { useAuth } from "../context/AuthContext";
 import { useRoute } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 
 export default function App() {
   const navigation = useNavigation();
@@ -36,6 +37,7 @@ export default function App() {
   const expenses = travelsInactive.expenses;
   const locations = travelsInactive.locations;
   const extras = travelsInactive.extras;
+  const {t, i18n} = useTranslation();
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -56,7 +58,7 @@ export default function App() {
         />
 
         <View style={styles.container1}>
-          <Text style={styles.texto3}>Viajes</Text>
+          <Text style={styles.texto3}>{t("Trips")}</Text>
           <Text
             style={styles.texto4}
             onPress={() =>
@@ -69,7 +71,7 @@ export default function App() {
               })
             }
           >
-            Ver todo
+           {t("Xtra")}
           </Text>
         </View>
 
@@ -104,7 +106,7 @@ export default function App() {
 
         <View style={{ paddingTop: 15 }}>
           <View style={styles.container1}>
-            <Text style={styles.texto3}>Reseñas</Text>
+            <Text style={styles.texto3}>{t("Review")}</Text>
             <View style={{ paddingRight: 16 }}>
               <TouchableOpacity
                 style={{
@@ -119,7 +121,7 @@ export default function App() {
                     id:id
                 })}
               >
-                <Text style={styles.texto5}>Agregar reseña</Text>
+                <Text style={styles.texto5}>{t("AddReview")}</Text>
               </TouchableOpacity>
             </View>
           </View>

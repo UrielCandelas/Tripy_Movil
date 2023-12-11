@@ -19,6 +19,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useLocations } from "../context/LocationContext";
 import { useTravels } from "../context/TravelsContext";
 import { useAuth } from "../context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 export default function () {
   const navigation = useNavigation();
@@ -70,15 +71,15 @@ export default function () {
         companions: parseInt(companions),
       };
       Alert.alert(
-        "Crear Viaje",
-        "¿Estás seguro de que quieres crear un viaje?",
+        t("SideBarNewTrip"),
+        t("AlertQuestion"),
         [
           {
-            text: "Cancelar",
+            text: t("Cancel"),
             style: "cancel",
           },
           {
-            text: "Confirmar",
+            text: t("Confirm"),
             onPress: async () => {
               const res = await registerNewTravelFunc(newTravel);
               navigation.navigate("LandPage");
@@ -89,7 +90,7 @@ export default function () {
       );
       //console.log(newTravel)
     } catch (error) {
-      Alert.alert("Ha ocurrido un error: " + error);
+      Alert.alert(t("AlertError") + error);
       console.log(error);
     }
   };
@@ -106,7 +107,7 @@ export default function () {
     setShowDatePicker(Platform.OS === "ios");
     setTravel_date(currentDate);
   };
-
+const {t, i18next} = useTranslation();
   return (
     <View style={styles.container}>
       <StatusBar style="auto" backgroundColor="#64CCC5" />
@@ -118,11 +119,11 @@ export default function () {
           color="black"
           onPress={() => navigation.goBack()}
         />
-        <Text style={styles.texto1}>Crear viaje</Text>
+        <Text style={styles.texto1}>{t("SideBarNewTrip")}</Text>
 
         <View>
           <View style={styles.container1}>
-            <Text style={styles.texto5}>Destino</Text>
+            <Text style={styles.texto5}>{t("Destination")}</Text>
             <SafeAreaView>
               <Dropdown
                 style={styles.dropdown}
@@ -134,7 +135,7 @@ export default function () {
                 maxHeight={300}
                 labelField="label"
                 valueField="value"
-                placeholder="Selecciona un destino"
+                placeholder={t("DestinationPlaceholder")}
                 searchPlaceholder="Buscar"
                 value={value}
                 onChange={setValue}
@@ -143,7 +144,7 @@ export default function () {
           </View>
 
           <View style={styles.container1}>
-            <Text style={styles.texto5}>Costo total aproximado</Text>
+            <Text style={styles.texto5}>{t("TotalCost")}</Text>
             <SafeAreaView>
               <TextInput
                 style={styles.input}
@@ -156,7 +157,7 @@ export default function () {
           </View>
 
           <View style={styles.container1}>
-            <Text style={styles.texto5}>Fecha del inicio del viaje</Text>
+            <Text style={styles.texto5}>{t("InitialDate")}</Text>
             <SafeAreaView>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Ionicons
@@ -193,7 +194,7 @@ export default function () {
           </View>
 
           <View style={styles.container1}>
-            <Text style={styles.texto5}>Gastos a compartir</Text>
+            <Text style={styles.texto5}>{t("Spent")}</Text>
 
             <View style={styles.radioButtonContainer}>
               <RadioButton.Group
@@ -202,12 +203,12 @@ export default function () {
               >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <RadioButton value="Transporte" color="#001C30" />
-                  <Text>Transporte</Text>
+                  <Text>{t("Transport")}</Text>
                 </View>
 
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <RadioButton value="Estancia" color="#001C30" />
-                  <Text>Estancia</Text>
+                  <Text>{t("Stay")}</Text>
                 </View>
               </RadioButton.Group>
               {typeOfExpenses === "Transporte" ? (
@@ -235,7 +236,7 @@ export default function () {
           </View>
           <View style={styles.container1}>
             <Text style={styles.texto5}>
-              Número de usuarios que se pueden unir al viaje
+              {t("UserNumber")}
             </Text>
             <SafeAreaView>
               <TextInput
@@ -249,7 +250,7 @@ export default function () {
           </View>
 
           <View style={styles.container1}>
-            <Text style={styles.texto5}>Requisitos extra</Text>
+            <Text style={styles.texto5}>{t("XRequests")}</Text>
             <TextInput
               style={styles.input1}
               value={extra}
@@ -270,7 +271,7 @@ export default function () {
           }}
           onPress={handleSubmit}
         >
-          <Text style={styles.texto6}>Crear viaje</Text>
+          <Text style={styles.texto6}>{t("SideBarNewTrip")}</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>

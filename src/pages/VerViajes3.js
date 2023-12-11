@@ -15,10 +15,11 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { useTravels } from "../context/TravelsContext";
 import { useAuth } from "../context/AuthContext";
 
+import { useTranslation } from "react-i18next";
 export default function VerMiViaje() {
   const navigation = useNavigation();
   const route = useRoute();
-  const {
+  /*const {
     name,
     companions,
     expenses,
@@ -27,7 +28,7 @@ export default function VerMiViaje() {
     typeofExpenses,
     id_user1,
     id_travel,
-  } = route.params;
+  } = route.params;*/
   const { getAllExtrasFunc, extra, addRequest } = useTravels();
   const { user } = useAuth();
   const windowWidth = Dimensions.get("window").width;
@@ -57,8 +58,9 @@ export default function VerMiViaje() {
     }
   };
   useEffect(() => {
-    getAllExtrasFunc(extras);
+    //getAllExtrasFunc(extras);
   }, []);
+  const {t, i18n} = useTranslation();
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
@@ -83,7 +85,7 @@ export default function VerMiViaje() {
         </Svg>
       </View>
       <GeneralText
-        text={destination}
+        //text={destination}
         color="#1D1E20"
         fontWeight="bold"
         marginBottom={20}
@@ -91,27 +93,28 @@ export default function VerMiViaje() {
       />
       <GeneralText
         style={styles.GeneralText}
-        text={name}
+        //text={name}
         size={20}
         marginBottom={20}
       />
       <GeneralText
-        text="Se comparten los gastos de"
+        text={t("ShareSpent")}
         color="#1D1E20"
         size={20}
       />
-      <GeneralText text={typeofExpenses} color="#176B87" size={20} />
+      <GeneralText text="typeofExpenses" color="#176B87" size={20} />
       <Image source={require("../images/userIcon.png")} style={styles.image} />
       <GeneralText
-        text="Maximo de personas en el viaje"
+        text={t("MaxPerson")}
         color="#1D1E20"
         size={20}
+        alignText="center"
       />
-      <GeneralText text={companions} color="#176B87" size={20} />
-      <GeneralText text="Gasto total Aproximado" color="#1D1E20" size={20} />
-      <GeneralText text={`$${expenses}`} color="#176B87" size={20} />
+      <GeneralText text="companions" color="#176B87" size={20} />
+      <GeneralText text={t("TotalCost2")} color="#1D1E20" size={20} />
+      <GeneralText text="expenses" color="#176B87" size={20} />
       <GeneralText
-        text="Requisitos Extra"
+        text={t("ExtraRequests")}
         color="#1D1E20"
         marginBottom={"20"}
         size={20}
@@ -122,12 +125,12 @@ export default function VerMiViaje() {
         size={20}
       />
       <GeneralButton
-        text="Solicitar unirse viaje"
+        text={t("JoinTrip")}
         colorText="#FEFEFE"
         colorBg="#64CCC5"
         padding={20}
         width={"100%"}
-        marginTop={"59%"}
+        height={60}
         onPressHandler={handleSubmit}
       />
     </ScrollView>
@@ -142,6 +145,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
+    flex: 1,
   },
   arrow: {
     marginTop: 60,
@@ -158,11 +162,16 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   back: {
-    top: -20,
     left: -150,
     padding: 16,
     paddingTop: "15%",
-    marginTop: 20,
-    zIndex: 1,
   },
 });
+
+/*
+<GeneralText text={typeofExpenses} color="#176B87" size={20} />
+ <GeneralText text={companions} color="#176B87" size={20} />
+      <GeneralText text={t("TotalCost2")} color="#1D1E20" size={20} />
+      <GeneralText text={`$${expenses}`} color="#176B87" size={20} />
+
+*/

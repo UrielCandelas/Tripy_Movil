@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useTravels } from "../context/TravelsContext";
 import { useAuth } from "../context/AuthContext";
 import { io } from "socket.io-client";
+import { useTranslation } from "react-i18next";
 
 export default function Contactos() {
   const navigation = useNavigation();
@@ -24,7 +25,7 @@ export default function Contactos() {
   useEffect(() => {
     getUserContacts(user ? user.id : 0);
   }, []);
-
+const {t, i18next} = useTranslation();
   return (
     <View style={{ flex: 1, backgroundColor: "#FEFEFE" }}>
       <View style={styles.header}>
@@ -38,13 +39,13 @@ export default function Contactos() {
             color="#FFFFFF"
             size={30}
             marginTop={30}
-            text="Mensajeria Tripy"
+            text={t("tittleContacts")}
           />
           <GeneralText
             color="white"
             size={17}
             height={18}
-            text="Contactos"
+            text={t("Contact")}
             marginTop={0}
             marginLeft={0}
           />

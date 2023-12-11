@@ -12,6 +12,7 @@ import AnimatedInput from "../components/AnimatedInput";
 import { useAuth } from "../context/AuthContext";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import Loading from "../components/Loading/Loading";
+import { useTranslation } from "react-i18next";
 
 export default function CreateAccount2() {
   const { signup, isAuthenticated } = useAuth();
@@ -42,17 +43,18 @@ export default function CreateAccount2() {
       confirmPassword,
     });
   };
+  const {t, i18n} = useTranslation();
   return (
     <View style={styles.centeredContainer}>
-      <GeneralTxt Txt="Crear cuenta" style={{ width: 175 }} />
+      <GeneralTxt Txt={t('CreateAccount')} style={{ width: 175 }} />
       <GeneralLittleTxt
-        Txt="Ingresa los datos que se solicitan"
+        Txt={t('PersonalInfo')}
         marginTop={-150}
         marginBottom={20}
       />
       <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
         <AnimatedInput
-          label="Usuario"
+          label={t('User')}
           duration={300}
           width={"70%"}
           height={60}
@@ -62,7 +64,7 @@ export default function CreateAccount2() {
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
         <AnimatedInput
-          label="Correo eléctronico"
+          label={t('Email')}
           duration={300}
           width={"70%"}
           height={60}
@@ -72,7 +74,7 @@ export default function CreateAccount2() {
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
         <AnimatedInput
-          label="Contraseña"
+          label={t('Password')}
           duration={300}
           width={"70%"}
           height={60}
@@ -83,7 +85,7 @@ export default function CreateAccount2() {
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
         <AnimatedInput
-          label="Confirmar Contraseña"
+          label={t('ConfirmPassword')}
           duration={300}
           width={"70%"}
           height={60}
@@ -93,7 +95,7 @@ export default function CreateAccount2() {
         />
       </TouchableWithoutFeedback>
       <GeneralButton2
-        Txt="Continuar"
+        Txt={t("Continue")}
         style={{
           fontSize: 40,
           backgroundColor: "#64CCC5",

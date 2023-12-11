@@ -18,7 +18,8 @@ export default function GeneralText({
   marginLeft,
   marginBottom,
   fontWeight,
-  onPress
+  onPress,
+  alignText
 }) {
   const styles = StyleSheet.create({
     text: {
@@ -37,6 +38,7 @@ export default function GeneralText({
       marginLeft: marginLeft,
       marginBottom: marginBottom,
       fontWeight: fontWeight,
+      textAlign: alignText
     },
   });
   return <Text style={styles.text} onPress={onPress}>{text}</Text>;

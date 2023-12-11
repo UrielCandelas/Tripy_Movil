@@ -7,6 +7,7 @@ import Arrowback from "../components/VerViajes/Arrowback";
 import { useTravels } from "../context/TravelsContext";
 import { useAuth } from "../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 
 export default function EditarMyViajes() {
   const navigation = useNavigation();
@@ -30,15 +31,15 @@ export default function EditarMyViajes() {
   const killSomeTravel = async (id) => {
     try {
       Alert.alert(
-        "Dar de baja Viaje",
-        "¿Estás seguro de que quieres dar de baja este viaje?",
+        t("DeleteTrip"),
+        t("Question2"),
         [
           {
-            text: "Cancelar",
+            text: t("Cancel"),
             style: "cancel",
           },
           {
-            text: "Confirmar",
+            text: t("Confirm"),
             onPress: async () => {
               const res = await deleteSomeTravel(id);
               navigation.navigate("LandPage");
@@ -51,7 +52,7 @@ export default function EditarMyViajes() {
       console.log(error);
     }
   };
-
+  const {t, i18n} = useTranslation();
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
@@ -78,7 +79,7 @@ export default function EditarMyViajes() {
           color="#1D1E20"
           size={17}
           height={18}
-          text="Mis viajes"
+          text={t("MyTrips")}
           marginTop={10}
           marginBottom={20}
         />
@@ -108,7 +109,7 @@ export default function EditarMyViajes() {
           color="#1D1E20"
           size={17}
           height={18}
-          text="Viajes Compartidos"
+          text={t("ShareTrips")}
           marginTop={10}
           marginBottom={20}
         />
