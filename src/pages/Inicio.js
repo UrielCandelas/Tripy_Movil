@@ -1,5 +1,6 @@
 import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import React, { useEffect, useState } from "react";
+import Toast from "react-native-toast-message";
 import GeneralButton2 from "../components/GeneralComponents/GeneralButton2";
 import GeneralLittleTxt from "../components/GeneralComponents/GeneralLittleTxt";
 import GeneralTxt from "../components/GeneralComponents/GeneralTxt";
@@ -16,7 +17,7 @@ export default function Inicio() {
   const handleKeyboardDismiss = () => {
     Keyboard.dismiss();
   };
-  const { isAuthenticated, signin } = useAuth();
+  const { isAuthenticated, signin,errors: loginErrors } = useAuth();
   useEffect(() => {
     if (isAuthenticated) {
       navigation.navigate("LandPage");
@@ -24,12 +25,32 @@ export default function Inicio() {
   }, [isAuthenticated]);
 
   const onSubmit = async() => {
-    try {
-      const res = await signin({email, password});
-    } catch (error) {
-      console.log(error);
+    if (
+      email === "" ||
+      password === "" ||
+      email === " " ||
+      password === " "
+    ) {
+      showToast("Por favor rellene todos los campos");
+      return;
     }
+     signin({email, password});  
   }
+  const showToast = ( text2) => {
+    Toast.show({
+      type: "error",
+      text1: "Ocurrio un error",
+      text2,
+      visibilityTime: 3000,
+      position: "bottom",
+      bottomOffset: 50,
+    });
+  }; 
+  useEffect(() => {
+    loginErrors.forEach((error, index) => {
+      showToast(error);
+    });
+  },[loginErrors])
   return (
     <View style={styles.centeredContainer}>
       <GeneralTxt Txt="Iniciar sesión" style={{ width: 175 }} />
@@ -39,7 +60,7 @@ export default function Inicio() {
       />
       <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
         <AnimatedInput
-          label="Usuario / correo electrónico"
+          label="Correo electrónico"
           duration={300}
           width={"70%"}
           height={60}

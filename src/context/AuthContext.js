@@ -233,12 +233,21 @@ const AuthProvider = ({ children }) => {
         setIsAuthenticated(false);
         setUser(null);
         setLoading(false);
-        setErrors(error.data);
+        setErrors(error.response.data);
         console.log(error)
       }
     }
     checklogin();
   }, []);
+
+  useEffect(() => {
+    if (errors.length > 0) {
+      const timmer = setTimeout(() => {
+        setErrors([])
+      }, 3000)
+      return () => clearTimeout(timmer)
+    }
+  }, [errors])
 
   return (
     <AuthContext.Provider

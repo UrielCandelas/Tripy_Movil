@@ -6,6 +6,7 @@ import {
   Alert,
 } from "react-native";
 import React, { useState } from "react";
+import Toast from "react-native-toast-message";
 import GeneralButton2 from "../components/GeneralComponents/GeneralButton2";
 import GeneralLittleTxt from "../components/GeneralComponents/GeneralLittleTxt";
 import GeneralTxt from "../components/GeneralComponents/GeneralTxt";
@@ -14,9 +15,8 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
 
 export default function CreateAccount() {
-
   const navigation = useNavigation();
-  const { signup,isAuthenticated } = useAuth();
+  const { signup, isAuthenticated } = useAuth();
 
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -25,8 +25,26 @@ export default function CreateAccount() {
     Keyboard.dismiss();
   };
   const handleSubmit = () => {
-      navigation.navigate("CreateAccount2",{name,lastName,secondLastName});
-  }
+    if (
+      name === "" ||
+      name === " " ||
+      lastName === "" ||
+      lastName === " " ||
+      secondLastName === "" ||
+      secondLastName === " "
+    ) {
+      Toast.show({
+        type: "error",
+        text1: "Ocurrio un error",
+        text2: "Por favor rellene todos los campos",
+        visibilityTime: 3000,
+        position: "bottom",
+        bottomOffset: 50,
+      });
+      return;
+    }
+    navigation.navigate("CreateAccount2", { name, lastName, secondLastName });
+  };
   return (
     <View style={styles.centeredContainer}>
       <GeneralTxt Txt="Crear cuenta" style={{ width: 175 }} />

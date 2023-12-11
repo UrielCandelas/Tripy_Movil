@@ -23,7 +23,7 @@ import AgendarGastos from "./src/pages/AgregarGastos";
 import EditarMyViajes from "./src/pages/EditarMyViajes";
 import Chat from "./src/pages/Chat";
 import Contactos from "./src/pages/Contactos";
-
+import Toast from "react-native-toast-message";
 import AuthProvider from "./src/context/AuthContext.js";
 import LocationProvider from "./src/context/LocationContext.js";
 import TravelProvider from "./src/context/TravelsContext.js";
@@ -153,6 +153,7 @@ export default function App() {
               />
             </Stack.Navigator>
           </NavigationContainer>
+          <Toast/>
         </TravelProvider>
       </LocationProvider>
     </AuthProvider>
