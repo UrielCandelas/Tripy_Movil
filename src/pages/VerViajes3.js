@@ -102,7 +102,7 @@ export default function VerMiViaje() {
         color="#1D1E20"
         size={20}
       />
-      <GeneralText text="typeofExpenses" color="#176B87" size={20} />
+      <GeneralText text={typeofExpenses} color="#176B87" size={20} />
       <Image source={require("../images/userIcon.png")} style={styles.image} />
       <GeneralText
         text={t("MaxPerson")}
@@ -110,9 +110,9 @@ export default function VerMiViaje() {
         size={20}
         alignText="center"
       />
-      <GeneralText text="companions" color="#176B87" size={20} />
+      <GeneralText text={companions} color="#176B87" size={20} />
       <GeneralText text={t("TotalCost2")} color="#1D1E20" size={20} />
-      <GeneralText text="expenses" color="#176B87" size={20} />
+      <GeneralText text={`$${expenses}`} color="#176B87" size={20} />
       <GeneralText
         text={t("ExtraRequests")}
         color="#1D1E20"
