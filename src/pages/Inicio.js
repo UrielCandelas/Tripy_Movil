@@ -53,6 +53,7 @@ export default function Inicio() {
       showToast(error);
     });
   },[loginErrors])
+  const  {t, i18n} = useTranslation();
   return (
     <View style={styles.centeredContainer}>
       <GeneralTxt Txt={t('Login2')} style={{ width: 175 }} />
