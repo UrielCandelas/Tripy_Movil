@@ -16,6 +16,7 @@ export default function GeneralButton({onPressHandler,colorText,colorBg,text,pad
         },
         text:{
             color:colorText,
+            fontSize: 17
         }
     })
 

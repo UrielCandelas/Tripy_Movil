@@ -99,7 +99,7 @@ export default function CreateAccount2() {
         style={{
           fontSize: 40,
           backgroundColor: "#64CCC5",
-          marginTop: 50,
+          marginTop: 0,
           width: "60%",
           height: "25%",
         }}

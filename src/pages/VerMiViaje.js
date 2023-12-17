@@ -32,16 +32,9 @@ export default function VerMiViaje() {
           onPress={()=>navigation.goBack()}
         />
       </View>
-
-      <View >
-        <Svg width={windowWidth} height="100">
-          <Rect x="0" y="-100" width={windowWidth} height="1000" fill="#f2f2f2" />
-        </Svg>
-      </View>
       <GeneralText text={location} color="#1D1E20" fontWeight="bold" marginBottom={20} size={20}/>
       <GeneralText text={t("ShareSpent")} color="#1D1E20" size={20}/>
       <GeneralText text={expenses_name} color="#176B87" size={20} marginBottom={-25} marginTop={5}/>
-      <Image source={require('../images/userIcon.png')} style={styles.image} />
       <GeneralText text={t("MaxPerson")} color="#1D1E20" size={20}/>
       <GeneralText text={`#${companions}`} color="#176B87" size={20}/>
       <GeneralText text={t("TotalCost2")} color="#1D1E20" size={20}/>
@@ -50,6 +43,7 @@ export default function VerMiViaje() {
       <GeneralText text={`$${expenses}`} color="#176B87" size={20}/>
       <GeneralText text={t("XRequests")} color="#1D1E20" marginBottom={5}  size={20}/>
       <GeneralText text={extras} color="#1D1E20" marginBottom={"61%"} size={20}/>
+      <View style={styles.buttonContainer}>
       {isActive?
       <GeneralButton
       text={t("Delete")}
@@ -59,6 +53,7 @@ export default function VerMiViaje() {
       width={'100%'}
       onPressHandler={()=>navigation.goBack()}
     />: null}
+    </View>
     </ScrollView>
   )
 }
@@ -93,4 +88,55 @@ const styles = StyleSheet.create({
     marginTop: 20,
     zIndex: 1
   },
+  buttonContainer: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    padding: 0,
+},
 })
+
+/*
+return (
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.header}>
+      <Ionicons
+          style={styles.back}
+          name="arrow-back"
+          size={24}
+          color="black"
+          onPress={()=>navigation.goBack()}
+        />
+      </View>
+
+      <View >
+        <Svg width={windowWidth} height="100">
+          <Rect x="0" y="-100" width={windowWidth} height="1000" fill="#f2f2f2" />
+        </Svg>
+      </View>
+      <GeneralText text={location} color="#1D1E20" fontWeight="bold" marginBottom={20} size={20}/>
+      <GeneralText text={t("ShareSpent")} color="#1D1E20" size={20}/>
+      <GeneralText text={expenses_name} color="#176B87" size={20} marginBottom={-25} marginTop={5}/>
+      <Image source={require('../images/userIcon.png')} style={styles.image} />
+      <GeneralText text={t("MaxPerson")} color="#1D1E20" size={20}/>
+      <GeneralText text={`#${companions}`} color="#176B87" size={20}/>
+      <GeneralText text={t("TotalCost2")} color="#1D1E20" size={20}/>
+      <GeneralText text={`$${expenses}`} color="#176B87" size={20}/>
+      <GeneralText text={t("Total")} color="#1D1E20" size={20}/>
+      <GeneralText text={`$${expenses}`} color="#176B87" size={20}/>
+      <GeneralText text={t("XRequests")} color="#1D1E20" marginBottom={5}  size={20}/>
+      <GeneralText text={extras} color="#1D1E20" marginBottom={"61%"} size={20}/>
+      {isActive?
+      <View style={styles.buttonContainer}>
+      <GeneralButton
+      text={t("Delete")}
+      colorText="#FEFEFE"
+      colorBg="#64CCC5"
+      padding={20}
+      width={'100%'}
+      onPressHandler={()=>navigation.navigate("LoadingScreen3")}
+    />: null}
+    </View>
+    </ScrollView>
+  )
+*/

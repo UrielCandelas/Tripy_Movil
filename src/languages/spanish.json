@@ -60,7 +60,7 @@
         "MaxPerson": "Cupo máximo de personas en el viaje",
         "TotalCost2":"Gasto total aproximado",
         "ExtraRequests":"Requisitos Extras",
-        "JoinTrip":"Solicitar unirse viaje",
+        "JoinTrip":"Solicitar unirse al viaje",
         "ShareTrips": "Viajes Compartidos",
         "DeleteTrip":"Dar de baja Viaje",
         "Question2":"¿Estás seguro de que quieres dar de baja este viaje?",
@@ -72,6 +72,15 @@
         "Add": "Añadir",
         "Add2": "Añadir gasto",
         "Total": "Gastos totales hasta el momento",
-        "Delete": "Eliminar viaje"
+        "Delete": "Eliminar viaje",
+        "Loading": "Cargando...",
+        "RequestTrip": "Solicitar viaje",
+        "Question3": "¿Estás seguro de que quieres solicitar un viaje con este usuario?",
+        "ErrorLogin": "Todos los campos son requeridos",
+        "XtraRequests":"No hay requisitos extra",
+        "Update": "Actualizando...",
+        "Removing": "Eliminando..."
+
+
     }
 }

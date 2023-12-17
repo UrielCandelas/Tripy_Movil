@@ -82,7 +82,8 @@ export default function () {
             text: t("Confirm"),
             onPress: async () => {
               const res = await registerNewTravelFunc(newTravel);
-              navigation.navigate("LandPage");
+              // ANTES DEL LOADING SCREEN: navigation.navigate("LandPage");
+              navigation.navigate("LoadingScreen");
             },
           },
         ],

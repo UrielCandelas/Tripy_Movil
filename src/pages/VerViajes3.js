@@ -19,7 +19,7 @@ import { useTranslation } from "react-i18next";
 export default function VerMiViaje() {
   const navigation = useNavigation();
   const route = useRoute();
-  /*const {
+  const {
     name,
     companions,
     expenses,
@@ -28,7 +28,7 @@ export default function VerMiViaje() {
     typeofExpenses,
     id_user1,
     id_travel,
-  } = route.params;*/
+  } = route.params;
   const { getAllExtrasFunc, extra, addRequest } = useTravels();
   const { user } = useAuth();
   const windowWidth = Dimensions.get("window").width;
@@ -36,18 +36,18 @@ export default function VerMiViaje() {
     const id = user.id;
     try {
       Alert.alert(
-        "Solicitar Viaje",
-        "¿Estás seguro de que quieres solicitar un viaje con este usuario?",
+        t("RequestTrip"),
+        t("Question3"),
         [
           {
-            text: "Cancelar",
+            text: t("Cancel"),
             style: "cancel",
           },
           {
-            text: "Confirmar",
+            text: t("Confirm"),
             onPress: async () => {
               await addRequest({ id_user1, id_user2: id, id_travel });
-              navigation.navigate("LandPage");
+              navigation.navigate("LoadingScreen");
             },
           },
         ],
@@ -58,10 +58,113 @@ export default function VerMiViaje() {
     }
   };
   useEffect(() => {
-    //getAllExtrasFunc(extras);
+    getAllExtrasFunc(extras);
   }, []);
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
   return (
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.header}>
+        <Ionicons
+          style={styles.back}
+          name="arrow-back"
+          size={24}
+          color="black"
+          onPress={() => navigation.goBack()}
+        />
+      </View>
+      <GeneralText
+        text={destination}
+        color="#1D1E20"
+        fontWeight="bold"
+        marginBottom={20}
+        size={20}
+      />
+      <GeneralText
+        style={styles.GeneralText}
+        text={name}
+        size={20}
+        marginBottom={20}
+      />
+      <GeneralText
+        text={t("ShareSpent")}
+        color="#1D1E20"
+        size={20}
+      />
+      <GeneralText text={typeofExpenses} color="#176B87" size={20} />
+      <Image source={require("../images/userIcon.png")} style={styles.image} />
+      <GeneralText
+        text={t("MaxPerson")}
+        color="#1D1E20"
+        size={20}
+        alignText="center"
+      />
+      <GeneralText text={companions} color="#176B87" size={20} />
+      <GeneralText text={t("TotalCost2")} color="#1D1E20" size={20} />
+      <GeneralText text={`$${expenses}`} color="#176B87" size={20} />
+      <GeneralText
+        text={t("ExtraRequests")}
+        color="#1D1E20"
+        marginBottom={"20"}
+        size={20}
+      />
+      <GeneralText
+        text={extra ? extra.extra_commentary : t("XtraRequests")}
+        color="#176B87"
+        size={20}
+      />
+      <View style={styles.buttonContainer}>
+          <GeneralButton
+            text={t("JoinTrip")}
+            colorText="#FEFEFE"
+            colorBg="#64CCC5"
+            padding={20}
+            width={"100%"}
+            height={75}
+            onPressHandler={handleSubmit}
+          />
+      </View>
+    </ScrollView>
+  );
+}
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#fff",
+    alignItems: "center",
+    height: "100%",
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  arrow: {
+    marginTop: 60,
+    marginRight: 330,
+  },
+  image: {
+    width: 12,
+    height: 12,
+    marginLeft: 20,
+    marginTop: 5,
+    marginBottom: 20,
+  },
+  GeneralText: {
+    marginTop: 20,
+  },
+  back: {
+    left: -150,
+    padding: 16,
+    paddingTop: "15%",
+  },
+  buttonContainer: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    padding: 0,
+},
+});
+
+/*
+return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
         <Ionicons
@@ -135,43 +238,5 @@ export default function VerMiViaje() {
       />
     </ScrollView>
   );
-}
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#fff",
-    alignItems: "center",
-    height: "100%",
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    flex: 1,
-  },
-  arrow: {
-    marginTop: 60,
-    marginRight: 330,
-  },
-  image: {
-    width: 12,
-    height: 12,
-    marginLeft: 20,
-    marginTop: 5,
-    marginBottom: 20,
-  },
-  GeneralText: {
-    marginTop: 20,
-  },
-  back: {
-    left: -150,
-    padding: 16,
-    paddingTop: "15%",
-  },
-});
-
-/*
-<GeneralText text={typeofExpenses} color="#176B87" size={20} />
- <GeneralText text={companions} color="#176B87" size={20} />
-      <GeneralText text={t("TotalCost2")} color="#1D1E20" size={20} />
-      <GeneralText text={`$${expenses}`} color="#176B87" size={20} />
 
 */

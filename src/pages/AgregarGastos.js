@@ -91,7 +91,7 @@ export default function({navigation}) {
           position: 'absolute',
           bottom: 0,
           alignItems: 'center',
-        }} onPress={()=>navigation.goBack()}>
+        }} onPress={()=>navigation.navigate("LoadingScreen")}>
         <Text style={styles.texto6}>{t("Add")}</Text>
       </TouchableOpacity>
 

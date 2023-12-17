@@ -23,6 +23,9 @@ import AgendarGastos from "./src/pages/AgregarGastos";
 import EditarMyViajes from "./src/pages/EditarMyViajes";
 import Chat from "./src/pages/Chat";
 import Contactos from "./src/pages/Contactos";
+import LoadingScreen from "./src/pages/LoadingScreen";
+import LoadingScreen2 from "./src/pages/LoadingScreen2";
+import LoadingScreen3 from "./src/pages/LoadingScreen3";
 
 import AuthProvider from "./src/context/AuthContext.js";
 import LocationProvider from "./src/context/LocationContext.js";
@@ -141,7 +144,7 @@ export default function App() {
                 component={Contactos}
                 options={{ headerShown: false }}
               />
-              
+
               <Stack.Screen
                 name="Chat"
                 component={Chat}
@@ -151,6 +154,21 @@ export default function App() {
               <Stack.Screen
                 name="Solicitudes"
                 component={Solicitudes}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="LoadingScreen2"
+                component={LoadingScreen2}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="LoadingScreen"
+                component={LoadingScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="LoadingScreen3"
+                component={LoadingScreen3}
                 options={{ headerShown: false }}
               />
             </Stack.Navigator>

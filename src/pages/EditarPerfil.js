@@ -27,7 +27,7 @@ export default function EditarPerfil() {
 
   const handleSubmit = async () => {
     if ((!password || !newPassword || !confirmNewPassword || !userName || !newEmail)) {
-      return Alert.alert("Todos los campos son requeridos");
+      return Alert.alert(t("ErrorLogin"));
     }
     const data = {
       newPassword,
@@ -40,7 +40,8 @@ export default function EditarPerfil() {
     };
     try {
       await editAcount(data);
-      navigation.goBack();
+      // ANTES DEL LOADINGSCREEN: navigation.goBack();
+      navigation.navigate("LoadingScreen2");
     } catch (error) {
       console.error(error);
     }
