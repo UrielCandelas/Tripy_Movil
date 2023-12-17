@@ -72,7 +72,18 @@
         "Add": "Aggiungere",
         "Add2": "Aggiungi spesa",
         "Total": "Spese totali finora",
-        "Delete": "Elimina viaggio"
+        "Delete": "Elimina viaggio",
+        "Loading": "Caricamento in corso...",
+        "RequestTrip": "Richiedi viaggio",
+        "Question3": "Sei sicuro di voler richiedere un viaggio con questo utente?",
+        "ErrorLogin": "Tutti i campi sono obbligatori",
+        "XtraRequests":"Non ci sono requisiti aggiuntivi",
+        "Update": "In aggiornamento...",
+        "Removing": "Rimozione in corso..."
+
+
+
+
 
     }
 }

@@ -21,9 +21,12 @@ export default function Home() {
   const  {t, i18n} = useTranslation();
   return (
     <View>
-          <GeneralTxt Txt={t('WelcomeText')} />
+          <GeneralTxt Txt={t('WelcomeText')} 
+          style={styles.Txt}
+          />
           <GeneralButton2
         Txt={t('CreateAccount')}
+        style={{ height: 50}}
         color="white"
         onPress={() => {
           navigation.navigate("CreateAccount");
@@ -31,16 +34,29 @@ export default function Home() {
       />
       <GeneralLittleTxt
         Txt={t('Login1')}
-        marginTop={20}
-        marginBottom={20}
+        style={styles.Txt1}
       />
       <GeneralButton2
         Txt={t('Login2')}
-        style={{ backgroundColor: "#DAFFFB" }}
+        style={{ backgroundColor: "#DAFFFB", height: 50 }}
         onPress={() => {
           navigation.navigate("Inicio");
         }}
       />
     </View>
   );
+}
+const styles = {
+  Txt: {
+    marginTop: 200,
+    textAlign: "center",
+    color: "black",
+    fontSize: 35,
+    width: "70%",
+  },
+  Txt1: {
+    margin: 30,
+    textAlign: "center",
+    color: "black",
+  }
 }

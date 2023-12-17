@@ -48,7 +48,7 @@
         "Stay": "Stay",
         "UserNumber": "Number of users who can join the trip",
         "XRequests": "Extra requirements",
-        "AlertQuestion": "Are you sure you want to create a trip??",
+        "AlertQuestion": "Are you sure you want to create a trip?",
         "AlertError": "An error has occurred:",
         "Question": "How was your experience?",
         "UserDescription": "Describe your experience with this user",
@@ -72,7 +72,17 @@
         "Add": "Add",
         "Add2": "Add expense",
         "Total": "Total expenses so far",
-        "Delete": "Delete trip"
+        "Delete": "Delete trip",
+        "Loading": "Loading...",
+        "RequestTrip": "Request trip",
+        "Question3": "Are you sure you want to request a trip with this user?",
+        "ErrorLogin": "All fields are required",
+        "XtraRequests":"There are no extra requirements",
+        "Update": "Updating...",
+        "Removing": "Removing..."
+
+
+
 
 
 

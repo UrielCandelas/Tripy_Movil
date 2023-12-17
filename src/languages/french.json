@@ -72,7 +72,18 @@
         "Add": "Ajouter",
         "Add2": "Ajouter une dépense",
         "Total": "Dépenses totales jusqu'à présent",
-        "Delete": "Supprimer le voyage"
+        "Delete": "Supprimer le voyage",
+        "Loading": "Chargement...",
+        "RequestTrip": "Demander un voyage",
+        "Question3": "Êtes-vous sûr de vouloir demander un voyage avec cet utilisateur?",
+        "ErrorLogin": "Tous les champs sont requis",
+        "XtraRequests":"Il n'y a pas d'exigences supplémentaires",
+        "Update": "Mise à jour...",
+        "Removing": "Suppression..."
+
+
+
+
 
 
 

@@ -37,7 +37,8 @@ export default function AddReview() {
         id_userComent: user.id,
         id_userComented: id
       });
-      navigation.goBack();
+      // ANTES DEL LOADINGSCREEN: navigation.goBack();
+      navigation.navigate("LoadingScreen");
     } catch (error) {
       console.log(error);
     }

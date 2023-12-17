@@ -1,5 +1,5 @@
-import { View, Text, ScrollView,StyleSheet,} from "react-native";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import GeneralLittleTxt from "../components/GeneralComponents/GeneralLittleTxt";
 import GeneralTxt from "../components/GeneralComponents/GeneralTxt";
 import SearchBar from "../components/SearchBar";
@@ -11,28 +11,46 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 
-
-
 export default function LandPage() {
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
-  const { logout,user } = useAuth();
-  
+  const { logout, user } = useAuth();
+
   const logoutUser = async () => {
     await logout();
     navigation.navigate("Bienvenido");
-  }
-  const {t, i18next} = useTranslation();
+  };
+
+  const showSidebar = () => {
+    setVisible(true);
+  };
+
+  const hideSidebar = () => {
+    setVisible(false);
+  };
+
+  const { t, i18next } = useTranslation();
+
   return (
-      <ScrollView>
+    <ScrollView>
       <View style={styles.view}>
-        <View style = {styles.view2}>
-        <StatusBar style="auto" />
-        <GeneralTxt
-          Txt={t("WelcomeText")}
-          style={{ width: "100%", fontSize: 30, textAlign: "left" }}
-        />
-        <Ionicons name="menu" size={30} style={{ marginLeft: 50 }} onPress={() => setVisible(!visible)}/>
+        <View style={styles.view2}>
+          <TouchableOpacity
+            style={styles.overlay}
+            activeOpacity={1}
+            onPress={hideSidebar}
+          />
+          <Ionicons
+            name="menu"
+            size={30}
+            style={{ marginLeft: 0, top: 70 }}
+            onPress={showSidebar}
+          />
+          <StatusBar style="auto" />
+          <GeneralTxt
+            Txt={t("WelcomeText")}
+            style={{ width: "100%", fontSize: 30, textAlign: "left" }}
+          />
         </View>
         {visible && (
           <SideBar
@@ -40,25 +58,25 @@ export default function LandPage() {
             userNav={() => navigation.navigate("MiPerfil")}
             HomeNav={() => navigation.navigate("LandPage")}
             TravelsConsultNav={() => navigation.navigate("EditarMyViajes")}
-            RequestNav={()=>navigation.navigate("Solicitudes")}
-            TravelsNav={()=>navigation.navigate("CrearViaje")}
-            ChatNav={()=>navigation.navigate("Contactos")}
+            RequestNav={() => navigation.navigate("Solicitudes")}
+            TravelsNav={() => navigation.navigate("CrearViaje")}
+            ChatNav={() => navigation.navigate("Contactos")}
             LogoutNav={logoutUser}
           />
         )}
         <SearchBar />
         <View>
-        <GeneralLittleTxt
-          Txt={t("ChooseDestination")}
-          style={{
-            width: "100%",
-            fontSize: 20,
-            textAlign: "left",
-            marginLeft: 30,
-            marginTop: -39,
-          }}
-        />
-        <Boxes/>
+          <GeneralLittleTxt
+            Txt={t("ChooseDestination")}
+            style={{
+              width: "100%",
+              fontSize: 20,
+              textAlign: "left",
+              marginLeft: 30,
+              marginTop: -39,
+            }}
+          />
+          <Boxes />
         </View>
       </View>
     </ScrollView>
@@ -69,11 +87,15 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
   },
-  view2:{
+  view2: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'left',
+    flexDirection: "column",
+    justifyContent: "left",
     paddingLeft: 16,
-    alignItems: 'center',
-  }
-})
+    alignItems: "left",
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "transparent",
+  },
+});

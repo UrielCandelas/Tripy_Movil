@@ -72,7 +72,16 @@
         "Add": "Thêm vào",
         "Add2": "Thêm chi phí",
         "Total": "Tổng chi phí đến thời điểm hiện tại",
-        "Delete":  "Xóa chuyến đi"
+        "Delete":  "Xóa chuyến đi",
+        "Loading": "Đang tải...",
+        "RequestTrip": "Yêu cầu chuyển đi",
+        "Question3": "Bạn có chắc chắn muốn yêu cầu một chuyến đi với người dùng này không?",
+        "ErrorLogin": "Tất cả các trường là bắt buộc",
+        "XtraRequests":"Không có yêu cầu bổ sung",
+        "Update": "Đang cập nhật...",
+        "Removing": "Đang xóa..."
+
+
 
     }
 }
