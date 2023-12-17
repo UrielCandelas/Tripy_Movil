@@ -19,7 +19,7 @@ import { useTranslation } from "react-i18next";
 export default function VerMiViaje() {
   const navigation = useNavigation();
   const route = useRoute();
-  /*const {
+  const {
     name,
     companions,
     expenses,
@@ -28,7 +28,7 @@ export default function VerMiViaje() {
     typeofExpenses,
     id_user1,
     id_travel,
-  } = route.params;*/
+  } = route.params;
   const { getAllExtrasFunc, extra, addRequest } = useTravels();
   const { user } = useAuth();
   const windowWidth = Dimensions.get("window").width;
@@ -103,7 +103,6 @@ export default function VerMiViaje() {
         size={20}
       />
       <GeneralText text={typeofExpenses} color="#176B87" size={20} />
-      <Image source={require("../images/userIcon.png")} style={styles.image} />
       <GeneralText
         text={t("MaxPerson")}
         color="#1D1E20"
@@ -123,6 +122,7 @@ export default function VerMiViaje() {
         text={extra ? extra.extra_commentary : "No hay requisitos extra"}
         color="#176B87"
         size={20}
+        marginBottom={200}
       />
       <GeneralButton
         text={t("JoinTrip")}
