@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import GeneralLittleTxt from "../components/GeneralComponents/GeneralLittleTxt";
 import GeneralTxt from "../components/GeneralComponents/GeneralTxt";
 import SearchBar from "../components/SearchBar";
@@ -34,53 +40,54 @@ export default function LandPage() {
   return (
     <View>
       {visible && (
-          <SideBar
-            userName={user ? user.name : ""}
-            userNav={() => navigation.navigate("MiPerfil")}
-            HomeNav={() => navigation.navigate("LandPage")}
-            TravelsConsultNav={() => navigation.navigate("EditarMyViajes")}
-            RequestNav={() => navigation.navigate("Solicitudes")}
-            TravelsNav={() => navigation.navigate("CrearViaje")}
-            ChatNav={() => navigation.navigate("Contactos")}
-            LogoutNav={logoutUser}
-          />
-        )}
-    <ScrollView>
-      <View style={styles.view}>
-        <View style={styles.view2}>
-          <TouchableOpacity
-            style={styles.overlay}
-            activeOpacity={1}
-            onPress={hideSidebar}
-          />
-          <Ionicons
-            name="menu"
-            size={30}
-            style={{ marginLeft: 0, top: 70 }}
-            onPress={showSidebar}
-          />
-          <StatusBar style="auto" />
-          <GeneralTxt
-            Txt={t("WelcomeText")}
-            style={{ width: "100%", fontSize: 30, textAlign: "left" }}
-          />
+        <SideBar
+          userName={user ? user.name : ""}
+          userNav={() => navigation.navigate("MiPerfil")}
+          HomeNav={() => navigation.navigate("LandPage")}
+          TravelsConsultNav={() => navigation.navigate("EditarMyViajes")}
+          RequestNav={() => navigation.navigate("Solicitudes")}
+          TravelsNav={() => navigation.navigate("CrearViaje")}
+          ChatNav={() => navigation.navigate("Contactos")}
+          LogoutNav={logoutUser}
+        />
+      )}
+      <ScrollView>
+        <View style={styles.view}>
+          <View style={styles.view2}>
+            <TouchableOpacity
+              style={styles.overlay}
+              activeOpacity={1}
+              onPress={hideSidebar}
+            />
+            <Ionicons
+              name="menu"
+              size={30}
+              style={{ marginLeft: 0, top: 70, zIndex: 1 }}
+              onPress={showSidebar}
+            />
+            <StatusBar style="auto" />
+            <GeneralTxt
+              Txt={t("WelcomeText")}
+              style={{ width: "100%", fontSize: 30, textAlign: "left" }}
+            />
+                     
+          </View>
+          <SearchBar />
+          <View>
+            <GeneralLittleTxt
+              Txt={t("ChooseDestination")}
+              style={{
+                width: "100%",
+                fontSize: 20,
+                textAlign: "left",
+                marginLeft: 30,
+                marginTop: -39,
+              }}
+            />
+            <Boxes />
+          </View>
         </View>
-        <SearchBar />
-        <View>
-          <GeneralLittleTxt
-            Txt={t("ChooseDestination")}
-            style={{
-              width: "100%",
-              fontSize: 20,
-              textAlign: "left",
-              marginLeft: 30,
-              marginTop: -39,
-            }}
-          />
-          <Boxes />
-        </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
     </View>
   );
 }
