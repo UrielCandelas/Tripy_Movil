@@ -82,7 +82,10 @@
         "Removing": "Đang xóa...",
         "ErrorM": "Đã xảy ra lỗi",
         "EMessage": "Hãy điền vào tất cả các lĩnh vực",
-        "ErrorPass": "2 Mật khẩu không khớp"
+        "ErrorPass": "2 Mật khẩu không khớp",
+        "DeletarTrip": "Hủy chuyến đi",
+        "Error1": "Email đó đã được đăng ký trước đó",
+        "Error2": "Tên người dùng đó đã được đăng ký trước đó"
 
 
 

@@ -82,7 +82,10 @@
         "Removing": "Suppression...",
         "ErrorM": "Une erreur s'est produite",
         "EMessage": "Veuillez remplir tous les champs",
-        "ErrorPass": "Les 2 mots de passe ne correspondent pas"
+        "ErrorPass": "Les 2 mots de passe ne correspondent pas",
+        "DeletarTrip": "Annuler le voyage",
+        "Error1": "Cet email a été préalablement enregistré",
+        "Error2": "Ce nom d'utilisateur a déjà été enregistré"
 
 
 

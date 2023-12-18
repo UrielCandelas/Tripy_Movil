@@ -82,7 +82,10 @@
         "Removing": "Rimozione in corso...",
         "ErrorM": "Si è verificato un errore",
         "EMessage": "Si prega di compilare tutti i campi",
-        "ErrorPass": "Le 2 password non corrispondono"
+        "ErrorPass": "Le 2 password non corrispondono",
+        "DeletarTrip": "Disiscrivere",
+        "Error1": "Quella email è stata precedentemente registrata",
+        "Error2": "Quel nome utente è stato precedentemente registrato"
 
 
 
