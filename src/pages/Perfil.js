@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -21,7 +21,7 @@ import { useTranslation } from "react-i18next";
 export default function App() {
   const navigation = useNavigation();
   const route = useRoute();
-  const { id,name } = route.params;
+  const { id, name } = route.params;
   const { getComentaries, commentaries } = useAuth();
   const { getTravelsInactive, travelsInactive } = useTravels();
 
@@ -37,7 +37,7 @@ export default function App() {
   const expenses = travelsInactive.expenses;
   const locations = travelsInactive.locations;
   const extras = travelsInactive.extras;
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -71,7 +71,7 @@ export default function App() {
               })
             }
           >
-           {t("Xtra")}
+            {t("Xtra")}
           </Text>
         </View>
 
@@ -117,9 +117,11 @@ export default function App() {
                   alignItems: "center",
                   justifyContent: "center",
                 }}
-                onPress={() => navigation.navigate("AñadirReseña",{
-                    id:id
-                })}
+                onPress={() =>
+                  navigation.navigate("AñadirReseña", {
+                    id: id,
+                  })
+                }
               >
                 <Text style={styles.texto5}>{t("AddReview")}</Text>
               </TouchableOpacity>
@@ -128,19 +130,15 @@ export default function App() {
 
           <SafeAreaView style={styles.containerreviews}>
             <ScrollView>
-            {comentaries?.map((comentary, i) => (
-              <Reseñas
-              key={i}
-                onPress={() => navigation.navigate("PerfilUsuario",{
-                    name: users[i].name,
-                    id: users[i].id
-                })}
-                comentary={comentary.comentary_text}
-                date={comentary.createdAt}
-                rate={comentary.rate}
-                user={users[i].userName}
-              />
-            ))}
+              {comentaries?.map((comentary, i) => (
+                <Reseñas
+                  key={i}
+                  comentary={comentary.comentary_text}
+                  date={`${new Date(comentary.createdAt).getFullYear()}-${new Date(comentary.createdAt).getMonth() + 1}-${new Date(comentary.createdAt).getDate()}`}
+                  rate={comentary.rate}
+                  user={users[i].userName}
+                />
+              ))}
             </ScrollView>
           </SafeAreaView>
         </View>

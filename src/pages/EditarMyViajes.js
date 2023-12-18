@@ -65,7 +65,7 @@ export default function EditarMyViajes() {
           color="#1D1E20"
           size={17}
           height={18}
-          text="UserName"
+          text={user.name}
           marginTop={60}
           marginLeft={80}
           marginRight={"28%"}
@@ -92,11 +92,12 @@ export default function EditarMyViajes() {
                 date={travel.travel_date}
                 expenses={expenses_user1[i].quantity}
                 location={locations_user1[i].location_name}
-                onPress={() =>
+                OnPress={() =>
                   navigation.navigate("PerfilUsuario", {
                     name: usersU1[i].name,
                     id: usersU1[i].id,
                   })
+
                 }
                 killTravel={() => killSomeTravel(travel.id)}
                 isOwner={true}

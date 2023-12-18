@@ -187,7 +187,7 @@ const {t, i18next} = useTranslation();
                   onPressHandler={handleOpen}
                   width={100}
                   height={40}
-                  padding={5}
+                  
                 />
               </View>
 
