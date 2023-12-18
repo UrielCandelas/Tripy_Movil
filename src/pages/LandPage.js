@@ -1,53 +1,53 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
 import {
   View,
   Text,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-} from "react-native";
-import GeneralLittleTxt from "../components/GeneralComponents/GeneralLittleTxt";
-import GeneralTxt from "../components/GeneralComponents/GeneralTxt";
-import SearchBar from "../components/SearchBar";
-import Boxes from "../components/Boxes";
-import SideBar from "../components/Sidebar/SideBar";
-import { Ionicons } from "@expo/vector-icons";
-import { StatusBar } from "expo-status-bar";
-import { useAuth } from "../context/AuthContext";
-import { useNavigation } from "@react-navigation/native";
-import { useTranslation } from "react-i18next";
+} from 'react-native'
+import GeneralLittleTxt from '../components/GeneralComponents/GeneralLittleTxt'
+import GeneralTxt from '../components/GeneralComponents/GeneralTxt'
+import SearchBar from '../components/SearchBar'
+import Boxes from '../components/Boxes'
+import SideBar from '../components/Sidebar/SideBar'
+import { Ionicons } from '@expo/vector-icons'
+import { StatusBar } from 'expo-status-bar'
+import { useAuth } from '../context/AuthContext'
+import { useNavigation } from '@react-navigation/native'
+import { useTranslation } from 'react-i18next'
 
 export default function LandPage() {
-  const navigation = useNavigation();
-  const [visible, setVisible] = useState(false);
-  const { logout, user } = useAuth();
+  const navigation = useNavigation()
+  const [visible, setVisible] = useState(false)
+  const { logout, user } = useAuth()
 
   const logoutUser = async () => {
-    await logout();
-    navigation.navigate("Bienvenido");
-  };
+    await logout()
+    navigation.navigate('Bienvenido')
+  }
 
   const showSidebar = () => {
-    setVisible(true);
-  };
+    setVisible(true)
+  }
 
   const hideSidebar = () => {
-    setVisible(false);
-  };
+    setVisible(false)
+  }
 
-  const { t, i18next } = useTranslation();
+  const { t, i18next } = useTranslation()
 
   return (
     <View>
       {visible && (
         <SideBar
-          userName={user ? user.name : ""}
-          userNav={() => navigation.navigate("MiPerfil")}
-          HomeNav={() => navigation.navigate("LandPage")}
-          TravelsConsultNav={() => navigation.navigate("EditarMyViajes")}
-          RequestNav={() => navigation.navigate("Solicitudes")}
-          TravelsNav={() => navigation.navigate("CrearViaje")}
-          ChatNav={() => navigation.navigate("Contactos")}
+          userName={user ? user.name : ''}
+          userNav={() => navigation.navigate('MiPerfil')}
+          HomeNav={() => navigation.navigate('LandPage')}
+          TravelsConsultNav={() => navigation.navigate('EditarMyViajes')}
+          RequestNav={() => navigation.navigate('Solicitudes')}
+          TravelsNav={() => navigation.navigate('CrearViaje')}
+          ChatNav={() => navigation.navigate('Contactos')}
           LogoutNav={logoutUser}
         />
       )}
@@ -67,19 +67,18 @@ export default function LandPage() {
             />
             <StatusBar style="auto" />
             <GeneralTxt
-              Txt={t("WelcomeText")}
-              style={{ width: "100%", fontSize: 30, textAlign: "left" }}
+              Txt={t('WelcomeText')}
+              style={{ width: '100%', fontSize: 30, textAlign: 'left' }}
             />
-                     
           </View>
           <SearchBar />
           <View>
             <GeneralLittleTxt
-              Txt={t("ChooseDestination")}
+              Txt={t('ChooseDestination')}
               style={{
-                width: "100%",
+                width: '100%',
                 fontSize: 20,
-                textAlign: "left",
+                textAlign: 'left',
                 marginLeft: 30,
                 marginTop: -39,
               }}
@@ -89,7 +88,7 @@ export default function LandPage() {
         </View>
       </ScrollView>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -98,13 +97,13 @@ const styles = StyleSheet.create({
   },
   view2: {
     flex: 1,
-    flexDirection: "column",
-    justifyContent: "left",
+    flexDirection: 'column',
+    justifyContent: 'left',
     paddingLeft: 16,
-    alignItems: "left",
+    alignItems: 'left',
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
   },
-});
+})
