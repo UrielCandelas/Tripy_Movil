@@ -17,6 +17,7 @@ import Loading from "../components/Loading/Loading";
 import { useTranslation } from "react-i18next";
 
 export default function CreateAccount2() {
+  const  {t} = useTranslation();
   const { signup, isAuthenticated, errors: registerErrors } = useAuth();
   const navigation = useNavigation();
   const route = useRoute();
@@ -46,8 +47,8 @@ export default function CreateAccount2() {
     ) {
       Toast.show({
         type: "error",
-        text1: "Ocurrio un error",
-        text2: "Por favor rellene todos los campos",
+        text1: t("ErrorM"),
+        text2: t("EMessage"),
         visibilityTime: 3000,
         position: "bottom",
         bottomOffset: 50,
@@ -67,17 +68,16 @@ export default function CreateAccount2() {
   registerErrors.forEach((error, index) => {
     Toast.show({
       type: "error",
-      text1: "Ocurrio un error",
+      text1: t("ErrorM"),
       text2: error,
       visibilityTime: 3000,
       position: "bottom",
       bottomOffset: 50,
     });
   });
-  const {t, i18n} = useTranslation();
   return (
     <View style={styles.centeredContainer}>
-      <GeneralTxt Txt="Crear cuenta" style={{ width: 175 }} />
+      <GeneralTxt Txt={t('CreateAccount')} style={{ width: 175 }} />
       <GeneralLittleTxt
         Txt={t('PersonalInfo')}
         marginTop={-150}

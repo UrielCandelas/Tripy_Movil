@@ -33,7 +33,7 @@ export default function Inicio() {
       email === " " ||
       password === " "
     ) {
-      showToast("Por favor rellene todos los campos");
+      showToast(t("EMessage"));
       return;
     }
      signin({email, password});  
@@ -41,7 +41,7 @@ export default function Inicio() {
   const showToast = ( text2) => {
     Toast.show({
       type: "error",
-      text1: "Ocurrio un error",
+      text1: t("ErrorM"),
       text2,
       visibilityTime: 3000,
       position: "bottom",

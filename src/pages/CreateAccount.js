@@ -16,6 +16,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 
 export default function CreateAccount() {
+  const  {t} = useTranslation();
   const navigation = useNavigation();
   const { signup, isAuthenticated } = useAuth();
 
@@ -36,8 +37,8 @@ export default function CreateAccount() {
     ) {
       Toast.show({
         type: "error",
-        text1: "Ocurrio un error",
-        text2: "Por favor rellene todos los campos",
+        text1: t("ErrorM"),
+        text2: t("EMessage"),
         visibilityTime: 3000,
         position: "bottom",
         bottomOffset: 50,

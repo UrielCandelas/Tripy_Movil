@@ -79,7 +79,10 @@
         "ErrorLogin": "All fields are required",
         "XtraRequests":"There are no extra requirements",
         "Update": "Updating...",
-        "Removing": "Removing..."
+        "Removing": "Removing...",
+        "ErrorM": "An error occurred",
+        "EMessage": "Please fill out all fields",
+        "ErrorPass": "The 2 passwords do not match"
 
 
 

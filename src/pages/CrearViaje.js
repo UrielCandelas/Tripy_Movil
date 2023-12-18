@@ -185,7 +185,7 @@ const {t, i18next} = useTranslation();
                 <GeneralButton
                   text={travel_date}
                   onPressHandler={handleOpen}
-                  width={100}
+                  width={120}
                   height={40}
                   padding={5}
                 />

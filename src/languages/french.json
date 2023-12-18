@@ -79,7 +79,10 @@
         "ErrorLogin": "Tous les champs sont requis",
         "XtraRequests":"Il n'y a pas d'exigences supplémentaires",
         "Update": "Mise à jour...",
-        "Removing": "Suppression..."
+        "Removing": "Suppression...",
+        "ErrorM": "Une erreur s'est produite",
+        "EMessage": "Veuillez remplir tous les champs",
+        "ErrorPass": "Les 2 mots de passe ne correspondent pas"
 
 
 

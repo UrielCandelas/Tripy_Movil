@@ -32,6 +32,19 @@ export default function LandPage() {
   const { t, i18next } = useTranslation();
 
   return (
+    <View>
+      {visible && (
+          <SideBar
+            userName={user ? user.name : ""}
+            userNav={() => navigation.navigate("MiPerfil")}
+            HomeNav={() => navigation.navigate("LandPage")}
+            TravelsConsultNav={() => navigation.navigate("EditarMyViajes")}
+            RequestNav={() => navigation.navigate("Solicitudes")}
+            TravelsNav={() => navigation.navigate("CrearViaje")}
+            ChatNav={() => navigation.navigate("Contactos")}
+            LogoutNav={logoutUser}
+          />
+        )}
     <ScrollView>
       <View style={styles.view}>
         <View style={styles.view2}>
@@ -52,18 +65,6 @@ export default function LandPage() {
             style={{ width: "100%", fontSize: 30, textAlign: "left" }}
           />
         </View>
-        {visible && (
-          <SideBar
-            userName={user ? user.name : ""}
-            userNav={() => navigation.navigate("MiPerfil")}
-            HomeNav={() => navigation.navigate("LandPage")}
-            TravelsConsultNav={() => navigation.navigate("EditarMyViajes")}
-            RequestNav={() => navigation.navigate("Solicitudes")}
-            TravelsNav={() => navigation.navigate("CrearViaje")}
-            ChatNav={() => navigation.navigate("Contactos")}
-            LogoutNav={logoutUser}
-          />
-        )}
         <SearchBar />
         <View>
           <GeneralLittleTxt
@@ -80,6 +81,7 @@ export default function LandPage() {
         </View>
       </View>
     </ScrollView>
+    </View>
   );
 }
 

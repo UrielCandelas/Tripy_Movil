@@ -79,7 +79,10 @@
         "ErrorLogin": "Tutti i campi sono obbligatori",
         "XtraRequests":"Non ci sono requisiti aggiuntivi",
         "Update": "In aggiornamento...",
-        "Removing": "Rimozione in corso..."
+        "Removing": "Rimozione in corso...",
+        "ErrorM": "Si è verificato un errore",
+        "EMessage": "Si prega di compilare tutti i campi",
+        "ErrorPass": "Le 2 password non corrispondono"
 
 
 

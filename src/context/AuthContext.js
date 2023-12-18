@@ -15,7 +15,7 @@ import {
   getUserMessages,
   verifyTokenRequest,
 } from "../api/auth.js";
-
+import { useTranslation } from "react-i18next";
 export const AuthContext = createContext();
 
 export const useAuth = () => {
@@ -36,12 +36,12 @@ const AuthProvider = ({ children }) => {
   const [commentaries, setCommentaries] = useState([]);
   const [contacts, setContacts] = useState([])
   const [messages, setMessages] = useState([])
-
+  const {t} = useTranslation();
   const signup = async (user) => {
     const confirmPassword = user.confirmPassword;
     const password = user.password;
     if (password != confirmPassword) {
-      return setErrors(["No coninciden las 2 contraseñas"]);
+      return setErrors([t("ErrorPass")]);
     }
     const data = {
       name: user.name,
@@ -122,7 +122,7 @@ const AuthProvider = ({ children }) => {
       const password = user.newPassword;
       const confirmPassword = user.confirmNewPassword;
       if (password != confirmPassword) {
-        return setErrors(["No coninciden las 2 contraseñas"]);
+        return setErrors([t("ErrorPass")]);
       }
       const data = {
         userName: user.userName,

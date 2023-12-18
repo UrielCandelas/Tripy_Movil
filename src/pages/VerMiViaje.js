@@ -34,7 +34,7 @@ export default function VerMiViaje() {
       </View>
       <GeneralText text={location} color="#1D1E20" fontWeight="bold" marginBottom={20} size={20}/>
       <GeneralText text={t("ShareSpent")} color="#1D1E20" size={20}/>
-      <GeneralText text={expenses_name} color="#176B87" size={20} marginBottom={-25} marginTop={5}/>
+      <GeneralText text={expenses_name} color="#176B87" size={20} marginBottom={25} marginTop={5}/>
       <GeneralText text={t("MaxPerson")} color="#1D1E20" size={20}/>
       <GeneralText text={`#${companions}`} color="#176B87" size={20}/>
       <GeneralText text={t("TotalCost2")} color="#1D1E20" size={20}/>

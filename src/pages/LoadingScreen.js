@@ -12,7 +12,7 @@ function LoadingScreen (props){
 
     useEffect(
       () => {
-        let timer = setTimeout(() => setLoop(false), 8000);
+        let timer = setTimeout(() => setLoop(false), 4000);
         return () => {
           clearTimeout(timer);
         };
