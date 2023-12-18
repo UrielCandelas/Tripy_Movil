@@ -79,7 +79,14 @@
         "ErrorLogin": "Todos los campos son requeridos",
         "XtraRequests":"No hay requisitos extra",
         "Update": "Actualizando...",
-        "Removing": "Eliminando..."
+        "Removing": "Eliminando...",
+        "ErrorM": "Ocurrió un error",
+        "EMessage": "Por favor rellene todos los campos",
+        "ErrorPass": "No coninciden las 2 contraseñas",
+        "DeletarTrip": "Dar de baja",
+        "Error1": "Ese correo ha sido anteriormente registrado",
+        "Error2": "Ese nombre de usuario ha sido anteriormente registrado",
+        "SearchBar":"Buscar"
 
 
     }

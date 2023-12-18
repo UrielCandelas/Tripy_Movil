@@ -79,7 +79,14 @@
         "ErrorLogin": "All fields are required",
         "XtraRequests":"There are no extra requirements",
         "Update": "Updating...",
-        "Removing": "Removing..."
+        "Removing": "Removing...",
+        "ErrorM": "An error occurred",
+        "EMessage": "Please fill out all fields",
+        "ErrorPass": "The 2 passwords do not match",
+        "DeletarTrip": "Unsubscribe",
+        "Error1": "That email has been previously registered",
+        "Error2": "That username has been previously registered",
+        "SearchBar":"Search"
 
 
 
