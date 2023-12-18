@@ -85,7 +85,8 @@
         "ErrorPass": "No coninciden las 2 contraseñas",
         "DeletarTrip": "Dar de baja",
         "Error1": "Ese correo ha sido anteriormente registrado",
-        "Error2": "Ese nombre de usuario ha sido anteriormente registrado"
+        "Error2": "Ese nombre de usuario ha sido anteriormente registrado",
+        "SearchBar":"Buscar"
 
 
     }

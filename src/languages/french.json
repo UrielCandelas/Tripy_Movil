@@ -85,7 +85,8 @@
         "ErrorPass": "Les 2 mots de passe ne correspondent pas",
         "DeletarTrip": "Annuler le voyage",
         "Error1": "Cet email a été préalablement enregistré",
-        "Error2": "Ce nom d'utilisateur a déjà été enregistré"
+        "Error2": "Ce nom d'utilisateur a déjà été enregistré",
+        "SearchBar":"Chercher"
 
 
 

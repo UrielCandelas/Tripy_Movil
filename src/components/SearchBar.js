@@ -3,8 +3,10 @@ import {Feather} from '@expo/vector-icons'
 import React from 'react'
 import { useState } from 'react'
 import SearchFilter from './SearchFilter'
+import { useTranslation } from "react-i18next";
 
 export default function SearchBar() {
+    const {t} =useTranslation()
     const words=[
         {
             name: "hola",
@@ -43,7 +45,7 @@ export default function SearchBar() {
       }
       }>
         <TextInput value={input} onChangeText={(text) => setInput(text)}
-        style={{fontSize: 15}} placeholder='Buscar'/>
+        style={{fontSize: 15}} placeholder={t('SearchBar')}/>
       </View>
     </View>
   )

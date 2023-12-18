@@ -85,7 +85,8 @@
         "ErrorPass": "The 2 passwords do not match",
         "DeletarTrip": "Unsubscribe",
         "Error1": "That email has been previously registered",
-        "Error2": "That username has been previously registered"
+        "Error2": "That username has been previously registered",
+        "SearchBar":"Search"
 
 
 
