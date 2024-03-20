@@ -1,12 +1,14 @@
 import { useState, useContext, createContext, useEffect } from "react";
 
 import {
-  registerLocation,
-  editLocation,
-  getLocation,
   deleteLocation,
+  editLocation,
   getAllLocations,
-  getLocationByTravel
+  getLocation,
+  getLocationsAndTransports,
+  locationData,
+  registerLocation,
+  travelsImg2,
 } from "../api/locations";
 
 export const LocationContext = createContext();
@@ -14,26 +16,31 @@ export const LocationContext = createContext();
 export const useLocations = () => {
   const context = useContext(LocationContext);
   if (!context) {
-    throw new Error("useAuth must be used within an LocationProvider");
+    throw new Error("useLocations must be used within an LocationProvider");
   }
   return context;
 };
 
 const LocationProvider = ({ children }) => {
+  const [locAndTransp, setLocAndTransp] = useState([]);
   const [errors, setErrors] = useState([]);
   const [locations, setLocations] = useState([]);
   const [location, setLocation] = useState({});
   const [locationByTravel, setLocationByTravel] = useState({});
+  const [travels, setTravels] = useState([]);
+  //const [locationsAndTransports, setLocationsAndTransports] = useState([]);
   const registerNewLocation = async (location) => {
     try {
-      const costint = parseFloat(location.cost)
+      const costint = parseFloat(location.cost);
       const newLocation = {
         location_name: location.location_name,
         location: location.location,
         description: location.description,
         cost: costint,
-        schedule: location.schedule
-      }
+        schedule: location.schedule,
+        image1: location.image1,
+        image2: location.image2,
+      };
       const res = await registerLocation(newLocation);
     } catch (error) {
       if (Array.isArray(error.response.data)) {
@@ -45,15 +52,15 @@ const LocationProvider = ({ children }) => {
 
   const editSomeLocation = async (location, id) => {
     try {
-      const costint = parseFloat(location.cost)
+      const costint = parseFloat(location.cost);
       const newLocation = {
         location_name: location.location_name,
         location: location.location,
         description: location.description,
         cost: costint,
-        schedule: location.schedule
-      }
-      const res = await editLocation(newLocation,id);
+        schedule: location.schedule,
+      };
+      const res = await editLocation(newLocation, id);
     } catch (error) {
       if (Array.isArray(error.response.data)) {
         return setErrors(error.response.data);
@@ -66,7 +73,20 @@ const LocationProvider = ({ children }) => {
     try {
       const res = await getLocation(id);
       setLocation(res.data);
-      return res.data
+      return res.data;
+    } catch (error) {
+      if (Array.isArray(error.response.data)) {
+        return setErrors(error.response.data);
+      }
+      setErrors([error.response.data.message]);
+    }
+  };
+
+  const getTravelsImg2 = async (id) => {
+    try {
+      const res = await travelsImg2(id);
+      setTravels(res.data);
+      return res.data;
     } catch (error) {
       if (Array.isArray(error.response.data)) {
         return setErrors(error.response.data);
@@ -110,6 +130,18 @@ const LocationProvider = ({ children }) => {
     }
   };
 
+  const getLocations_Transports = async () => {
+    try {
+      const res = await getLocationsAndTransports();
+      setLocAndTransp(res.data);
+    } catch (error) {
+      console.log(error);
+      if (Array.isArray(error.response.data)) {
+        return setErrors(error.response.data);
+      }
+      setErrors([error.response.data.message]);
+    }
+  };
 
   useEffect(() => {
     if (errors.length > 0) {
@@ -129,7 +161,11 @@ const LocationProvider = ({ children }) => {
         deleteSomeLocation,
         getLocations,
         getLocationByTravelID,
+        getTravelsImg2,
+        getLocations_Transports,
+        locAndTransp,
         locationByTravel,
+        travels,
         errors,
         location,
         locations,

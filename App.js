@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "react-native";
 
+import VerifyOTP from "./src/pages/VerifyOTP";
 import VerViajes1 from "./src/pages/VerViajes1";
 import VerViajes2 from "./src/pages/VerViajes2";
 import VerMiViaje from "./src/pages/VerMiViaje";
@@ -33,6 +34,7 @@ import LocationProvider from "./src/context/LocationContext.js";
 import TravelProvider from "./src/context/TravelsContext.js";
 
 import i18n from "./src/languages/i18n";
+import { verifyOTP } from "./src/api/auth.js";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -42,7 +44,12 @@ export default function App() {
       <LocationProvider>
         <TravelProvider>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName="LandPage">
+            <Stack.Navigator>
+              <Stack.Screen
+                name="verifyOTP"
+                component={VerifyOTP}
+                options={{ headerShown: false }}
+              />
               <Stack.Screen
                 name="Bienvenido"
                 component={Home}
@@ -174,7 +181,7 @@ export default function App() {
               />
             </Stack.Navigator>
           </NavigationContainer>
-          <Toast/>
+          <Toast />
         </TravelProvider>
       </LocationProvider>
     </AuthProvider>
