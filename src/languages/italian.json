@@ -86,11 +86,13 @@
         "DeletarTrip": "Disiscrivere",
         "Error1": "Quella email è stata precedentemente registrata",
         "Error2": "Quel nome utente è stato precedentemente registrato",
-        "SearchBar":"Cercare"
-
-
-
-
-
+        "SearchBar":"Cercare",
+        "DiffPasswords": "Le passwords non corrispondono",
+        "VerOTP": "Verificar OTP",
+        "TypeOTP": "Ingresar OTP",
+        "ReOTP": "Reenviar OTP",
+        "BtnVerOTP":"Verificar",
+        "OTPMessage": "Código incorrecto",
+        "OpCamera": "Abirar cámara"
     }
 }

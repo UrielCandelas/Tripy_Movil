@@ -1,58 +1,64 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StatusBar } from "react-native";
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { StatusBar } from 'react-native'
 
-import VerifyOTP from "./src/pages/VerifyOTP";
-import VerViajes1 from "./src/pages/VerViajes1";
-import VerViajes2 from "./src/pages/VerViajes2";
-import VerMiViaje from "./src/pages/VerMiViaje";
-import Gastos from "./src/pages/Gastos";
-import VerViajes3 from "./src/pages/VerViajes3";
-import Destino from "./src/pages/Destino";
-import Home from "./src/pages/Home.js";
-import Inicio from "./src/pages/Inicio.js";
-import CreateAccount from "./src/pages/CreateAccount.js";
-import CreateAccount2 from "./src/pages/CreateAccount2.js";
-import LandPage from "./src/pages/LandPage.js";
-import MiPerfil from "./src/pages/MiPerfil";
-import Perfil from "./src/pages/Perfil";
-import AddReview from "./src/pages/AddReview";
-import EditarPerfil from "./src/pages/EditarPerfil";
-import CrearViaje from "./src/pages/CrearViaje";
-import Solicitudes from "./src/pages/Solicitudes";
-import AgendarGastos from "./src/pages/AgregarGastos";
-import EditarMyViajes from "./src/pages/EditarMyViajes";
-import Chat from "./src/pages/Chat";
-import Contactos from "./src/pages/Contactos";
-import Toast from "react-native-toast-message";
-import LoadingScreen from "./src/pages/LoadingScreen";
-import LoadingScreen2 from "./src/pages/LoadingScreen2";
-import LoadingScreen3 from "./src/pages/LoadingScreen3";
+import VerifyOTP from './src/pages/VerifyOTP'
+import VerifyID from './src/pages/VerifyID'
+import VerViajes1 from './src/pages/VerViajes1'
+import VerViajes2 from './src/pages/VerViajes2'
+import VerMiViaje from './src/pages/VerMiViaje'
+import Gastos from './src/pages/Gastos'
+import VerViajes3 from './src/pages/VerViajes3'
+import Destino from './src/pages/Destino'
+import Home from './src/pages/Home.js'
+import Inicio from './src/pages/Inicio.js'
+import CreateAccount from './src/pages/CreateAccount.js'
+import CreateAccount2 from './src/pages/CreateAccount2.js'
+import LandPage from './src/pages/LandPage.js'
+import MiPerfil from './src/pages/MiPerfil'
+import Perfil from './src/pages/Perfil'
+import AddReview from './src/pages/AddReview'
+import EditarPerfil from './src/pages/EditarPerfil'
+import CrearViaje from './src/pages/CrearViaje'
+import Solicitudes from './src/pages/Solicitudes'
+import AgendarGastos from './src/pages/AgregarGastos'
+import EditarMyViajes from './src/pages/EditarMyViajes'
+import Chat from './src/pages/Chat'
+import Contactos from './src/pages/Contactos'
+import Toast from 'react-native-toast-message'
+import LoadingScreen from './src/pages/LoadingScreen'
+import LoadingScreen2 from './src/pages/LoadingScreen2'
+import LoadingScreen3 from './src/pages/LoadingScreen3'
 
-import AuthProvider from "./src/context/AuthContext.js";
-import LocationProvider from "./src/context/LocationContext.js";
-import TravelProvider from "./src/context/TravelsContext.js";
+import AuthProvider from './src/context/AuthContext.js'
+import LocationProvider from './src/context/LocationContext.js'
+import TravelProvider from './src/context/TravelsContext.js'
 
-import i18n from "./src/languages/i18n";
-import { verifyOTP } from "./src/api/auth.js";
+import i18n from './src/languages/i18n'
+import { verifyOTP } from './src/api/auth.js'
 
 export default function App() {
-  const Stack = createNativeStackNavigator();
-  StatusBar.setBackgroundColor("#64CCC5");
+  const Stack = createNativeStackNavigator()
+  StatusBar.setBackgroundColor('#64CCC5')
   return (
     <AuthProvider>
       <LocationProvider>
         <TravelProvider>
           <NavigationContainer>
-            <Stack.Navigator>
+            <Stack.Navigator initialRouteName="Bienvenido">
+              <Stack.Screen
+                name="Bienvenido"
+                component={Home}
+                options={{ headerShown: false }}
+              />
               <Stack.Screen
                 name="verifyOTP"
                 component={VerifyOTP}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name="Bienvenido"
-                component={Home}
+                name="verifyID"
+                component={VerifyID}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
@@ -185,5 +191,5 @@ export default function App() {
         </TravelProvider>
       </LocationProvider>
     </AuthProvider>
-  );
+  )
 }

@@ -86,8 +86,13 @@
         "DeletarTrip": "Dar de baja",
         "Error1": "Ese correo ha sido anteriormente registrado",
         "Error2": "Ese nombre de usuario ha sido anteriormente registrado",
-        "SearchBar":"Buscar"
-
-
+        "SearchBar":"Buscar",
+        "DiffPasswords": "Las contraseñas no coinciden",
+        "VerOTP": "Verificar OTP",
+        "TypeOTP": "Ingresar OTP",
+        "ReOTP": "Reenviar OTP",
+        "BtnVerOTP":"Verificar",
+        "OTPMessage": "Código incorrecto",
+        "OpCamera": "Abrir cámara"
     }
 }

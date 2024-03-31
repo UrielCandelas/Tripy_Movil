@@ -86,12 +86,13 @@
         "DeletarTrip": "Unsubscribe",
         "Error1": "That email has been previously registered",
         "Error2": "That username has been previously registered",
-        "SearchBar":"Search"
-
-
-
-
-
-
+        "SearchBar":"Search",
+        "DiffPasswords": "Passwords do not match",
+        "VerOTP": "Verificar OTP",
+        "TypeOTP": "Ingresar OTP",
+        "ReOTP": "Reenviar OTP",
+        "BtnVerOTP":"Verificar",
+        "OTPMessage": "Código incorrecto",
+        "OpCamera": "Abirar cámara"
     }
 }

@@ -52,8 +52,7 @@ const AuthProvider = ({ children }) => {
       const res = await registerUser(data)
       //const store = await createStore("token", res.data.token);
       const store = await setItemAsync('token', res.data.token)
-      setIsAuthenticated(true)
-      setUser(res.data)
+      setProvUser(res.data)
     } catch (error) {
       if (Array.isArray(error.response.data)) {
         return setErrors(error.response.data)
@@ -117,15 +116,19 @@ const AuthProvider = ({ children }) => {
 
   const verifyOTPFunc = async (otp) => {
     try {
-      const res = await verifyOTP(otp)
+      const data = {
+        otp,
+      }
+      const res = await verifyOTP(data)
       if (res.status == 200) {
-        setIsAuthenticated(true)
-        setIsOnProcessing(false)
-        setProvUser(null)
-        setUser(res.data)
+        // setIsAuthenticated(true)
+        setIsOnProcessing(true)
+        // setProvUser(null)
+        // setUser(res.data)
       }
       return res.status
     } catch (error) {
+      console.log(error.response.data)
       if (Array.isArray(error.response.data)) {
         return setErrors(error.response.data)
       }

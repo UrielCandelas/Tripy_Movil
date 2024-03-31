@@ -86,9 +86,13 @@
         "DeletarTrip": "Hủy chuyến đi",
         "Error1": "Email đó đã được đăng ký trước đó",
         "Error2": "Tên người dùng đó đã được đăng ký trước đó",
-        "SearchBar":"Tìm kiếm"
-
-
-
+        "SearchBar":"Tìm kiếm",
+        "DiffPasswords": "Mật khẩu không phù hợp",
+        "VerOTP": "Verificar OTP",
+        "TypeOTP": "Ingresar OTP",
+        "ReOTP": "Reenviar OTP",
+        "BtnVerOTP":"Verificar",
+        "OTPMessage": "Código incorrecto",
+        "OpCamera": "Abirar cámara"
     }
 }

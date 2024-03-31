@@ -4,58 +4,69 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
-} from "react-native";
-import Toast from "react-native-toast-message";
-import React, { useState, useEffect } from "react";
-import GeneralButton2 from "../components/GeneralComponents/GeneralButton2";
-import GeneralLittleTxt from "../components/GeneralComponents/GeneralLittleTxt";
-import GeneralTxt from "../components/GeneralComponents/GeneralTxt";
-import AnimatedInput from "../components/AnimatedInput";
-import { useAuth } from "../context/AuthContext";
-import { useRoute, useNavigation } from "@react-navigation/native";
-import Loading from "../components/Loading/Loading";
-import { useTranslation } from "react-i18next";
+} from 'react-native'
+import Toast from 'react-native-toast-message'
+import React, { useState, useEffect } from 'react'
+import GeneralButton2 from '../components/GeneralComponents/GeneralButton2'
+import GeneralLittleTxt from '../components/GeneralComponents/GeneralLittleTxt'
+import GeneralTxt from '../components/GeneralComponents/GeneralTxt'
+import AnimatedInput from '../components/AnimatedInput'
+import { useAuth } from '../context/AuthContext'
+import { useRoute, useNavigation } from '@react-navigation/native'
+import Loading from '../components/Loading/Loading'
+import { useTranslation } from 'react-i18next'
 
 export default function CreateAccount2() {
-  const  {t} = useTranslation();
-  const { signup, isAuthenticated, errors: registerErrors } = useAuth();
-  const navigation = useNavigation();
-  const route = useRoute();
-  const data = route.params;
+  const { t } = useTranslation()
+  const { signup, isAuthenticated, errors: registerErrors } = useAuth()
+  const navigation = useNavigation()
+  const route = useRoute()
+  const data = route.params
   useEffect(() => {
     if (isAuthenticated) {
-      navigation.navigate("LandPage");
+      navigation.navigate('LandPage')
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated])
 
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [userName, setUserName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const handleKeyboardDismiss = () => {
-    Keyboard.dismiss();
-  };
+    Keyboard.dismiss()
+  }
   const handleSubmit = () => {
     if (
-      userName === "" ||
-      email === "" ||
-      password === "" ||
-      confirmPassword === "" ||
-      userName === " " ||
-      email === " " ||
-      password === " "
+      userName === '' ||
+      email === '' ||
+      password === '' ||
+      confirmPassword === '' ||
+      userName === ' ' ||
+      email === ' ' ||
+      password === ' '
     ) {
       Toast.show({
-        type: "error",
-        text1: t("ErrorM"),
-        text2: t("EMessage"),
+        type: 'error',
+        text1: t('ErrorM'),
+        text2: t('EMessage'),
         visibilityTime: 3000,
-        position: "bottom",
+        position: 'bottom',
         bottomOffset: 50,
-      });
-      return;
+      })
+      return
+    } else if (password != confirmPassword || password.length < 8) {
+      Toast.show({
+        type: 'error',
+        text1: t('ErrorM'),
+        text2: t('DiffPasswords'),
+        visibilityTime: 3000,
+        position: 'bottom',
+        bottomOffset: 50,
+      })
+      return
     }
-    signup({
+
+    const data2 = {
       name: data.name,
       lastName: data.lastName,
       secondLastName: data.secondLastName,
@@ -63,18 +74,10 @@ export default function CreateAccount2() {
       email,
       password,
       confirmPassword,
-    });
-  };
-  registerErrors.forEach((error, index) => {
-    Toast.show({
-      type: "error",
-      text1: t("ErrorM"),
-      text2: error,
-      visibilityTime: 3000,
-      position: "bottom",
-      bottomOffset: 50,
-    });
-  });
+    }
+    signup(data2)
+    navigation.navigate('verifyOTP')
+  }
   return (
     <View style={styles.centeredContainer}>
       <GeneralTxt Txt={t('CreateAccount')} style={{ width: 175 }} />
@@ -87,7 +90,7 @@ export default function CreateAccount2() {
         <AnimatedInput
           label={t('User')}
           duration={300}
-          width={"70%"}
+          width={'70%'}
           height={60}
           onChange={setUserName}
           value={userName}
@@ -97,8 +100,8 @@ export default function CreateAccount2() {
         <AnimatedInput
           label={t('Email')}
           duration={300}
-          keyboardType={"email-address"}
-          width={"70%"}
+          keyboardType={'email-address'}
+          width={'70%'}
           height={60}
           onChange={setEmail}
           value={email}
@@ -108,7 +111,7 @@ export default function CreateAccount2() {
         <AnimatedInput
           label={t('Password')}
           duration={300}
-          width={"70%"}
+          width={'70%'}
           height={60}
           secureTextEntry={true}
           onChange={setPassword}
@@ -119,7 +122,7 @@ export default function CreateAccount2() {
         <AnimatedInput
           label={t('ConfirmPassword')}
           duration={300}
-          width={"70%"}
+          width={'70%'}
           height={60}
           secureTextEntry={true}
           onChange={setConfirmPassword}
@@ -127,24 +130,24 @@ export default function CreateAccount2() {
         />
       </TouchableWithoutFeedback>
       <GeneralButton2
-        Txt={t("Continue")}
+        Txt={t('Continue')}
         style={{
           fontSize: 40,
-          backgroundColor: "#64CCC5",
+          backgroundColor: '#64CCC5',
           marginTop: 0,
-          width: "60%",
-          height: "25%",
+          width: '60%',
+          height: '25%',
         }}
         color="white"
         onPress={handleSubmit}
       />
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   centeredContainer: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-});
+})

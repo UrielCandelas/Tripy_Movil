@@ -86,15 +86,13 @@
         "DeletarTrip": "Annuler le voyage",
         "Error1": "Cet email a été préalablement enregistré",
         "Error2": "Ce nom d'utilisateur a déjà été enregistré",
-        "SearchBar":"Chercher"
-
-
-
-
-
-
-
-
-
+        "SearchBar":"Chercher",
+        "DiffPasswords": "Les mots de passe ne correspondent pas",
+        "VerOTP": "Verificar OTP",
+        "TypeOTP": "Ingresar OTP",
+        "ReOTP": "Reenviar OTP",
+        "BtnVerOTP":"Verificar",
+        "OTPMessage": "Código incorrecto",
+        "OpCamera": "Abirar cámara"
     }
 }

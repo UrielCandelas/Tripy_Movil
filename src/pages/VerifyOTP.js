@@ -1,19 +1,58 @@
-import { View, Text } from 'react-native'
+import {
+  View,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Alert,
+} from 'react-native'
 import { React, useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import GeneralText from '../components/GeneralComponents/GeneralText'
-import GeneralInput from '../components/GeneralComponents/GeneralInput'
-import GeneralButton from '../components/GeneralComponents/GeneralButton'
+import GeneralButton2 from '../components/GeneralComponents/GeneralButton2'
+import { useNavigation } from '@react-navigation/native'
+import Toast from 'react-native-toast-message'
+import { useTranslation } from 'react-i18next'
+import AnimatedInput from '../components/AnimatedInput'
 
 export default function VerifyOTP() {
   const { verifyOTPFunc, resendOTPFunc, isAuthenticated, provUser } = useAuth()
 
-  const [OTP, setOTP] = useState('')
+  const { t } = useTranslation()
+
+  const [otp, setOTP] = useState('')
+
+  const navigation = useNavigation()
+
+  const handleKeyboardDismiss = () => {
+    Keyboard.dismiss()
+  }
 
   const handleSubmit = async () => {
-    console.log(OTP)
+    if (otp == '' || otp == ' ') {
+      Toast.show({
+        type: 'error',
+        text1: t('ErrorM'),
+        text2: t('EMessage'),
+        visibilityTime: 3000,
+        position: 'bottom',
+        bottomOffset: 50,
+      })
+      return
+    }
     try {
-      const res = await verifyOTPFunc(OTP)
+      const res = await verifyOTPFunc(otp)
+      if (res.status == 200) {
+        Toast.show({
+          type: 'error',
+          text1: t('ErrorM'),
+          text2: t('OTPMessage'),
+          visibilityTime: 3000,
+          position: 'bottom',
+          bottomOffset: 50,
+        })
+      } else {
+        navigation.navigate('verifyID')
+      }
     } catch (error) {}
   }
 
@@ -26,22 +65,41 @@ export default function VerifyOTP() {
   return (
     <View>
       <GeneralText
-        text="Verificar OTP"
+        text={t('VerOTP')}
         color="black"
         fontWeight="bold"
         marginTop={50}
         marginBottom={20}
         size={20}
       />
-      <GeneralInput onChangeText={setOTP} placeholder={'Ingresa OTP'} />
+      <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
+        <AnimatedInput
+          label={t('TypeOTP')}
+          duration={300}
+          width={'70%'}
+          height={60}
+          onChange={setOTP}
+          value={otp}
+        />
+      </TouchableWithoutFeedback>
       <GeneralText
-        text="Volver a enviar OTP"
+        text={t('ReOTP')}
         onPress={() => {
           resendOTPFunc(provUser?.email)
         }}
         color="black"
       />
-      <GeneralButton text="Verificar" onPressHandler={handleSubmit} />
+      <GeneralButton2
+        Txt={t('BtnVerOTP')}
+        style={{
+          backgroundColor: '#64CCC5',
+          marginTop: 50,
+          width: '60%',
+          height: '25%',
+        }}
+        color="white"
+        onPress={handleSubmit}
+      />
     </View>
   )
 }
