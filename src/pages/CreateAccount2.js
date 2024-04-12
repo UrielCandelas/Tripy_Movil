@@ -3,7 +3,6 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   Keyboard,
-  Alert,
 } from 'react-native'
 import Toast from 'react-native-toast-message'
 import React, { useState, useEffect } from 'react'
@@ -13,18 +12,18 @@ import GeneralTxt from '../components/GeneralComponents/GeneralTxt'
 import AnimatedInput from '../components/AnimatedInput'
 import { useAuth } from '../context/AuthContext'
 import { useRoute, useNavigation } from '@react-navigation/native'
-import Loading from '../components/Loading/Loading'
 import { useTranslation } from 'react-i18next'
+import Loading from '../components/Loading/Loading'
 
 export default function CreateAccount2() {
   const { t } = useTranslation()
-  const { signup, isAuthenticated, errors: registerErrors } = useAuth()
+  const { isAuthenticated, signup, errors: signupErrors } = useAuth()
   const navigation = useNavigation()
   const route = useRoute()
   const data = route.params
   useEffect(() => {
     if (isAuthenticated) {
-      navigation.navigate('LandPage')
+      navigation.navigate('verifyOTP')
     }
   }, [isAuthenticated])
 
@@ -32,10 +31,12 @@ export default function CreateAccount2() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+
   const handleKeyboardDismiss = () => {
     Keyboard.dismiss()
   }
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (
       userName === '' ||
       email === '' ||
@@ -75,9 +76,33 @@ export default function CreateAccount2() {
       password,
       confirmPassword,
     }
-    signup(data2)
-    navigation.navigate('verifyOTP')
+    try {
+      setLoading(true)
+      await signup(data2)
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      navigation.navigate('verifyOTP')
+    }
   }
+
+  const showToast = (text2) => {
+    Toast.show({
+      type: 'error',
+      text1: t('ErrorM'),
+      text2,
+      visibilityTime: 3000,
+      position: 'bottom',
+      bottomOffset: 50,
+    })
+  }
+
+  useEffect(() => {
+    signupErrors.forEach((error, index) => {
+      showToast(error)
+    })
+  }, [signupErrors])
+
   return (
     <View style={styles.centeredContainer}>
       <GeneralTxt Txt={t('CreateAccount')} style={{ width: 175 }} />
@@ -141,6 +166,7 @@ export default function CreateAccount2() {
         color="white"
         onPress={handleSubmit}
       />
+      <Loading isLoading={loading} />
     </View>
   )
 }
@@ -149,5 +175,16 @@ const styles = StyleSheet.create({
   centeredContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  modalBackground: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  activityIndicatorWrapper: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 10,
+    padding: 20,
   },
 })

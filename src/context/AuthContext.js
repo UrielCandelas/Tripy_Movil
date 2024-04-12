@@ -128,7 +128,6 @@ const AuthProvider = ({ children }) => {
       }
       return res.status
     } catch (error) {
-      console.log(error.response.data)
       if (Array.isArray(error.response.data)) {
         return setErrors(error.response.data)
       }

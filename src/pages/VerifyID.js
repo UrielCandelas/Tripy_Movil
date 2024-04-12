@@ -1,10 +1,10 @@
 // App.js
 import React, { useState } from 'react'
-import { View, Button, Image, StyleSheet } from 'react-native'
+import { View, Button, Image, StyleSheet, Alert } from 'react-native'
 import { CameraScreen } from './CameraScreen'
 import GeneralButton2 from '../components/GeneralComponents/GeneralButton2'
 
-export default function VerifyID() {
+export default function App() {
   const [imageUri, setImageUri] = useState(null)
   const [openCamera, setOpenCamera] = useState(false)
 
@@ -30,20 +30,15 @@ export default function VerifyID() {
         />
       ) : (
         <View style={styles.container}>
+          <GeneralButton2
+            style={styles.opCamera}
+            Txt="Abrir Cámara"
+            onPress={openCameraHandler}
+            color="white"
+          />
           {imageUri && (
             <Image source={{ uri: imageUri }} style={styles.image} />
           )}
-          <GeneralButton2
-            Txt={t('OpCamera')}
-            style={{
-              backgroundColor: '#64CCC5',
-              marginTop: 50,
-              width: '60%',
-              height: '25%',
-            }}
-            color="white"
-            onPress={openCameraHandler}
-          />
         </View>
       )}
     </View>
@@ -52,8 +47,13 @@ export default function VerifyID() {
 
 const styles = StyleSheet.create({
   container: {
+    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  opCamera: {
+    marginTop: '20%',
+    marginBottom: 'auto',
   },
   image: {
     width: 200,

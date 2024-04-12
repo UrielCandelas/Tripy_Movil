@@ -4,6 +4,8 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
+  Modal,
+  ActivityIndicator,
 } from 'react-native'
 import { React, useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
@@ -13,13 +15,22 @@ import { useNavigation } from '@react-navigation/native'
 import Toast from 'react-native-toast-message'
 import { useTranslation } from 'react-i18next'
 import AnimatedInput from '../components/AnimatedInput'
+import Loading from '../components/Loading/Loading'
 
 export default function VerifyOTP() {
-  const { verifyOTPFunc, resendOTPFunc, isAuthenticated, provUser } = useAuth()
+  const {
+    verifyOTPFunc,
+    resendOTPFunc,
+    isAuthenticated,
+    provUser,
+    errors: otpErrors,
+  } = useAuth()
 
   const { t } = useTranslation()
 
   const [otp, setOTP] = useState('')
+
+  const [loading, setLoading] = useState(false)
 
   const navigation = useNavigation()
 
@@ -40,20 +51,13 @@ export default function VerifyOTP() {
       return
     }
     try {
-      const res = await verifyOTPFunc(otp)
-      if (res.status == 200) {
-        Toast.show({
-          type: 'error',
-          text1: t('ErrorM'),
-          text2: t('OTPMessage'),
-          visibilityTime: 3000,
-          position: 'bottom',
-          bottomOffset: 50,
-        })
-      } else {
-        navigation.navigate('verifyID')
-      }
-    } catch (error) {}
+      setLoading(true)
+      await verifyOTPFunc(otp)
+      navigation.navigate('verifyID')
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+    }
   }
 
   // useEffect(() => {
@@ -100,6 +104,25 @@ export default function VerifyOTP() {
         color="white"
         onPress={handleSubmit}
       />
+      <Loading isLoading={loading} />
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  centeredContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalBackground: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  activityIndicatorWrapper: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 10,
+    padding: 20,
+  },
+})
