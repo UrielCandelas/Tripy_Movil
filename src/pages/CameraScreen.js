@@ -10,8 +10,8 @@ export const CameraScreen = ({ onPictureTaken, onCancel }) => {
 
   const takePicture = async () => {
     if (cameraRef) {
-      const photo = await cameraRef.takePictureAsync()
-      onPictureTaken(photo.uri)
+      const photo = await cameraRef.takePictureAsync({ base64: true })
+      onPictureTaken({ blob: photo.base64, uri: photo.uri })
     }
   }
 
@@ -59,20 +59,19 @@ const styles = StyleSheet.create({
   camera: {
     width: '100%',
     height: '100%',
-    width: '100%',
   },
   capButtonContainer: {
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 'auto',
+    marginBottom: 10,
   },
   captureButton: {
     backgroundColor: '#333',
     borderRadius: 40,
     padding: 20,
     margin: 10,
-    marginBottom: 30,
   },
   otherButtonContainer: {
     width: '100%',
@@ -83,11 +82,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   cancelButton: {
-    marginTop: 'auto',
     marginLeft: 16,
+    marginTop: 'auto',
   },
   reverseButton: {
-    marginTop: 'auto',
     marginRight: 16,
+    marginTop: 'auto',
   },
 })

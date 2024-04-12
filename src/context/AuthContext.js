@@ -52,6 +52,7 @@ const AuthProvider = ({ children }) => {
       const res = await registerUser(data)
       //const store = await createStore("token", res.data.token);
       const store = await setItemAsync('token', res.data.token)
+      console.log(res.data)
       setProvUser(res.data)
     } catch (error) {
       if (Array.isArray(error.response.data)) {

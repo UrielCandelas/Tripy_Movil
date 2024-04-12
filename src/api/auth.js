@@ -14,6 +14,6 @@ export const oAuth = () => axios.get('/oauth', data)
 
 export const getUsersByRequest = (id) => axios.get(`/request/${id}`)
 
-export const verifyOTP = (otp) => axios.post('/auth/otp', otp)
+export const verifyOTP = (otp) => axios.post('/auth/otp/movil', data)
 
 export const authActive = (id) => axios.get(`/auth/active/${id}`)

@@ -5,7 +5,7 @@ import Toast from 'react-native-toast-message'
 import { CameraScreen } from './CameraScreen'
 import GeneralButton2 from '../components/GeneralComponents/GeneralButton2'
 import { useTranslation } from 'react-i18next'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import GeneralText from '../components/GeneralComponents/GeneralText'
 import GeneralButton from '../components/GeneralComponents/GeneralButton2'
 
@@ -15,6 +15,8 @@ export default function App() {
   const { t } = useTranslation()
   const navigation = useNavigation()
   const [photoFile, setPhotoFile] = useState(null)
+  const route = useRoute()
+  const data1 = route.params
 
   const openCameraHandler = () => {
     setOpenCamera(true)
@@ -23,8 +25,8 @@ export default function App() {
   const handlePictureTaken = (data) => {
     setImageUri(data.uri)
     setOpenCamera(false)
-    const image1 = new File([data.blob], 'photo1.jpg', { type: 'image/jpeg' })
-    setPhotoFile(image1)
+    const image2 = new File([data.blob], 'photo2.jpg', { type: 'image/jpeg' })
+    setPhotoFile(image2)
   }
 
   const handleCancel = () => {
@@ -42,7 +44,10 @@ export default function App() {
         bottomOffset: 50,
       })
     } else {
-      navigation.navigate('verifyID2', { image: photoFile })
+      navigation.navigate('verifyID3', {
+        image1: data1.image,
+        image2: photoFile,
+      })
     }
   }
 
@@ -58,7 +63,7 @@ export default function App() {
           <View style={styles.header}>
             <GeneralText text="Verifica tu identidad" color="black" size={20} />
             <GeneralText
-              text="Toma una foto de tu cara"
+              text="Toma una foto de una identificación oficial"
               color="black"
               marginTop={10}
               size={15}

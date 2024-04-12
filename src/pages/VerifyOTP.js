@@ -67,7 +67,7 @@ export default function VerifyOTP() {
   // }, [isAuthenticated])
 
   return (
-    <View>
+    <View style={styles.centeredContainer}>
       <GeneralText
         text={t('VerOTP')}
         color="black"
@@ -111,6 +111,7 @@ export default function VerifyOTP() {
 
 const styles = StyleSheet.create({
   centeredContainer: {
+    height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
