@@ -7,6 +7,10 @@ import {
   registerCommentaries,
   sendMessage,
   getComentsAndTravelsInactive,
+  acceptRequest,
+  declineRequest,
+  getAccountRequest,
+  identitySender,
 } from "../api/users";
 
 export const UserContext = createContext();
@@ -26,6 +30,7 @@ const UserProvider = ({ children }) => {
   const [contacts, setContacts] = useState([]);
   const [messages, setMessages] = useState([]);
   const [travelsAndComents, setTravelsAndComents] = useState([]);
+  const [accountRequests, setAccountRequests] = useState([]);
 
   const getUserRequest = async (id) => {
     try {
@@ -117,6 +122,55 @@ const UserProvider = ({ children }) => {
     }
   };
 
+  const sendIdentity = async (data) => {
+    try {
+      const res = await identitySender(data);
+      return res.data;
+    } catch (error) {
+      if (Array.isArray(error.response.data)) {
+        return setErrors(error.response.data);
+      }
+      setErrors([error.response.data.message]);
+    }
+  };
+
+  const getAllRequests = async () => {
+    try {
+      const res = await getAccountRequest();
+      setAccountRequests(res.data);
+      return res.data;
+    } catch (error) {
+      if (Array.isArray(error.response.data)) {
+        return setErrors(error.response.data);
+      }
+      setErrors([error.response.data.message]);
+    }
+  };
+
+  const acceptAccountReq = async (id) => {
+    try {
+      const res = await acceptRequest(id);
+      return res.data;
+    } catch (error) {
+      if (Array.isArray(error.response.data)) {
+        return setErrors(error.response.data);
+      }
+      setErrors([error.response.data.message]);
+    }
+  };
+
+  const declineAccountReq = async (data, id) => {
+    try {
+      const res = await declineRequest(data, id);
+      return res.data;
+    } catch (error) {
+      if (Array.isArray(error.response.data)) {
+        return setErrors(error.response.data);
+      }
+      setErrors([error.response.data.message]);
+    }
+  };
+
   useEffect(() => {
     if (errors.length > 0) {
       const timmer = setTimeout(() => {
@@ -134,6 +188,7 @@ const UserProvider = ({ children }) => {
         contacts,
         messages,
         travelsAndComents,
+        accountRequests,
         setMessages,
         getMessages,
         getUserRequest,
@@ -142,6 +197,10 @@ const UserProvider = ({ children }) => {
         registerNewCommentary,
         getComentaries,
         getTravelsComents,
+        sendIdentity,
+        acceptAccountReq,
+        declineAccountReq,
+        getAllRequests,
       }}
     >
       {children}
