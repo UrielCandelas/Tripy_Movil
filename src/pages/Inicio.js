@@ -19,14 +19,14 @@ export default function Inicio() {
   const handleKeyboardDismiss = () => {
     Keyboard.dismiss();
   };
-  const { isAuthenticated, signin,errors: loginErrors } = useAuth();
+  const { isAuthenticated, signin, errors: loginErrors } = useAuth();
   useEffect(() => {
     if (isAuthenticated) {
       navigation.navigate("LandPage");
     }
   }, [isAuthenticated]);
 
-  const onSubmit = async() => {
+  const onSubmit = async () => {
     if (
       email === "" ||
       password === "" ||
@@ -36,9 +36,9 @@ export default function Inicio() {
       showToast(t("EMessage"));
       return;
     }
-     signin({email, password});  
+    signin({ email, password });
   }
-  const showToast = ( text2) => {
+  const showToast = (text2) => {
     Toast.show({
       type: "error",
       text1: t("ErrorM"),
@@ -47,13 +47,13 @@ export default function Inicio() {
       position: "bottom",
       bottomOffset: 50,
     });
-  }; 
+  };
   useEffect(() => {
     loginErrors.forEach((error, index) => {
       showToast(error);
     });
-  },[loginErrors])
-  const  {t, i18n} = useTranslation();
+  }, [loginErrors])
+  const { t, i18n } = useTranslation();
   return (
     <View style={styles.centeredContainer}>
       <GeneralTxt Txt={t('Login2')} style={{ width: 175 }} />

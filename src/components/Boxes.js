@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import GeneralLittleTxt from './GeneralComponents/GeneralLittleTxt'
 import { useNavigation } from '@react-navigation/native'
@@ -9,29 +9,40 @@ import { Image } from 'react-native'
 export default function Boxes() {
   const navigation = useNavigation()
   const { locations, getLocations } = useLocations()
-  const { getImages, images } = useTravels()
   useEffect(() => {
     getLocations()
-    getImages()
   }, [])
+  const loc = useMemo(() => locations.locations, [locations])
+  const img = useMemo(() => locations?.images, [locations])
+
 
   return (
     <View style={styles.container}>
-      {locations.map((location, i) => (
-        <View style={styles.box} key={i}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('Destino', {
-                id: location.id,
-                uri: images[i],
-              })
-            }}
-          >
-            <Image source={{ uri: images[i] }} style={styles.inner} />
-          </TouchableOpacity>
-          <GeneralLittleTxt Txt={location.location_name} />
-        </View>
-      ))}
+      {loc?.length > 0 ? (
+        loc? loc?.map((location, i) => (
+          <View style={styles.box} key={i}>
+
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Destino', {
+                  id: location?.id,
+                  uri: img[i],
+                })
+              }}
+            >
+              <Image source={{uri: img? img[i].image : ''  }} style={styles.inner} />
+            </TouchableOpacity>
+            <GeneralLittleTxt Txt={location?.location_name} />
+          </View>
+        )):<Text>
+          CARGANDO...
+        </Text>
+      ): (
+        <Text>
+          No hay nada registrado
+        </Text>
+      )}
+
     </View>
   )
 }
@@ -58,3 +69,5 @@ const styles = StyleSheet.create({
     color: 'black',
   },
 })
+
+// 

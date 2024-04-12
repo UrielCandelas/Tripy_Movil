@@ -23,16 +23,20 @@ export default function VerViajes1() {
   } = useTravels()
   const { getSomeLocation, location } = useLocations()
   const { getUser, userById, user } = useAuth()
+
+
+
+
+
+  console.log(
+    user, 'user'
+  )
   useEffect(() => {
     getAllLocationTravelsFunc(id)
     getSomeLocation(id)
     getAllExpensesFunc(id)
-    getUser(id)
   }, [])
   const names = []
-  for (let index = 0; index < userById.length; index++) {
-    names.push(userById[index].name)
-  }
   const ex = []
   const exName = []
   for (let index = 0; index < expenses.length; index++) {
@@ -60,7 +64,7 @@ export default function VerViajes1() {
           borderRadius={10}
           marginRight={20}
           marginTop={20}
-          uri2={uri}
+          uri2={uri?.image}
         />
       </View>
       <View style={styles.desc}>

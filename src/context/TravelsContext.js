@@ -1,25 +1,18 @@
 import { useContext, createContext, useEffect, useState } from "react";
 
 import {
-  getAllTravels,
-  getTravel,
-  getSharedTravels,
   addSecondUser,
-  getTravelsI,
-  getTravelsA,
-  registerNewTravel,
-  declineRequest,
-  getSharedTravel,
-  getAllTransports,
-  getAllLocationTravels,
-  getAllExpenses,
-  getAllExtras,
   addTravelRequest,
-  getRequest,
+  declineRequest,
+  deleteSecondUser,
   deleteTravel,
+  getRegisterComent,
+  getRequest,
+  getTravel,
+  getTravelsA,
+  getTravelsI,
+  registerNewTravel,
 } from "../api/travels.js";
-
-import io from "socket.io-client";
 
 import { useAuth } from "../context/AuthContext";
 
@@ -254,6 +247,19 @@ const TravelProvider = ({ children }) => {
     }
   };
 
+  const registerComent = async (data) => {
+    try {
+
+      const res = await getRegisterComent(data);
+    } catch (error) {
+      if (Array.isArray(error.response.data)) {
+        return setErrors(error.response.data);
+      }
+      setErrors([error.response.data.message]);
+    }
+  }
+
+
   useEffect(() => {
     if (errors.length > 0) {
       const timmer = setTimeout(() => {
@@ -262,6 +268,7 @@ const TravelProvider = ({ children }) => {
       return () => clearTimeout(timmer);
     }
   }, [errors]);
+
 
   /*useEffect(() => {
     socket.on('send_request', (data) => {
@@ -306,6 +313,7 @@ const TravelProvider = ({ children }) => {
         locationTravels,
         getImages,
         images,
+        registerComent,
       }}
     >
       {children}
