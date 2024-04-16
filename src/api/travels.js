@@ -5,6 +5,8 @@ export const getTravel = (id) => axios.get(`/travels/${id}`);
 
 export const addSecondUser = (data) => axios.put(`/travels/shared`, data);
 
+export const registerNewTravel = (travel) => axios.post('/travels/add/new', travel)
+
 export const deleteSecondUser = (id) =>
 	axios.put(`/travels/secondShared/${id}`);
 

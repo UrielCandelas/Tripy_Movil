@@ -60,21 +60,24 @@ const AuthProvider = ({ children }) => {
 		}
 	};
 
-	const signin = async (user) => {
-		try {
-			const res = await login(user);
-			// const store = await createStore("token", res.data.token);
-			await setItemAsync("token", res.data.token);
-			setIsAuthenticated(true);
-			setUser(res.data);
-		} catch (error) {
-			if (Array.isArray(error.response.data)) {
-				return setErrors(error.response.data);
-			}
-			setErrors([error.response.data.message]);
-		}
-	};
+  const signin = async (user) => {
+    try {
+      const res = await login(user)
+      //const store = await createStore("token", res.data.token);
+      const store = await setItemAsync('token', res.data.token)
+      setUser(res.data)
+      setIsAuthenticated(true)
+      
+    } catch (error) {
 
+      if (Array.isArray(error.response.data)) {
+        return setErrors(error.response.data)
+
+      }
+      setErrors([error.response.data.message])
+    }
+  }
+  
 	const logoutFunc = async () => {
 		try {
 			await deleteItemAsync("token");

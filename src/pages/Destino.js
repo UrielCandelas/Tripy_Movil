@@ -12,104 +12,103 @@ import { useAuth } from "../context/AuthContext";
 import { useTranslation } from "react-i18next";
 
 export default function VerViajes1() {
-	const navigation = useNavigation();
-	const route = useRoute();
-	const { id, uri } = route.params;
-	const {
-		getAllLocationTravelsFunc,
-		locationTravels,
-		getAllExpensesFunc,
-		expenses,
-	} = useTravels();
-	const { getSomeLocation, location } = useLocations();
-	const { getUser, userById, user } = useAuth();
-	useEffect(() => {
-		getAllLocationTravelsFunc(id);
-		getSomeLocation(id);
-		getAllExpensesFunc(id);
-		getUser(id);
-	}, []);
-	const names = [];
-	for (let index = 0; index < userById.length; index++) {
-		names.push(userById[index].name);
-	}
-	const ex = [];
-	const exName = [];
-	for (let index = 0; index < expenses.length; index++) {
-		ex.push(expenses[index].quantity);
-		exName.push(expenses[index].expense);
-	}
-	const myId = user.id;
-	const { t } = useTranslation();
-	return (
-		<ScrollView contentContainerStyle={styles.container}>
-			<StatusBar style="auto" />
-			<Ionicons
-				style={styles.back}
-				name="arrow-back"
-				size={24}
-				color="black"
-				onPress={() => navigation.goBack()}
-			/>
+  const navigation = useNavigation()
+  const route = useRoute()
+  const { id, uri } = route.params
+  const {
+    getAllLocationTravelsFunc,
+    locationTravels,
+    getAllExpensesFunc,
+    expenses,
+  } = useTravels()
+  const { getSomeLocation, location } = useLocations()
+  const { getUser, userById, user } = useAuth()
+
+  useEffect(() => {
+    getAllLocationTravelsFunc(id)
+    getSomeLocation(id)
+    getAllExpensesFunc(id)
+  }, [])
+  const names = []
+  const ex = []
+  const exName = []
+  for (let index = 0; index < expenses.length; index++) {
+    ex.push(expenses[index].quantity)
+    exName.push(expenses[index].expense)
+  }
+  const myId = user.id
+  const {t, i18next} = useTranslation();
+  return (
+    <ScrollView contentContainerStyle={styles.container}>
+      <StatusBar style="auto" />
+      <Ionicons
+        style={styles.back}
+        name="arrow-back"
+        size={24}
+        color="black"
+        onPress={() => navigation.goBack()}
+      />
+
 
 			<Text style={styles.texto1}>{location.location_name}</Text>
 
-			<View style={styles.row}>
-				<Cuadritos
-					size={70}
-					borderRadius={10}
-					marginRight={20}
-					marginTop={20}
-					uri2={uri}
-				/>
-			</View>
-			<View style={styles.desc}>
-				<GeneralText
-					color="#1D1E20"
-					size={17}
-					height={18}
-					text={t("Description")}
-					marginTop={50}
-				/>
-				<GeneralText
-					color="#1D1E20"
-					size={15}
-					height={18}
-					text={location.description}
-					marginTop={10}
-					marginBottom={20}
-				/>
-				<GeneralText
-					color="#1D1E20"
-					size={17}
-					height={18}
-					text={t("Location")}
-					marginTop={20}
-				/>
-				<GeneralText
-					color="#1D1E20"
-					size={15}
-					height={18}
-					text={location.location}
-					marginTop={10}
-					marginBottom={10}
-				/>
-				<GeneralText
-					color="#1D1E20"
-					size={17}
-					height={18}
-					text={t("Schedule")}
-					marginTop={20}
-				/>
-				<GeneralText
-					color="#1D1E20"
-					size={15}
-					height={18}
-					text={location.schedule}
-					marginTop={10}
-					marginBottom={20}
-				/>
-			</View>
+      <View style={styles.row}>
+        <Cuadritos
+          size={70}
+          borderRadius={10}
+          marginRight={20}
+          marginTop={20}
+          uri2={uri?.image}
+        />
+      </View>
+      <View style={styles.desc}>
+        <GeneralText
+          color="#1D1E20"
+          size={17}
+          height={18}
+          text={t("Description")}
+          marginTop={50}
+        />
+        <GeneralText
+          color="#1D1E20"
+          size={15}
+          height={18}
+          text={location.description}
+          marginTop={10}
+          marginBottom={20}
+        />
+        <GeneralText
+          color="#1D1E20"
+          size={17}
+          height={18}
+          text={t("Location")}
+          marginTop={20}
+        />
+        <GeneralText
+          color="#1D1E20"
+          size={15}
+          height={18}
+          text={location.location}
+          marginTop={10}
+          marginBottom={10}
+        />
+        <GeneralText
+          color="#1D1E20"
+          size={17}
+          height={18}
+          text={t("Schedule")}
+          marginTop={20}
+        />
+        <GeneralText
+          color="#1D1E20"
+          size={15}
+          height={18}
+          text={location.schedule}
+          marginTop={10}
+          marginBottom={20}
+        />
+      </View>
+
 
 			{locationTravels.map((travel, i) => {
 				if (myId != travel.id_user1 && travel.isActive == true) {

@@ -9,7 +9,20 @@ export const registerLocation = (location) =>
 export const getLocationsAndTransports = () =>
 	axios.get("/locations/transports");
 
-export const getAllLocations = () => axios.get("/locations");
+export const registerLocation = (location) => axios.post('/locations', location, {
+  headers: {
+    'Content-Type': 'multipart/form-data',
+  },
+})
+export const getLocationsAndTransports = () =>
+  axios.get('/locations/transports')
+
+export const getAllLocations = () => axios.get('/locations');
+
+export const locationData = (id) => axios.get(`/locations/data/${id}`)
+
+export const travelsImg2 = (id) => axios.get(`/locations/second/${id}`)
+
 
 export const locationData = (id) => axios.get(`/locations/data/${id}`);
 
