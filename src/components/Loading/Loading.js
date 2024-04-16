@@ -1,21 +1,33 @@
-import { ActivityIndicator,View } from 'react-native'
-import { useAuth } from '../../context/AuthContext'
-import {useNavigation} from '@react-navigation/native'
-import React from 'react'
+import { ActivityIndicator, Modal, View, StyleSheet } from "react-native";
 
-export default function Loading({ children }) {
-    const navigation = useNavigation();
-    const {loading, isAuthenticated } = useAuth();
-  if (loading) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color={'red'} />
-      </View>
-    )
-  }
-  if (!loading && !isAuthenticated) {
-    navigation.navigate('Inicio')
-    return;
-  }
-  return children
+function Loading({ isLoading: loading }) {
+	return (
+		<Modal animationType="fade" transparent={true} visible={loading}>
+			<View style={styles.modalBackground}>
+				<View style={styles.activityIndicatorWrapper}>
+					<ActivityIndicator animating={loading} size="large" color="#64CCC5" />
+				</View>
+			</View>
+		</Modal>
+	);
 }
+
+const styles = StyleSheet.create({
+	centeredContainer: {
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	modalBackground: {
+		flex: 1,
+		backgroundColor: "rgba(0, 0, 0, 0.5)",
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	activityIndicatorWrapper: {
+		backgroundColor: "#FFFFFF",
+		borderRadius: 10,
+		padding: 20,
+	},
+});
+
+export default Loading;

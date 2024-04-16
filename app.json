@@ -15,6 +15,9 @@
       "**/*"
     ],
     "ios": {
+      "infoPlist": {
+        "NSCameraUsageDescription": "Esta aplicación necesita acceso a la cámara para tomar fotos."
+      },
       "supportsTablet": true,
       "permissions": {
         "camera": {

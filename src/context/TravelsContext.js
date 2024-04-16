@@ -19,11 +19,11 @@ import { useAuth } from "../context/AuthContext";
 export const TravelContext = createContext();
 
 export const useTravels = () => {
-  const context = useContext(TravelContext);
-  if (!context) {
-    throw new Error("useTravels must be used within an TravelProvider");
-  }
-  return context;
+	const context = useContext(TravelContext);
+	if (!context) {
+		throw new Error("useTravels must be used within an TravelProvider");
+	}
+	return context;
 };
 
 const TravelProvider = ({ children }) => {

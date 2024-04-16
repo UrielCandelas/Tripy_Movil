@@ -1,4 +1,9 @@
-import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
+import {
+	View,
+	StyleSheet,
+	TouchableWithoutFeedback,
+	Keyboard,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import Toast from "react-native-toast-message";
 import GeneralButton2 from "../components/GeneralComponents/GeneralButton2";
@@ -7,14 +12,13 @@ import GeneralTxt from "../components/GeneralComponents/GeneralTxt";
 import AnimatedInput from "../components/AnimatedInput";
 import { useTranslation } from "react-i18next";
 
-
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../context/AuthContext";
 
 export default function Inicio() {
-  const navigation = useNavigation();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+	const navigation = useNavigation();
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
 
   const handleKeyboardDismiss = () => {
     Keyboard.dismiss();
@@ -96,10 +100,11 @@ export default function Inicio() {
       />
     </View>
   );
+
 }
 const styles = StyleSheet.create({
-  centeredContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
+	centeredContainer: {
+		justifyContent: "center",
+		alignItems: "center",
+	},
 });
