@@ -66,7 +66,6 @@ const AuthProvider = ({ children }) => {
       const res = await login(user)
       //const store = await createStore("token", res.data.token);
       const store = await setItemAsync('token', res.data.token)
-      console.log(res)
       setUser(res.data)
       setIsAuthenticated(true)
       

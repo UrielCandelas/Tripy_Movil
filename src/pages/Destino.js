@@ -28,9 +28,7 @@ export default function VerViajes1() {
 
 
 
-  console.log(
-    user, 'user'
-  )
+
   useEffect(() => {
     getAllLocationTravelsFunc(id)
     getSomeLocation(id)

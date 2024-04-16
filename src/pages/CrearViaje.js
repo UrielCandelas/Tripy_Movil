@@ -3,7 +3,7 @@ import { StatusBar } from "expo-status-bar";
 //import DateTimePicker from "@react-native-community/datetimepicker";
 //import DatePicker from "react-native-date-picker";
 import DatePicker from "react-native-modern-datepicker";
-import { getToday,getFormatedDate } from "react-native-modern-datepicker";
+import { getToday, getFormatedDate } from "react-native-modern-datepicker";
 import GeneralButton from "../components/GeneralComponents/GeneralButton";
 import {
   StyleSheet,
@@ -29,27 +29,48 @@ export default function () {
   const navigation = useNavigation();
   const today = new Date()
   const startdate = getFormatedDate(today.setDate(today.getDate() + 1), "YYYY-MM-DD");
-  const { locations, getLocations } = useLocations();
+  const { locations, getLocations, locAndTransp, getLocations_Transports } = useLocations();
   const { user } = useAuth();
-  const { registerNewTravelFunc, transports, getTransports } = useTravels();
+  const { registerNewTravelFunc } = useTravels();
 
-  const id_user1 = user.id;
+
+  const id_user1 = user?.id;
   useEffect(() => {
-    getLocations();
-    getTransports();
+    async function fetchData() {
+      try {
+        await getLocations_Transports();
+      } catch (error) { }
+    }
+    fetchData();
   }, []);
 
+  const loc = locations.locations;
+
   let data = [];
-  locations.map((location, i) => {
-    data.push({ label: location.location_name, value: location.id });
-  });
+
+
+  if (Array.isArray(loc)) {
+    loc.map((location, i) => {
+      data.push({ label: location.location_name, value: location.id });
+    });
+  } else {
+    console.error("locations is not an array or is undefined.");
+  }
+
+
   let data2 = [];
-  transports.map((transports, i) => {
+  const transp = locAndTransp?.transports;
+
+  transp?.map((transports, i) => {
     if (transports.id == 5) {
       return;
     }
     data2.push({ label: transports.transport, value: transports.id });
   });
+
+  
+
+
 
   const handleTextChange = (text, state) => {
     const formattedText = text.replace(/[ ,\-\.]/g, "");
@@ -88,6 +109,7 @@ export default function () {
             text: t("Confirm"),
             onPress: async () => {
               const res = await registerNewTravelFunc(newTravel);
+
               // ANTES DEL LOADING SCREEN: navigation.navigate("LandPage");
               navigation.navigate("LoadingScreen");
             },
@@ -122,7 +144,7 @@ export default function () {
   const handleOpen = () => {
     setOpen(!open);
   };
-const {t, i18next} = useTranslation();
+  const { t, i18next } = useTranslation();
   return (
     <View style={styles.container}>
       <StatusBar style="auto" backgroundColor="#64CCC5" />
@@ -187,7 +209,7 @@ const {t, i18next} = useTranslation();
                   onPressHandler={handleOpen}
                   width={120}
                   height={40}
-                  
+
                 />
               </View>
 
