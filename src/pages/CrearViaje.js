@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-//import DateTimePicker from "@react-native-community/datetimepicker";
-//import DatePicker from "react-native-date-picker";
-import DatePicker from "react-native-modern-datepicker";
-import { getToday, getFormatedDate } from "react-native-modern-datepicker";
+import DatePicker, { getFormatedDate } from "react-native-modern-datepicker";
 import GeneralButton from "../components/GeneralComponents/GeneralButton";
 import {
 	StyleSheet,
@@ -25,104 +22,100 @@ import { useTravels } from "../context/TravelsContext";
 import { useAuth } from "../context/AuthContext";
 import { useTranslation } from "react-i18next";
 
-export default function () {
-  const navigation = useNavigation();
-  const today = new Date()
-  const startdate = getFormatedDate(today.setDate(today.getDate() + 1), "YYYY-MM-DD");
-  const { locations, getLocations, locAndTransp, getLocations_Transports } = useLocations();
-  const { user } = useAuth();
-  const { registerNewTravelFunc } = useTravels();
+export default function CrearViaje() {
+	const navigation = useNavigation();
+	const today = new Date();
+	const startdate = getFormatedDate(
+		today.setDate(today.getDate() + 1),
+		"YYYY-MM-DD",
+	);
+	const { locations, locAndTransp, getLocations_Transports } = useLocations();
+	const { user } = useAuth();
+	const { registerNewTravelFunc } = useTravels();
 
+	const id_user1 = user?.id;
+	useEffect(() => {
+		async function fetchData() {
+			try {
+				await getLocations_Transports();
+			} catch (error) {}
+		}
+		fetchData();
+	}, []);
 
-  const id_user1 = user?.id;
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        await getLocations_Transports();
-      } catch (error) { }
-    }
-    fetchData();
-  }, []);
+	const loc = locations.locations;
 
-  const loc = locations.locations;
+	const data = [];
 
-  let data = [];
-  
+	if (Array.isArray(loc)) {
+		loc.map((location, i) => {
+			return data.push({ label: location.location_name, value: location.id });
+		});
+	} else {
+		console.error("locations is not an array or is undefined.");
+	}
 
-  if (Array.isArray(loc)) {
-    loc.map((location, i) => {
-      data.push({ label: location.location_name, value: location.id });
-    });
-  } else {
-    console.error("locations is not an array or is undefined.");
-  }
+	const data2 = [];
+	const transp = locAndTransp?.transports;
 
+	transp?.map((transports, i) => {
+		if (transports.id == 5) {
+			return null;
+		}
+		return data2.push({ label: transports.transport, value: transports.id });
+	});
 
-  let data2 = [];
-  const transp = locAndTransp?.transports;
+	const handleTextChange = (text, state) => {
+		const formattedText = text.replace(/[ ,\-.]/g, "");
+		state(formattedText);
+	};
+	const [value, setValue] = useState(null);
+	const [quantity, setQuantity] = useState("");
+	const [companions, setCompanions] = useState("");
+	const [extra, setExtra] = useState("");
+	const [travel_date, setTravel_date] = useState(startdate);
+	const [typeOfExpenses, setTypeOfExpenses] = useState("");
+	const [typeTransportation, setTypeTransportation] = useState(null);
+	const [open, setOpen] = useState(false);
 
-  transp?.map((transports, i) => {
-    if (transports.id == 5) {
-      return;
-    }
-    data2.push({ label: transports.transport, value: transports.id });
-  });
+	const handleSubmit = async () => {
+		try {
+			const newTravel = {
+				id_user1,
+				id_location: value.value,
+				travel_date,
+				id_transportation: typeTransportation ? typeTransportation.value : 5,
+				expense: typeOfExpenses,
+				quantity: parseInt(quantity),
+				extra,
+				companions: parseInt(companions),
+			};
+			Alert.alert(
+				t("SideBarNewTrip"),
+				t("AlertQuestion"),
+				[
+					{
+						text: t("Cancel"),
+						style: "cancel",
+					},
+					{
+						text: t("Confirm"),
+						onPress: async () => {
+							await registerNewTravelFunc(newTravel);
 
-  
-
-
-
-  const handleTextChange = (text, state) => {
-    const formattedText = text.replace(/[ ,\-\.]/g, "");
-    state(formattedText);
-  };
-  const [value, setValue] = useState(null);
-  const [quantity, setQuantity] = useState("");
-  const [companions, setCompanions] = useState("");
-  const [extra, setExtra] = useState("");
-  const [travel_date, setTravel_date] = useState(startdate);
-  const [typeOfExpenses, setTypeOfExpenses] = useState("");
-  const [typeTransportation, setTypeTransportation] = useState(null);
-  const [open, setOpen] = useState(false);
-
-  const handleSubmit = async () => {
-    try {
-      const newTravel = {
-        id_user1,
-        id_location: value.value,
-        travel_date,
-        id_transportation: typeTransportation ? typeTransportation.value : 5,
-        expense: typeOfExpenses,
-        quantity: parseInt(quantity),
-        extra,
-        companions: parseInt(companions),
-      };
-      Alert.alert(
-        t("SideBarNewTrip"),
-        t("AlertQuestion"),
-        [
-          {
-            text: t("Cancel"),
-            style: "cancel",
-          },
-          {
-            text: t("Confirm"),
-            onPress: async () => {
-              const res = await registerNewTravelFunc(newTravel);
-
-              // ANTES DEL LOADING SCREEN: navigation.navigate("LandPage");
-              navigation.navigate("LoadingScreen");
-            },
-          },
-        ],
-        { cancelable: false }
-      );
-      //console.log(newTravel)
-    } catch (error) {
-      Alert.alert(t("AlertError") + error);
-      console.log(error);
-    }
-  };
+							// ANTES DEL LOADING SCREEN: navigation.navigate("LandPage");
+							navigation.navigate("LoadingScreen");
+						},
+					},
+				],
+				{ cancelable: false },
+			);
+			// console.log(newTravel)
+		} catch (error) {
+			Alert.alert(t("AlertError") + error);
+			console.log(error);
+		}
+	};
 
 	/* const onChangeDate = (selectedDate) => {
     const currentDate = selectedDate.nativeEvent.timestamp
@@ -135,22 +128,22 @@ export default function () {
 	const handleDateChange = (date) => {
 		setTravel_date(date);
 	};
-  const handleOpen = () => {
-    setOpen(!open);
-  };
-  const { t, i18next } = useTranslation();
-  return (
-    <View style={styles.container}>
-      <StatusBar style="auto" backgroundColor="#64CCC5" />
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Ionicons
-          style={styles.back}
-          name="arrow-back"
-          size={24}
-          color="black"
-          onPress={() => navigation.goBack()}
-        />
-        <Text style={styles.texto1}>{t("SideBarNewTrip")}</Text>
+	const handleOpen = () => {
+		setOpen(!open);
+	};
+	const { t } = useTranslation();
+	return (
+		<View style={styles.container}>
+			<StatusBar style="auto" backgroundColor="#64CCC5" />
+			<ScrollView contentContainerStyle={styles.scrollContainer}>
+				<Ionicons
+					style={styles.back}
+					name="arrow-back"
+					size={24}
+					color="black"
+					onPress={() => navigation.goBack()}
+				/>
+				<Text style={styles.texto1}>{t("SideBarNewTrip")}</Text>
 
 				<View>
 					<View style={styles.container1}>
@@ -186,26 +179,24 @@ export default function () {
 							/>
 						</SafeAreaView>
 					</View>
-          <View style={styles.container1}>
-            <Text style={styles.texto5}>{t("InitialDate")}</Text>
-            <SafeAreaView>
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Ionicons
-                  style={{ marginLeft: 20 }}
-                  name="calendar-sharp"
-                  size={24}
-                  color="black"
-                  onPress={handleOpen}
-                />
-                <GeneralButton
-                  text={travel_date}
-                  onPressHandler={handleOpen}
-                  width={120}
-                  height={40}
-
-                />
-              </View>
-
+					<View style={styles.container1}>
+						<Text style={styles.texto5}>{t("InitialDate")}</Text>
+						<SafeAreaView>
+							<View style={{ flexDirection: "row", alignItems: "center" }}>
+								<Ionicons
+									style={{ marginLeft: 20 }}
+									name="calendar-sharp"
+									size={24}
+									color="black"
+									onPress={handleOpen}
+								/>
+								<GeneralButton
+									text={travel_date}
+									onPressHandler={handleOpen}
+									width={120}
+									height={40}
+								/>
+							</View>
 
 							<Modal animationType="slide" transparent={true} visible={open}>
 								<View style={styles.centeredView}>
