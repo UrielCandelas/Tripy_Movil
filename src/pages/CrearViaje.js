@@ -47,7 +47,7 @@ export default function () {
   const loc = locations.locations;
 
   let data = [];
-
+  
 
   if (Array.isArray(loc)) {
     loc.map((location, i) => {
