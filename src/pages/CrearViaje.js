@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-//import DateTimePicker from "@react-native-community/datetimepicker";
-//import DatePicker from "react-native-date-picker";
-import DatePicker from "react-native-modern-datepicker";
-import { getToday, getFormatedDate } from "react-native-modern-datepicker";
+import DatePicker, { getFormatedDate } from "react-native-modern-datepicker";
 import GeneralButton from "../components/GeneralComponents/GeneralButton";
 import {
   StyleSheet,
@@ -25,55 +22,51 @@ import { useTravels } from "../context/TravelsContext";
 import { useAuth } from "../context/AuthContext";
 import { useTranslation } from "react-i18next";
 
-export default function () {
+export default function CrearViaje() {
   const navigation = useNavigation();
-  const today = new Date()
-  const startdate = getFormatedDate(today.setDate(today.getDate() + 1), "YYYY-MM-DD");
-  const { locations, getLocations, locAndTransp, getLocations_Transports } = useLocations();
+  const today = new Date();
+  const startdate = getFormatedDate(
+    today.setDate(today.getDate() + 1),
+    "YYYY-MM-DD"
+  );
+  const { locations, locAndTransp, getLocations_Transports } = useLocations();
   const { user } = useAuth();
   const { registerNewTravelFunc } = useTravels();
-
 
   const id_user1 = user?.id;
   useEffect(() => {
     async function fetchData() {
       try {
         await getLocations_Transports();
-      } catch (error) { }
+      } catch (error) {}
     }
     fetchData();
   }, []);
 
   const loc = locations.locations;
 
-  let data = [];
-  
+  const data = [];
 
   if (Array.isArray(loc)) {
     loc.map((location, i) => {
-      data.push({ label: location.location_name, value: location.id });
+      return data.push({ label: location.location_name, value: location.id });
     });
   } else {
     console.error("locations is not an array or is undefined.");
   }
 
-
-  let data2 = [];
+  const data2 = [];
   const transp = locAndTransp?.transports;
 
   transp?.map((transports, i) => {
     if (transports.id == 5) {
-      return;
+      return null;
     }
-    data2.push({ label: transports.transport, value: transports.id });
+    return data2.push({ label: transports.transport, value: transports.id });
   });
 
-  
-
-
-
   const handleTextChange = (text, state) => {
-    const formattedText = text.replace(/[ ,\-\.]/g, "");
+    const formattedText = text.replace(/[ ,\-.]/g, "");
     state(formattedText);
   };
   const [value, setValue] = useState(null);
@@ -108,7 +101,7 @@ export default function () {
           {
             text: t("Confirm"),
             onPress: async () => {
-              const res = await registerNewTravelFunc(newTravel);
+              await registerNewTravelFunc(newTravel);
 
               // ANTES DEL LOADING SCREEN: navigation.navigate("LandPage");
               navigation.navigate("LoadingScreen");
@@ -117,34 +110,19 @@ export default function () {
         ],
         { cancelable: false }
       );
-      //console.log(newTravel)
     } catch (error) {
       Alert.alert(t("AlertError") + error);
       console.log(error);
     }
   };
 
-  const calculateMaxDate = () => {
-    const maxDate = new Date();
-    maxDate.setFullYear(maxDate.getFullYear() + 1);
-    return maxDate;
-  };
-  /*const onChangeDate = (selectedDate) => {
-    const currentDate = selectedDate.nativeEvent.timestamp
-      ? new Date(selectedDate.nativeEvent.timestamp)
-      : new Date();
-    setShowDatePicker(Platform.OS === "ios");
-    setTravel_date(currentDate);
-  };*/
-
   const handleDateChange = (date) => {
     setTravel_date(date);
-  }
-
+  };
   const handleOpen = () => {
     setOpen(!open);
   };
-  const { t, i18next } = useTranslation();
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
       <StatusBar style="auto" backgroundColor="#64CCC5" />
@@ -192,7 +170,6 @@ export default function () {
               />
             </SafeAreaView>
           </View>
-
           <View style={styles.container1}>
             <Text style={styles.texto5}>{t("InitialDate")}</Text>
             <SafeAreaView>
@@ -209,7 +186,6 @@ export default function () {
                   onPressHandler={handleOpen}
                   width={120}
                   height={40}
-
                 />
               </View>
 
@@ -274,9 +250,7 @@ export default function () {
             </View>
           </View>
           <View style={styles.container1}>
-            <Text style={styles.texto5}>
-              {t("UserNumber")}
-            </Text>
+            <Text style={styles.texto5}>{t("UserNumber")}</Text>
             <SafeAreaView>
               <TextInput
                 style={styles.input}
