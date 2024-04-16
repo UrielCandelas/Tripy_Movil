@@ -40,9 +40,18 @@ export default function () {
   }, []);
 
   let data = [];
-  locations.map((location, i) => {
-    data.push({ label: location.location_name, value: location.id });
-  });
+  
+
+
+  if (Array.isArray(loc)) {
+    loc.map((location, i) => {
+      data.push({ label: location.location_name, value: location.id });
+    });
+  } else {
+    console.error("locations is not an array or is undefined.");
+  }
+
+
   let data2 = [];
   transports.map((transports, i) => {
     if (transports.id == 5) {
