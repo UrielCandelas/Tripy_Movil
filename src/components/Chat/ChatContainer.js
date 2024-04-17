@@ -1,4 +1,4 @@
-/*import React, { useState,useEffect } from "react";
+/* import React, { useState,useEffect } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import Svg, { Circle, Image } from "react-native-svg";
 import GeneralText from "../components/GeneralComponents/GeneralText";
@@ -156,4 +156,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 120,
   },
-});*/
+}); */
