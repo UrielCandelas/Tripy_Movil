@@ -17,15 +17,15 @@ import Loading from '../components/Loading/Loading'
 
 export default function CreateAccount2() {
   const { t } = useTranslation()
-  const { isAuthenticated, signup, errors: signupErrors } = useAuth()
+  const { isAuthenticated, signup, errors: signupErrors, provUser } = useAuth()
   const navigation = useNavigation()
   const route = useRoute()
   const data = route.params
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigation.navigate('verifyOTP')
-    }
-  }, [isAuthenticated])
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     navigation.navigate('verifyOTP')
+  //   }
+  // }, [isAuthenticated])
 
   const [userName, setUserName] = useState('')
   const [email, setEmail] = useState('')
@@ -67,22 +67,27 @@ export default function CreateAccount2() {
       return
     }
 
-    const data2 = {
-      name: data.name,
-      lastName: data.lastName,
-      secondLastName: data.secondLastName,
-      userName,
-      email,
-      password,
-      confirmPassword,
-    }
     try {
+      const data2 = {
+        name: data.name,
+        lastName: data.lastName,
+        secondLastName: data.secondLastName,
+        userName,
+        email,
+        password,
+        confirmPassword,
+      }
+
       setLoading(true)
-      await signup(data2)
+      const res = await signup(data2)
       setLoading(false)
+      if (provUser) {
+        setLoading(false)
+        return navigation.navigate('verifyOTP')
+      }
     } catch (error) {
+      console.log(error)
       setLoading(false)
-      navigation.navigate('verifyOTP')
     }
   }
 

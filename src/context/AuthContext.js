@@ -52,8 +52,8 @@ const AuthProvider = ({ children }) => {
       const res = await registerUser(data)
       //const store = await createStore("token", res.data.token);
       const verify = await setItemAsync('verify', res.data.verify)
-      console.log(res.data)
       setProvUser(res.data)
+      return res.data
     } catch (error) {
       if (Array.isArray(error.response.data)) {
         return setErrors(error.response.data)

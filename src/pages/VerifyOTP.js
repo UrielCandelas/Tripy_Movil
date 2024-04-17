@@ -53,7 +53,7 @@ export default function VerifyOTP() {
     try {
       setLoading(true)
       await verifyOTPFunc(otp)
-      navigation.navigate('verifyID')
+      //navigation.navigate('verifyID')
       setLoading(false)
     } catch (error) {
       setLoading(false)
