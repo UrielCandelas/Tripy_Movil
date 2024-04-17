@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Alert, ScrollView, StyleSheet, View } from "react-native";
+import { Alert, ScrollView, StyleSheet, View, Image } from "react-native";
 import Svg, { Circle } from "react-native-svg";
 import GeneralText from "../components/GeneralComponents/GeneralText";
 import Viaje from "../components/VerViajes/UpdateViaje";
@@ -71,9 +71,11 @@ export default function EditarMyViajes() {
 					marginRight={"28%"}
 				/>
 			</View>
-			<Svg height="200" width="200">
-				<Circle cx="100" cy="100" r="70" fill="#F2F2F2" />
-			</Svg>
+			<Image
+				source={{ uri: user.profileImg }}
+				style={styles.roundImage}
+				onPress={() => navigation.goBack()}
+			/>
 			<View>
 				<GeneralText
 					color="#1D1E20"
@@ -148,5 +150,11 @@ const styles = StyleSheet.create({
 	arrow: {
 		marginTop: 60,
 		marginLeft: -12,
+	},
+	roundImage: {
+		width: 200,
+		height: 200,
+		borderRadius: 100,
+		alignSelf: "center",
 	},
 });
