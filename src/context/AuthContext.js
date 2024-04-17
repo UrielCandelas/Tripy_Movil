@@ -32,62 +32,50 @@ const AuthProvider = ({ children }) => {
 	const [isOnProcessing, setIsOnProcessing] = useState(false);
 	const [provUser, setProvUser] = useState(null);
 	const { t } = useTranslation();
-	const signup = async (user) => {
-		const confirmPassword = user.confirmPassword;
-		const password = user.password;
-		if (password != confirmPassword) {
-			return setErrors([t("ErrorPass")]);
-		}
-		const data = {
-			name: user.name,
-			lastName: user.lastName,
-			secondLastName: user.secondLastName,
-			userName: user.userName,
-			email: user.email,
-			password: user.password,
-		};
-		try {
-			const res = await registerUser(data);
-			// const store = await createStore("token", res.data.token);
-			await setItemAsync("token", res.data.token);
-			console.log(res.data);
-			setProvUser(res.data);
-		} catch (error) {
-			if (Array.isArray(error.response.data)) {
-				return setErrors(error.response.data);
-			}
-			setErrors([error.response.data.message]);
-		}
-	};
 
-	const signin = async (user) => {
-		try {
-			const res = await login(user);
-			// const store = await createStore("token", res.data.token);
-			await setItemAsync("token", res.data.token);
-			setUser(res.data);
-			setIsAuthenticated(true);
-		} catch (error) {
-			if (Array.isArray(error.response.data)) {
-				return setErrors(error.response.data);
-			}
-			setErrors([error.response.data.message]);
-		}
-	};
+  const signup = async (user) => {
+    const confirmPassword = user.confirmPassword
+    const password = user.password
+    if (password != confirmPassword) {
+      return setErrors([t('ErrorPass')])
+    }
+    const data = {
+      name: user.name,
+      lastName: user.lastName,
+      secondLastName: user.secondLastName,
+      userName: user.userName,
+      email: user.email,
+      password: user.password,
+    }
+    try {
+      const res = await registerUser(data)
+      //const store = await createStore("token", res.data.token);
+      const verify = await setItemAsync('verify', res.data.verify)
+      console.log(res.data)
+      setProvUser(res.data)
+    } catch (error) {
+      if (Array.isArray(error.response.data)) {
+        return setErrors(error.response.data)
+      }
+      setErrors([error.response.data.message])
+    }
+  }
 
-	const logoutFunc = async () => {
-		try {
-			await deleteItemAsync("token");
-			setUser(null);
-			setIsAuthenticated(false);
-			setLoading(false);
-		} catch (error) {
-			if (Array.isArray(error.response.data)) {
-				return setErrors(error.response.data);
-			}
-			setErrors([error.response.data.message]);
-		}
-	};
+  const signin = async (user) => {
+    try {
+      const res = await login(user)
+      //const store = await createStore("token", res.data.token);
+      const store = await setItemAsync('token', res.data.token)
+      console.log(res)
+      setUser(res.data)
+      setIsAuthenticated(true)
+    } catch (error) {
+      if (Array.isArray(error.response.data)) {
+        return setErrors(error.response.data)
+      }
+      setErrors([error.response.data.message])
+    }
+  }
 
 	const editAcount = async (user) => {
 		try {
@@ -113,27 +101,30 @@ const AuthProvider = ({ children }) => {
 		}
 	};
 
-	const verifyOTPFunc = async (otp) => {
-		try {
-			const data = {
-				otp,
-			};
-			const res = await verifyOTP(data);
-			if (res.status == 200) {
-				// setIsAuthenticated(true)
-				setIsOnProcessing(true);
-				// setProvUser(null)
-				// setUser(res.data)
-			}
-			return res.status;
-		} catch (error) {
-			if (Array.isArray(error.response.data)) {
-				return setErrors(error.response.data);
-			}
-			setErrors([error.response.data.message]);
-		}
-	};
-
+  const verifyOTPFunc = async (otp) => {
+    try {
+      const store = await getItemAsync('verify')
+      console.log(store)
+      const data = {
+        otp,
+        verify: store,
+      }
+      const res = await verifyOTP(data)
+      if (res.status == 200) {
+        // setIsAuthenticated(true)
+        setIsOnProcessing(true)
+        // setProvUser(null)
+        // setUser(res.data)
+      }
+      return res.status
+    } catch (error) {
+      if (Array.isArray(error.response.data)) {
+        return setErrors(error.response.data)
+      }
+      setErrors([error.response.data.message])
+    }
+  }
+  
 	const resendOTPFunc = async (data) => {
 		try {
 			const email = {
