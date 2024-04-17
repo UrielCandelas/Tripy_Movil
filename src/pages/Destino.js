@@ -51,7 +51,7 @@ export default function VerViajes1() {
 					borderRadius={10}
 					marginRight={20}
 					marginTop={20}
-					uri2={img.image}
+					uri2={img?.image}
 				/>
 			</View>
 			<View style={styles.desc}>
@@ -66,7 +66,7 @@ export default function VerViajes1() {
 					color="#1D1E20"
 					size={15}
 					height={18}
-					text={location.description}
+					text={location?.description}
 					marginTop={10}
 					marginBottom={20}
 				/>
@@ -81,7 +81,7 @@ export default function VerViajes1() {
 					color="#1D1E20"
 					size={15}
 					height={18}
-					text={location.location}
+					text={location?.location}
 					marginTop={10}
 					marginBottom={10}
 				/>
@@ -96,7 +96,7 @@ export default function VerViajes1() {
 					color="#1D1E20"
 					size={15}
 					height={18}
-					text={location.schedule}
+					text={location?.schedule}
 					marginTop={10}
 					marginBottom={20}
 				/>
