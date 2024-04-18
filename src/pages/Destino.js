@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { ScrollView, StyleSheet, Text, View, Button, Alert } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
-import GeneralText from '../components/GeneralComponents/GeneralText'
-import Viaje from '../components/Destino/Viaje'
-import Cuadritos from '../components/Destino/Cuadritos'
-import { StatusBar } from 'expo-status-bar'
-import { useNavigation, useRoute } from '@react-navigation/native'
-import { useTravels } from '../context/TravelsContext'
-import { useLocations } from '../context/LocationContext'
-import { useAuth } from '../context/AuthContext'
-import { useTranslation } from 'react-i18next'
+import React, { useEffect } from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import GeneralText from "../components/GeneralComponents/GeneralText";
+import Viaje from "../components/Destino/Viaje";
+import Cuadritos from "../components/Destino/Cuadritos";
+import { StatusBar } from "expo-status-bar";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { useTravels } from "../context/TravelsContext";
+import { useLocations } from "../context/LocationContext";
+import { useAuth } from "../context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 export default function VerViajes1() {
   const navigation = useNavigation()
@@ -23,16 +23,13 @@ export default function VerViajes1() {
   } = useTravels()
   const { getSomeLocation, location } = useLocations()
   const { getUser, userById, user } = useAuth()
+
   useEffect(() => {
     getAllLocationTravelsFunc(id)
     getSomeLocation(id)
     getAllExpensesFunc(id)
-    getUser(id)
   }, [])
   const names = []
-  for (let index = 0; index < userById.length; index++) {
-    names.push(userById[index].name)
-  }
   const ex = []
   const exName = []
   for (let index = 0; index < expenses.length; index++) {
@@ -52,7 +49,8 @@ export default function VerViajes1() {
         onPress={() => navigation.goBack()}
       />
 
-      <Text style={styles.texto1}>{location.location_name}</Text>
+
+			<Text style={styles.texto1}>{location.location_name}</Text>
 
       <View style={styles.row}>
         <Cuadritos
@@ -60,7 +58,7 @@ export default function VerViajes1() {
           borderRadius={10}
           marginRight={20}
           marginTop={20}
-          uri2={uri}
+          uri2={uri?.image}
         />
       </View>
       <View style={styles.desc}>
@@ -111,70 +109,71 @@ export default function VerViajes1() {
         />
       </View>
 
-      {locationTravels.map((travel, i) => {
-        if (myId != travel.id_user1 && travel.isActive == true) {
-          return (
-            <Viaje
-              key={i}
-              User={names[i]}
-              Companions={travel.companions}
-              Date={travel.travel_date}
-              Expenses={ex[i]}
-              onPress={() =>
-                navigation.navigate('UnirseViaje', {
-                  name: names[i],
-                  companions: travel.companions,
-                  expenses: ex[i],
-                  typeofExpenses: exName[i],
-                  extras: travel.id_extras,
-                  destination: location.location_name,
-                  id_travel: travel.id,
-                  id_user1: travel.id_user1,
-                })
-              }
-            />
-          )
-        } else {
-          return null
-        }
-      })}
-    </ScrollView>
-  )
+
+			{locationTravels.map((travel, i) => {
+				if (myId != travel.id_user1 && travel.isActive == true) {
+					return (
+						<Viaje
+							key={i}
+							User={names[i]}
+							Companions={travel.companions}
+							Date={travel.travel_date}
+							Expenses={ex[i]}
+							onPress={() =>
+								navigation.navigate("UnirseViaje", {
+									name: names[i],
+									companions: travel.companions,
+									expenses: ex[i],
+									typeofExpenses: exName[i],
+									extras: travel.id_extras,
+									destination: location.location_name,
+									id_travel: travel.id,
+									id_user1: travel.id_user1,
+								})
+							}
+						/>
+					);
+				} else {
+					return null;
+				}
+			})}
+		</ScrollView>
+	);
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#FEFEFE',
-    alignItems: 'center',
-  },
-  header: {
-    flexDirection: 'row',
-  },
-  arrow: {
-    marginTop: 60,
-    marginLeft: -50,
-  },
-  row: {
-    flexDirection: 'row',
-  },
-  desc: {
-    marginLeft: 30,
-    alignSelf: 'flex-start',
-  },
-  back: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    padding: 16,
-    paddingTop: '15%',
-  },
-  texto1: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    alignSelf: 'center',
-    top: 0,
-    left: 0,
-    padding: 16,
-    paddingTop: '20%',
-  },
-})
+	container: {
+		backgroundColor: "#FEFEFE",
+		alignItems: "center",
+	},
+	header: {
+		flexDirection: "row",
+	},
+	arrow: {
+		marginTop: 60,
+		marginLeft: -50,
+	},
+	row: {
+		flexDirection: "row",
+	},
+	desc: {
+		marginLeft: 30,
+		alignSelf: "flex-start",
+	},
+	back: {
+		position: "absolute",
+		top: 0,
+		left: 0,
+		padding: 16,
+		paddingTop: "15%",
+	},
+	texto1: {
+		fontSize: 20,
+		fontWeight: "bold",
+		alignSelf: "center",
+		top: 0,
+		left: 0,
+		padding: 16,
+		paddingTop: "20%",
+	},
+});
