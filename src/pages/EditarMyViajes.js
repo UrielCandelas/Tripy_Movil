@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Alert, ScrollView, StyleSheet, View, Image } from "react-native";
-import Svg, { Circle } from "react-native-svg";
 import GeneralText from "../components/GeneralComponents/GeneralText";
 import Viaje from "../components/VerViajes/UpdateViaje";
 import Arrowback from "../components/VerViajes/Arrowback";
