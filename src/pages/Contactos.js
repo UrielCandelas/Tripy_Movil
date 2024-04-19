@@ -6,12 +6,14 @@ import Arrowback from "../components/VerViajes/Arrowback";
 import ContactsContainer from "../components/Chat/ContactsContainer";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../context/AuthContext";
+import { useUser } from "../context/UsersContext";
 import { useTranslation } from "react-i18next";
 
 export default function Contactos() {
 	const navigation = useNavigation();
 	// const socket = useRef();
-	const { user, getUserContacts, contacts } = useAuth();
+	const { getUserContacts, contacts } = useUser();
+	const { user } = useAuth();
 	/* const host = "http://192.168.0.10:3000";
   useEffect(() => {
     if (user) {
@@ -20,7 +22,7 @@ export default function Contactos() {
     }
   }, [user]); */
 	useEffect(() => {
-		getUserContacts(user ? user.id : 0);
+		getUserContacts(user?.id);
 	}, []);
 	const { t } = useTranslation();
 	return (

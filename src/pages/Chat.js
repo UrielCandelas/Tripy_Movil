@@ -13,6 +13,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { useAuth } from "../context/AuthContext";
 import { io } from "socket.io-client";
 import { useTranslation } from "react-i18next";
+import { useUser } from "../context/UsersContext";
 
 export default function Chat() {
 	const navigation = useNavigation();
@@ -20,11 +21,11 @@ export default function Chat() {
 	const { currentChat } = route.params;
 	const [message, setMessage] = useState("");
 	const [arrivalMessage, setArrivalMessage] = useState(null);
-	const { user, registerNewMessage, getMessages, messages, setMessages } =
-		useAuth();
+	const { registerNewMessage, getMessages, messages, setMessages } = useUser();
+	const { user } = useAuth();
 
 	const socket = useRef();
-	const host = "http://192.168.0.10:3000";
+	const host = "http://172.20.10.5:3000";
 
 	const scrollViewRef = useRef(null);
 
