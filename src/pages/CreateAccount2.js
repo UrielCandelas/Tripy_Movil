@@ -81,10 +81,6 @@ export default function CreateAccount2() {
       setLoading(true)
       const res = await signup(data2)
       setLoading(false)
-      if (provUser) {
-        setLoading(false)
-        return navigation.navigate('verifyOTP')
-      }
     } catch (error) {
       console.log(error)
       setLoading(false)
@@ -107,6 +103,12 @@ export default function CreateAccount2() {
 			showToast(error);
 		});
 	}, [signupErrors]);
+
+	useEffect(() => {
+		if (provUser) {
+			navigation.navigate("verifyOTP");
+		}
+	}, [provUser]);
 
 	return (
 		<View style={styles.centeredContainer}>

@@ -66,7 +66,6 @@ const AuthProvider = ({ children }) => {
       const res = await login(user)
       //const store = await createStore("token", res.data.token);
       const store = await setItemAsync('token', res.data.token)
-      console.log(res)
       setUser(res.data)
       setIsAuthenticated(true)
     } catch (error) {
@@ -104,7 +103,6 @@ const AuthProvider = ({ children }) => {
   const verifyOTPFunc = async (otp) => {
     try {
       const store = await getItemAsync('verify')
-      console.log(store)
       const data = {
         otp,
         verify: store,
@@ -178,7 +176,6 @@ const AuthProvider = ({ children }) => {
 				setUser(null);
 				setLoading(false);
 				setErrors(error.response.data);
-				console.log(error);
 			}
 		}
 		checklogin();
@@ -210,7 +207,7 @@ const AuthProvider = ({ children }) => {
 				signin,
 				logout,
 				editAcount,
-				logoutFunc,
+				// logoutFunc,
 			}}
 		>
 			{children}
