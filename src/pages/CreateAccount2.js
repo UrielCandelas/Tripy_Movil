@@ -16,22 +16,22 @@ import { useTranslation } from "react-i18next";
 import Loading from "../components/Loading/Loading";
 
 export default function CreateAccount2() {
-	const { t } = useTranslation();
-	const { isAuthenticated, signup, errors: signupErrors } = useAuth();
-	const navigation = useNavigation();
-	const route = useRoute();
-	const data = route.params;
-	useEffect(() => {
-		if (isAuthenticated) {
-			navigation.navigate("verifyOTP");
-		}
-	}, [isAuthenticated]);
+  const { t } = useTranslation()
+  const { isAuthenticated, signup, errors: signupErrors, provUser } = useAuth()
+  const navigation = useNavigation()
+  const route = useRoute()
+  const data = route.params
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     navigation.navigate('verifyOTP')
+  //   }
+  // }, [isAuthenticated])
 
-	const [userName, setUserName] = useState("");
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [confirmPassword, setConfirmPassword] = useState("");
-	const [loading, setLoading] = useState(false);
+  const [userName, setUserName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [loading, setLoading] = useState(false)
 
 	const handleKeyboardDismiss = () => {
 		Keyboard.dismiss();
@@ -67,24 +67,25 @@ export default function CreateAccount2() {
 			return;
 		}
 
-		const data2 = {
-			name: data.name,
-			lastName: data.lastName,
-			secondLastName: data.secondLastName,
-			userName,
-			email,
-			password,
-			confirmPassword,
-		};
-		try {
-			setLoading(true);
-			await signup(data2);
-			setLoading(false);
-		} catch (error) {
-			setLoading(false);
-			navigation.navigate("verifyOTP");
-		}
-	};
+    try {
+      const data2 = {
+        name: data.name,
+        lastName: data.lastName,
+        secondLastName: data.secondLastName,
+        userName,
+        email,
+        password,
+        confirmPassword,
+      }
+
+      setLoading(true)
+      const res = await signup(data2)
+      setLoading(false)
+    } catch (error) {
+      console.log(error)
+      setLoading(false)
+    }
+  }
 
 	const showToast = (text2) => {
 		Toast.show({
@@ -102,6 +103,12 @@ export default function CreateAccount2() {
 			showToast(error);
 		});
 	}, [signupErrors]);
+
+	useEffect(() => {
+		if (provUser) {
+			navigation.navigate("verifyOTP");
+		}
+	}, [provUser]);
 
 	return (
 		<View style={styles.centeredContainer}>
