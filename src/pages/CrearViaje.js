@@ -110,20 +110,11 @@ export default function CrearViaje() {
 				],
 				{ cancelable: false },
 			);
-			// console.log(newTravel)
 		} catch (error) {
 			Alert.alert(t("AlertError") + error);
 			console.log(error);
 		}
 	};
-
-	/* const onChangeDate = (selectedDate) => {
-    const currentDate = selectedDate.nativeEvent.timestamp
-      ? new Date(selectedDate.nativeEvent.timestamp)
-      : new Date();
-    setShowDatePicker(Platform.OS === "ios");
-    setTravel_date(currentDate);
-  }; */
 
 	const handleDateChange = (date) => {
 		setTravel_date(date);
