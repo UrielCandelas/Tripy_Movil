@@ -1,4 +1,4 @@
-import axios from "././axios.js.js";
+import axios from "./axios.js";
 
 export const registerCommentaries = (data) =>
 	axios.post("/user/commentary", data);
