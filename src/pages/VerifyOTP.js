@@ -4,7 +4,7 @@ import {
 	TouchableWithoutFeedback,
 	Keyboard,
 } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import GeneralText from "../components/GeneralComponents/GeneralText";
 import GeneralButton2 from "../components/GeneralComponents/GeneralButton2";
@@ -19,7 +19,7 @@ export default function VerifyOTP() {
 		verifyOTPFunc,
 		resendOTPFunc,
 		provUser,
-		// errors: otpErrors,
+		errors: otpErrors,
 	} = useAuth();
 
 	const { t } = useTranslation();
@@ -27,6 +27,8 @@ export default function VerifyOTP() {
 	const [otp, setOTP] = useState("");
 
 	const [loading, setLoading] = useState(false);
+	
+	const [status, setStatus] = useState(400);
 
 	const navigation = useNavigation();
 
@@ -48,9 +50,11 @@ export default function VerifyOTP() {
 		}
 		try {
 			setLoading(true);
-			await verifyOTPFunc(otp);
-			navigation.navigate("verifyID");
+			const status = await verifyOTPFunc(otp);
 			setLoading(false);
+			if (status == 200) {
+				navigation.navigate("verifyID");
+			}
 		} catch (error) {
 			setLoading(false);
 		}

@@ -5,21 +5,22 @@ import Toast from "react-native-toast-message";
 import { CameraScreen } from "./CameraScreen";
 import GeneralButton2 from "../components/GeneralComponents/GeneralButton2";
 import { useTranslation } from "react-i18next";
-import { useRoute } from "@react-navigation/native";
+import { useRoute, useNavigation } from "@react-navigation/native";
 import GeneralText from "../components/GeneralComponents/GeneralText";
-// import { useUser } from "../context/UsersContext";
+import { useUser } from "../context/UsersContext";
 import { useAuth } from "../context/AuthContext";
 
 export default function App() {
 	const { provUser } = useAuth();
-	// const { sendIdentity } = useUser();
+	const { sendIdentity } = useUser();
 	const [imageUri, setImageUri] = useState(null);
 	const [openCamera, setOpenCamera] = useState(false);
 	const { t } = useTranslation();
 	const route = useRoute();
 	const data1 = route.params;
-	// const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const [photoFile, setPhotoFile] = useState(null);
+	const navigation = useNavigation();
 
 	const openCameraHandler = () => {
 		setOpenCamera(true);
@@ -28,6 +29,10 @@ export default function App() {
 	const handlePictureTaken = (data) => {
 		setImageUri(data.uri);
 		setOpenCamera(false);
+		const response = fetch(data.uri);
+		const blob = response.blob();
+		console.log(blob);
+
 		const image3 = new File([data.blob], "photo3.jpg", { type: "image/jpeg" });
 		setPhotoFile(image3);
 	};
@@ -48,45 +53,46 @@ export default function App() {
 			});
 		} else {
 			const formData = new FormData();
+			formData.append("id", provUser.id);
 			formData.append("image1", data1.image1);
 			formData.append("image2", data1.image2);
 			formData.append("image3", photoFile);
 
-			const image1 = formData
-				.getParts()
-				.find((part) => part.fieldName === "image1");
-			const image2 = formData
-				.getParts()
-				.find((part) => part.fieldName === "image2");
-			const image3 = formData
-				.getParts()
-				.find((part) => part.fieldName === "image3");
+			// const image1 = formData
+			// 	.getParts()
+			// 	.find((part) => part.fieldName === "image1");
+			// const image2 = formData
+			// 	.getParts()
+			// 	.find((part) => part.fieldName === "image2");
+			// const image3 = formData
+			// 	.getParts()
+			// 	.find((part) => part.fieldName === "image3");
 
-			console.log(provUser);
+			// const dataToSend = {
+			// 	image1,
+			// 	image2,
+			// 	image3,
+			// 	id: provUser.id,
+			// };
 
-			const dataToSend = {
-				image1,
-				image2,
-				image3,
-				id: "Hola",
-			};
+			// console.log(dataToSend)
 
-			console.log(JSON.stringify(dataToSend));
-			//   try {
-			//     setLoading(true)
-			//     await sendIdentity(dataToSend)
-			//     setLoading(false)
-			//     navigation.navigate('waitingScreen')
-			//   } catch (err) {
-			//     Toast.show({
-			//       type: 'error',
-			//       text1: t('ErrorM'),
-			//       text2: t('Error en la validación de identidad'),
-			//       visibilityTime: 3000,
-			//       position: 'bottom',
-			//       bottomOffset: 50,
-			//     })
-			//   }
+			try {
+				setLoading(true);
+				const res = await sendIdentity(formData);
+				setLoading(false);
+				navigation.navigate("waitingScreen");
+			} catch (err) {
+				console.log(err);
+				Toast.show({
+					type: "error",
+					text1: t("ErrorM"),
+					text2: t("Error en la validación de identidad"),
+					visibilityTime: 3000,
+					position: "bottom",
+					bottomOffset: 50,
+				});
+			}
 		}
 	};
 
@@ -119,7 +125,7 @@ export default function App() {
 							color="white"
 						/>
 						<GeneralButton2
-							Txt="Siguiente"
+							Txt="Enviar"
 							onPress={onPressHandler}
 							style={styles.btnNext}
 							color="white"
