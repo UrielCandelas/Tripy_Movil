@@ -1,7 +1,16 @@
 import GeneralText from "../GeneralComponents/GeneralText";
-import { View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+import {
+	View,
+	StyleSheet,
+	TouchableOpacity,
+	ScrollView,
+	Image,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
+import { useTravels } from "../../context/TravelsContext";
+import { useAuth } from "../../context/AuthContext";
+import React, { useEffect } from "react";
 
 const Sidebar = ({
 	userNav,
@@ -14,6 +23,11 @@ const Sidebar = ({
 	ChatNav,
 }) => {
 	const { t } = useTranslation();
+	const { getTravelsActive } = useTravels();
+	const { user } = useAuth();
+	useEffect(() => {
+		getTravelsActive(user.id);
+	}, []);
 	return (
 		<View style={styles.sidebar}>
 			<ScrollView>
@@ -22,7 +36,16 @@ const Sidebar = ({
 					style={[styles.section, styles.header]}
 				>
 					<>
-						<GeneralText text={userName} />
+						<GeneralText
+							text={userName}
+							style={styles.textHeader}
+							fontWeight="bold"
+						/>
+						<Image
+							source={{ uri: user?.profileImg }}
+							style={styles.roundImage}
+							onPress={userNav}
+						/>
 					</>
 				</TouchableOpacity>
 				<TouchableOpacity onPress={HomeNav} style={styles.section}>
@@ -81,20 +104,29 @@ const styles = StyleSheet.create({
 		width: "70%",
 		position: "absolute",
 		zIndex: 1,
-		height: "100%",
+		height: 1200,
 	},
 	section: {
 		marginBottom: 20,
 		marginTop: 20,
 	},
 	header: {
-		marginBottom: "25%",
+		marginBottom: "8%",
+		alignItems: "center",
 	},
 	object: {
 		flexDirection: "row",
+		marginTop: "9%",
 	},
 	images: {
 		marginRight: 10,
+	},
+	roundImage: {
+		width: 70,
+		height: 70,
+		borderRadius: 35,
+		alignSelf: "center",
+		marginTop: "10%",
 	},
 });
 
