@@ -7,6 +7,7 @@ import GeneralButton2 from "../components/GeneralComponents/GeneralButton2";
 import { useTranslation } from "react-i18next";
 import { useNavigation } from "@react-navigation/native";
 import GeneralText from "../components/GeneralComponents/GeneralText";
+import supabase from "../config/initSupabase.js";
 
 export default function App() {
 	const [imageUri, setImageUri] = useState(null);
@@ -19,11 +20,39 @@ export default function App() {
 		setOpenCamera(true);
 	};
 
-	const handlePictureTaken = (data) => {
-		setImageUri(data.uri);
-		setOpenCamera(false);
-		const image1 = new File([data.blob], "photo1.jpg", { type: "image/jpeg" });
-		setPhotoFile(image1);
+	const handlePictureTaken = async (data) => {
+		try {
+			setImageUri(data.uri);
+			setOpenCamera(false);
+			// const base64Photo = data.base64Photo;
+			const timestamp = new Date().getTime();
+			const uri = data.uri;
+			const formData = new FormData();
+			const fileName = uri.substring(uri.lastIndexOf("/") + 1);
+			const uniqueFileName = `${timestamp}-${fileName}`;
+			const filePath = `${uniqueFileName}`;
+			const photo = {
+				uri,
+				name: fileName,
+				type: "image/jpeg",
+			};
+			formData.append("file", photo);
+			const { error } = await supabase.storage
+				.from("files")
+				.upload(filePath, photo);
+			if (error) {
+				console.log(error);
+			}
+			const { data: supabaseURL, error: getURLErr } = supabase.storage
+				.from("files")
+				.getPublicUrl(filePath);
+			if (getURLErr) {
+				console.log(getURLErr);
+			}
+			setPhotoFile(supabaseURL.publicUrl);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const handleCancel = () => {

@@ -11,6 +11,7 @@ import {
 	declineRequest,
 	getAccountRequest,
 	identitySender,
+	sendBlob,
 } from "../api/users";
 
 export const UserContext = createContext();
@@ -171,6 +172,18 @@ const UserProvider = ({ children }) => {
 		}
 	};
 
+	const sendBlobData = async (data) => {
+		try {
+			const res = await sendBlob(data);
+			return res.data;
+		} catch (error) {
+			if (Array.isArray(error.response.data)) {
+				return setErrors(error.response.data);
+			}
+			setErrors([error.response.data.message]);
+		}
+	};
+
 	useEffect(() => {
 		if (errors.length > 0) {
 			const timmer = setTimeout(() => {
@@ -201,6 +214,7 @@ const UserProvider = ({ children }) => {
 				acceptAccountReq,
 				declineAccountReq,
 				getAllRequests,
+				sendBlobData,
 			}}
 		>
 			{children}

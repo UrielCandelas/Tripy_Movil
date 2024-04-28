@@ -24,8 +24,9 @@ export default function App() {
 	const handlePictureTaken = (data) => {
 		setImageUri(data.uri);
 		setOpenCamera(false);
-		const image2 = new File([data.blob], "photo2.jpg", { type: "image/jpeg" });
-		setPhotoFile(image2);
+		const uint8Array = data.uint8Array;
+		const file = new File([uint8Array], "image1.jpg", { type: "image/jpeg" });
+		setPhotoFile(file);
 	};
 
 	const handleCancel = () => {

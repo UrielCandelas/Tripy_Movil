@@ -12,7 +12,7 @@ import { useAuth } from "../context/AuthContext";
 
 export default function App() {
 	const { provUser } = useAuth();
-	const { sendIdentity } = useUser();
+	const { sendBlobData, sendIdentity } = useUser();
 	const [imageUri, setImageUri] = useState(null);
 	const [openCamera, setOpenCamera] = useState(false);
 	const { t } = useTranslation();
@@ -29,12 +29,9 @@ export default function App() {
 	const handlePictureTaken = (data) => {
 		setImageUri(data.uri);
 		setOpenCamera(false);
-		const response = fetch(data.uri);
-		const blob = response.blob();
-		console.log(blob);
-
-		const image3 = new File([data.blob], "photo3.jpg", { type: "image/jpeg" });
-		setPhotoFile(image3);
+		const uint8Array = data.uint8Array;
+		const file = new File([uint8Array], "image2.jpg", { type: "image/jpeg" });
+		setPhotoFile(file);
 	};
 
 	const handleCancel = () => {
@@ -52,34 +49,17 @@ export default function App() {
 				bottomOffset: 50,
 			});
 		} else {
-			const formData = new FormData();
-			formData.append("id", provUser.id);
-			formData.append("image1", data1.image1);
-			formData.append("image2", data1.image2);
-			formData.append("image3", photoFile);
-
-			// const image1 = formData
-			// 	.getParts()
-			// 	.find((part) => part.fieldName === "image1");
-			// const image2 = formData
-			// 	.getParts()
-			// 	.find((part) => part.fieldName === "image2");
-			// const image3 = formData
-			// 	.getParts()
-			// 	.find((part) => part.fieldName === "image3");
-
-			// const dataToSend = {
-			// 	image1,
-			// 	image2,
-			// 	image3,
-			// 	id: provUser.id,
-			// };
-
-			// console.log(dataToSend)
-
 			try {
+				const file1 = data1.image2;
+				const file2 = photoFile;
+				const file3 = data1.image1;
+				const formData = new FormData();
+				formData.append("image1", file1);
+				formData.append("image2", file2);
+				formData.append("image3", file3);
+				formData.append("id", provUser.id);
 				setLoading(true);
-				const res = await sendIdentity(formData);
+				await sendIdentity(formData);
 				setLoading(false);
 				navigation.navigate("waitingScreen");
 			} catch (err) {
