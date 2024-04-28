@@ -15,6 +15,7 @@ export default function App() {
 	const { t } = useTranslation();
 	const navigation = useNavigation();
 	const [photoFile, setPhotoFile] = useState(null);
+	const [loading, setLoading] = useState(false);
 
 	const openCameraHandler = () => {
 		setOpenCamera(true);
@@ -24,7 +25,6 @@ export default function App() {
 		try {
 			setImageUri(data.uri);
 			setOpenCamera(false);
-			// const base64Photo = data.base64Photo;
 			const timestamp = new Date().getTime();
 			const uri = data.uri;
 			const formData = new FormData();
@@ -37,20 +37,26 @@ export default function App() {
 				type: "image/jpeg",
 			};
 			formData.append("file", photo);
+			setLoading(true);
 			const { error } = await supabase.storage
 				.from("files")
 				.upload(filePath, photo);
 			if (error) {
-				console.log(error);
+				setLoading(false);
+				return console.log(error);
 			}
+
 			const { data: supabaseURL, error: getURLErr } = supabase.storage
 				.from("files")
 				.getPublicUrl(filePath);
 			if (getURLErr) {
-				console.log(getURLErr);
+				setLoading(false);
+				return console.log(getURLErr);
 			}
 			setPhotoFile(supabaseURL.publicUrl);
+			setLoading(false);
 		} catch (error) {
+			setLoading(false);
 			console.log(error);
 		}
 	};
@@ -81,6 +87,8 @@ export default function App() {
 					onPictureTaken={handlePictureTaken}
 					onCancel={handleCancel}
 				/>
+			) : loading ? (
+				<GeneralText text="Cargando..." />
 			) : (
 				<View style={styles.container2}>
 					<View style={styles.header}>
