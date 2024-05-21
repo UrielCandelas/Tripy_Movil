@@ -30,3 +30,5 @@ export const acceptRequest = (id) => axios.put(`/admin/accept/requests/${id}`);
 
 export const declineRequest = (data, id) =>
 	axios.put(`/admin/decline/requests/${id}`, data);
+
+export const sendBlob = (data) => axios.post("/user/send/blob", data);

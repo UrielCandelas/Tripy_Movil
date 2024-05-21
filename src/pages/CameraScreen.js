@@ -1,17 +1,38 @@
 // CameraScreen.js
-import React, { useState } from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { useState, useEffect } from "react";
+import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 import { Camera } from "expo-camera";
+// import * as ImageManipulator from "expo-image-manipulator";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 
 export const CameraScreen = ({ onPictureTaken, onCancel }) => {
 	const [cameraRef, setCameraRef] = useState(null);
 	const [type, setType] = useState(Camera.Constants.Type.back);
+	const [hasPermission, setHasPermission] = useState(null);
+
+	useEffect(() => {
+		(async () => {
+			const { status } = await Camera.requestCameraPermissionsAsync();
+			setHasPermission(status === "granted");
+		})();
+	}, []);
+
+	if (hasPermission === null) {
+		return <View />;
+	}
+	if (hasPermission === false) {
+		return <Text>No se ha otorgado permiso para acceder a la cámara.</Text>;
+	}
 
 	const takePicture = async () => {
 		if (cameraRef) {
-			const photo = await cameraRef.takePictureAsync({ base64: true });
-			onPictureTaken({ blob: photo.base64, uri: photo.uri });
+			try {
+				const photo = await cameraRef.takePictureAsync({ quality: 0.5 });
+				const blob = photo.blob;
+				onPictureTaken({ base64Photo: blob, uri: photo.uri });
+			} catch (error) {
+				console.log(error);
+			}
 		}
 	};
 

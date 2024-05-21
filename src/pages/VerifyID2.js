@@ -7,6 +7,7 @@ import GeneralButton2 from "../components/GeneralComponents/GeneralButton2";
 import { useTranslation } from "react-i18next";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import GeneralText from "../components/GeneralComponents/GeneralText";
+import supabase from "../config/initSupabase.js";
 
 export default function App() {
 	const [imageUri, setImageUri] = useState(null);
@@ -14,6 +15,8 @@ export default function App() {
 	const { t } = useTranslation();
 	const navigation = useNavigation();
 	const [photoFile, setPhotoFile] = useState(null);
+	const [loading, setLoading] = useState(false);
+
 	const route = useRoute();
 	const data1 = route.params;
 
@@ -21,11 +24,44 @@ export default function App() {
 		setOpenCamera(true);
 	};
 
-	const handlePictureTaken = (data) => {
-		setImageUri(data.uri);
-		setOpenCamera(false);
-		const image2 = new File([data.blob], "photo2.jpg", { type: "image/jpeg" });
-		setPhotoFile(image2);
+	const handlePictureTaken = async (data) => {
+		try {
+			setImageUri(data.uri);
+			setOpenCamera(false);
+			const timestamp = new Date().getTime();
+			const uri = data.uri;
+			const formData = new FormData();
+			const fileName = uri.substring(uri.lastIndexOf("/") + 1);
+			const uniqueFileName = `${timestamp}-${fileName}`;
+			const filePath = `${uniqueFileName}`;
+			const photo = {
+				uri,
+				name: fileName,
+				type: "image/jpeg",
+			};
+			formData.append("file", photo);
+			setLoading(true);
+			const { error } = await supabase.storage
+				.from("files")
+				.upload(filePath, photo);
+			if (error) {
+				setLoading(false);
+				return console.log(error);
+			}
+
+			const { data: supabaseURL, error: getURLErr } = supabase.storage
+				.from("files")
+				.getPublicUrl(filePath);
+			if (getURLErr) {
+				setLoading(false);
+				return console.log(getURLErr);
+			}
+			setPhotoFile(supabaseURL.publicUrl);
+			setLoading(false);
+		} catch (error) {
+			setLoading(false);
+			console.log(error);
+		}
 	};
 
 	const handleCancel = () => {
@@ -43,6 +79,7 @@ export default function App() {
 				bottomOffset: 50,
 			});
 		} else {
+			console.log(data1);
 			navigation.navigate("verifyID3", {
 				image1: data1.image,
 				image2: photoFile,
@@ -57,6 +94,8 @@ export default function App() {
 					onPictureTaken={handlePictureTaken}
 					onCancel={handleCancel}
 				/>
+			) : loading ? (
+				<GeneralText text="Cargando..." />
 			) : (
 				<View style={styles.container2}>
 					<View style={styles.header}>

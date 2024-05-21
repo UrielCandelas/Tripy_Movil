@@ -9,10 +9,11 @@ import { useRoute, useNavigation } from "@react-navigation/native";
 import GeneralText from "../components/GeneralComponents/GeneralText";
 import { useUser } from "../context/UsersContext";
 import { useAuth } from "../context/AuthContext";
+import supabase from "../config/initSupabase.js";
 
 export default function App() {
 	const { provUser } = useAuth();
-	const { sendIdentity } = useUser();
+	const { sendBlobData } = useUser();
 	const [imageUri, setImageUri] = useState(null);
 	const [openCamera, setOpenCamera] = useState(false);
 	const { t } = useTranslation();
@@ -26,15 +27,44 @@ export default function App() {
 		setOpenCamera(true);
 	};
 
-	const handlePictureTaken = (data) => {
-		setImageUri(data.uri);
-		setOpenCamera(false);
-		const response = fetch(data.uri);
-		const blob = response.blob();
-		console.log(blob);
+	const handlePictureTaken = async (data) => {
+		try {
+			setImageUri(data.uri);
+			setOpenCamera(false);
+			const timestamp = new Date().getTime();
+			const uri = data.uri;
+			const formData = new FormData();
+			const fileName = uri.substring(uri.lastIndexOf("/") + 1);
+			const uniqueFileName = `${timestamp}-${fileName}`;
+			const filePath = `${uniqueFileName}`;
+			const photo = {
+				uri,
+				name: fileName,
+				type: "image/jpeg",
+			};
+			formData.append("file", photo);
+			setLoading(true);
+			const { error } = await supabase.storage
+				.from("files")
+				.upload(filePath, photo);
+			if (error) {
+				setLoading(false);
+				return console.log(error);
+			}
 
-		const image3 = new File([data.blob], "photo3.jpg", { type: "image/jpeg" });
-		setPhotoFile(image3);
+			const { data: supabaseURL, error: getURLErr } = supabase.storage
+				.from("files")
+				.getPublicUrl(filePath);
+			if (getURLErr) {
+				setLoading(false);
+				return console.log(getURLErr);
+			}
+			setPhotoFile(supabaseURL.publicUrl);
+			setLoading(false);
+		} catch (error) {
+			setLoading(false);
+			console.log(error);
+		}
 	};
 
 	const handleCancel = () => {
@@ -52,34 +82,18 @@ export default function App() {
 				bottomOffset: 50,
 			});
 		} else {
-			const formData = new FormData();
-			formData.append("id", provUser.id);
-			formData.append("image1", data1.image1);
-			formData.append("image2", data1.image2);
-			formData.append("image3", photoFile);
-
-			// const image1 = formData
-			// 	.getParts()
-			// 	.find((part) => part.fieldName === "image1");
-			// const image2 = formData
-			// 	.getParts()
-			// 	.find((part) => part.fieldName === "image2");
-			// const image3 = formData
-			// 	.getParts()
-			// 	.find((part) => part.fieldName === "image3");
-
-			// const dataToSend = {
-			// 	image1,
-			// 	image2,
-			// 	image3,
-			// 	id: provUser.id,
-			// };
-
-			// console.log(dataToSend)
-
 			try {
+				const file1 = data1.image2;
+				const file2 = photoFile;
+				const file3 = data1.image1;
+				const dataToSend = {
+					file1,
+					file2,
+					file3,
+					id: provUser.id,
+				};
 				setLoading(true);
-				const res = await sendIdentity(formData);
+				await sendBlobData(dataToSend);
 				setLoading(false);
 				navigation.navigate("waitingScreen");
 			} catch (err) {
@@ -103,6 +117,8 @@ export default function App() {
 					onPictureTaken={handlePictureTaken}
 					onCancel={handleCancel}
 				/>
+			) : loading ? (
+				<GeneralText text="Cargando..." color="black" size={20} />
 			) : (
 				<View style={styles.container2}>
 					<View style={styles.header}>
