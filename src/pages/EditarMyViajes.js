@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { Alert, ScrollView, StyleSheet, View } from "react-native";
-import Svg, { Circle } from "react-native-svg";
+import { Alert, ScrollView, StyleSheet, View, Image } from "react-native";
 import GeneralText from "../components/GeneralComponents/GeneralText";
 import Viaje from "../components/VerViajes/UpdateViaje";
 import Arrowback from "../components/VerViajes/Arrowback";
@@ -18,7 +17,6 @@ export default function EditarMyViajes() {
 	}, []);
 
 	const travels = travelsActive.travels;
-	const usersU1 = travelsActive.usersU1;
 	const sharedTravels = travelsActive.sharedTravels;
 	const usersU2 = travelsActive.usersU2;
 	const locations_user1 = travelsActive.locations_user1;
@@ -71,9 +69,11 @@ export default function EditarMyViajes() {
 					marginRight={"28%"}
 				/>
 			</View>
-			<Svg height="200" width="200">
-				<Circle cx="100" cy="100" r="70" fill="#F2F2F2" />
-			</Svg>
+			<Image
+				source={{ uri: user.profileImg }}
+				style={styles.roundImage}
+				onPress={() => navigation.goBack()}
+			/>
 			<View>
 				<GeneralText
 					color="#1D1E20"
@@ -90,14 +90,9 @@ export default function EditarMyViajes() {
 								key={i}
 								companions={travel.companions}
 								date={travel.travel_date}
-								expenses={expenses_user1[i].quantity}
+								expenses={expenses_user1[i].expenses[1].quantity}
 								location={locations_user1[i].location_name}
-								OnPress={() =>
-									navigation.navigate("PerfilUsuario", {
-										name: usersU1[i].name,
-										id: usersU1[i].id,
-									})
-								}
+								OnPress={() => console.log("press")}
 								killTravel={() => killSomeTravel(travel.id)}
 								isOwner={true}
 							/>
@@ -148,5 +143,11 @@ const styles = StyleSheet.create({
 	arrow: {
 		marginTop: 60,
 		marginLeft: -12,
+	},
+	roundImage: {
+		width: 200,
+		height: 200,
+		borderRadius: 100,
+		alignSelf: "center",
 	},
 });

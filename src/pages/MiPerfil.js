@@ -11,6 +11,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Cards from "../components/Cards";
 import Reseñas from "../components/Reseñas";
 import { useAuth } from "../context/AuthContext";
+import { useUser } from "../context/UsersContext";
 import { useNavigation } from "@react-navigation/native";
 import { useTravels } from "../context/TravelsContext";
 import { useEffect } from "react";
@@ -18,7 +19,8 @@ import { useTranslation } from "react-i18next";
 
 export default function App() {
 	const navigation = useNavigation();
-	const { user, getComentaries, commentaries } = useAuth();
+	const { user } = useAuth();
+	const { getComentaries, commentaries } = useUser();
 	const { getTravelsInactive, travelsInactive } = useTravels();
 
 	useEffect(() => {
@@ -26,7 +28,7 @@ export default function App() {
 		getTravelsInactive(user.id);
 	}, []);
 
-	const users = commentaries.users;
+	const users = user.users;
 	const comentaries = commentaries.commentaries;
 
 	const travels = travelsInactive.travels;
@@ -49,7 +51,7 @@ export default function App() {
 				<Text style={styles.texto1}>{user.name}</Text>
 
 				<Image
-					source={require("../images/Default_pfp.png")}
+					source={{ uri: user.profileImg }}
 					style={styles.roundImage}
 					onPress={() => navigation.goBack()}
 				/>
