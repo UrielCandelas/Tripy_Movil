@@ -65,6 +65,7 @@ export default function Boxes() {
 							onPress={() => {
 								navigation.navigate("Destino", {
 									id: location?.id,
+									location,
 								});
 							}}
 						>
