@@ -19,6 +19,7 @@ export default function GeneralText({
 	fontWeight,
 	onPress,
 	alignText,
+	alignSelf,
 }) {
 	const styles = StyleSheet.create({
 		text: {
@@ -38,6 +39,7 @@ export default function GeneralText({
 			marginBottom,
 			fontWeight,
 			textAlign: alignText,
+			alignSelf: alignSelf,
 		},
 	});
 	return (

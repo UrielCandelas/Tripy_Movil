@@ -26,6 +26,8 @@ const LocationProvider = ({ children }) => {
 	const [locations, setLocations] = useState([]);
 	const [location, setLocation] = useState({});
 	const [travels, setTravels] = useState([]);
+	const [locationName, setLocationName] = useState("");
+
 	// const [locationsAndTransports, setLocationsAndTransports] = useState([]);
 	const registerNewLocation = async (location) => {
 		try {
@@ -109,12 +111,17 @@ const LocationProvider = ({ children }) => {
 		try {
 			const res = await getAllLocations();
 			setLocations(res.data);
+			return res.status;
 		} catch (error) {
 			if (Array.isArray(error.response.data)) {
 				return setErrors(error.response.data);
 			}
 			setErrors([error.response.data.message]);
 		}
+	};
+
+	const getLocationsPerName = async (name) => {
+		setLocationName(name);
 	};
 
 	const getLocations_Transports = async () => {
@@ -149,11 +156,13 @@ const LocationProvider = ({ children }) => {
 				getLocations,
 				getTravelsImg2,
 				getLocations_Transports,
+				getLocationsPerName,
 				locAndTransp,
 				travels,
 				errors,
 				location,
 				locations,
+				locationName,
 			}}
 		>
 			{children}

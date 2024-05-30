@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Alert, ScrollView, StyleSheet, View, Image } from "react-native";
+import { Alert, ScrollView, StyleSheet, View, Image, Text } from "react-native";
 import GeneralText from "../components/GeneralComponents/GeneralText";
 import Viaje from "../components/VerViajes/UpdateViaje";
 import Arrowback from "../components/VerViajes/Arrowback";
@@ -82,24 +82,40 @@ export default function EditarMyViajes() {
 					text={t("MyTrips")}
 					marginTop={10}
 					marginBottom={20}
+					alignSelf={"center"}
 				/>
-				{travels?.map((travel, i) => {
-					if (travel.id_user2 != null) {
-						return (
-							<Viaje
-								key={i}
-								companions={travel.companions}
-								date={travel.travel_date}
-								expenses={expenses_user1[i].expenses[1].quantity}
-								location={locations_user1[i].location_name}
-								OnPress={() => console.log("press")}
-								killTravel={() => killSomeTravel(travel.id)}
-								isOwner={true}
-							/>
-						);
-					}
-					return null;
-				})}
+
+				{travels?.length > 0 ? (
+					travels ? (
+						travels?.map((travel, i) => {
+							if (travel.id_user2 != null) {
+								return (
+									<Viaje
+										key={i}
+										companions={travel.companions}
+										date={travel.travel_date}
+										expenses={expenses_user1[i].expenses[1].quantity}
+										location={locations_user1[i].location_name}
+										OnPress={() => console.log("press")}
+										killTravel={() => killSomeTravel(travel.id)}
+										isOwner={true}
+									/>
+								);
+							}
+							return null;
+						})
+					) : (
+						<Text>CARGANDO...</Text>
+					)
+				) : (
+					<GeneralText
+						color="#1D1E20"
+						size={17}
+						height={18}
+						text={t("No hay viajes registrados")}
+						marginBottom={20}
+					/>
+				)}
 			</View>
 			<View>
 				<GeneralText
@@ -109,23 +125,38 @@ export default function EditarMyViajes() {
 					text={t("ShareTrips")}
 					marginTop={10}
 					marginBottom={20}
+					alignSelf={"center"}
 				/>
-				{sharedTravels?.map((travel, i) => (
-					<Viaje
-						key={i}
-						companions={travel.companions}
-						date={travel.travel_date}
-						expenses={expenses_user2[i].quantity}
-						location={locations_user2[i].location_name}
-						onPress={() =>
-							navigation.navigate("PerfilUsuario", {
-								name: usersU2[i].name,
-								id: usersU2[i].id,
-							})
-						}
-						isOwner={false}
+				{sharedTravels?.length > 0 ? (
+					sharedTravels ? (
+						sharedTravels?.map((travel, i) => (
+							<Viaje
+								key={i}
+								companions={travel.companions}
+								date={travel.travel_date}
+								expenses={expenses_user2[i].quantity}
+								location={locations_user2[i].location_name}
+								onPress={() =>
+									navigation.navigate("PerfilUsuario", {
+										name: usersU2[i].name,
+										id: usersU2[i].id,
+									})
+								}
+								isOwner={false}
+							/>
+						))
+					) : (
+						<Text>CARGANDO...</Text>
+					)
+				) : (
+					<GeneralText
+						color="#1D1E20"
+						size={17}
+						height={18}
+						text={t("No hay viajes compartidos registrados")}
+						marginBottom={20}
 					/>
-				))}
+				)}
 			</View>
 		</ScrollView>
 	);
@@ -145,9 +176,10 @@ const styles = StyleSheet.create({
 		marginLeft: -12,
 	},
 	roundImage: {
-		width: 200,
-		height: 200,
+		width: 150,
+		height: 150,
 		borderRadius: 100,
 		alignSelf: "center",
+		marginBottom: 15,
 	},
 });
