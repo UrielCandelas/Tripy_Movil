@@ -33,10 +33,14 @@ export default function VerViajes1() {
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		setLoading(true);
-		getTravelsImg2(id);
-		setLoading(false);
+		getTravelsImg2Func(id);
 	}, []);
+
+	const getTravelsImg2Func = async (id) => {
+		setLoading(true);
+		await getTravelsImg2(id);
+		setLoading(false);
+	};
 
 	const tra = useMemo(() => travels?.travelCards, [travels]);
 	const img = useMemo(() => travels?.image, [travels]);

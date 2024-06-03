@@ -15,10 +15,14 @@ export default function EditarMyViajes() {
 	const { user } = useAuth();
 	const [loading, setLoading] = useState(true);
 	useEffect(() => {
-		setLoading(true);
-		getTravelsActive(user.id);
-		setLoading(false);
+		getTravelsActiveFunc(user.id);
 	}, []);
+
+	const getTravelsActiveFunc = async (id) => {
+		setLoading(true);
+		await getTravelsActive(id);
+		setLoading(false);
+	};
 
 	const travels = travelsActive.travels;
 	const sharedTravels = travelsActive.sharedTravels;

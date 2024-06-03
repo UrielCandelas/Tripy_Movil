@@ -24,10 +24,14 @@ export default function Contactos() {
     }
   }, [user]); */
 	useEffect(() => {
-		setLoading(true);
-		getUserContacts(user?.id);
-		setLoading(false);
+		getUserContactsFunc(user.id);
 	}, []);
+
+	const getUserContactsFunc = async (id) => {
+		setLoading(true);
+		await getUserContacts(id);
+		setLoading(false);
+	};
 
 	const { t } = useTranslation();
 	return (
