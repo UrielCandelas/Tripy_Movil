@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Alert, ScrollView, StyleSheet, View, Image } from "react-native";
 import GeneralText from "../components/GeneralComponents/GeneralText";
 import Viaje from "../components/VerViajes/UpdateViaje";
@@ -7,13 +7,17 @@ import { useTravels } from "../context/TravelsContext";
 import { useAuth } from "../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
+import Loading from "../components/Loading/Loading";
 
 export default function EditarMyViajes() {
 	const navigation = useNavigation();
 	const { getTravelsActive, travelsActive, deleteSomeTravel } = useTravels();
 	const { user } = useAuth();
+	const [loading, setLoading] = useState(true);
 	useEffect(() => {
+		setLoading(true);
 		getTravelsActive(user.id);
+		setLoading(false);
 	}, []);
 
 	const travels = travelsActive.travels;
@@ -127,6 +131,7 @@ export default function EditarMyViajes() {
 					/>
 				))}
 			</View>
+			{loading ? <Loading loading={loading} /> : null}
 		</ScrollView>
 	);
 }

@@ -18,6 +18,7 @@ import { useAuth } from "../context/AuthContext";
 import { useTranslation } from "react-i18next";
 import { useTravels } from "../context/TravelsContext";
 import ComentsUsersCards from "../components/Destino/Card.js";
+import Loading from "../components/Loading/Loading.js";
 
 export default function VerViajes1() {
 	const navigation = useNavigation();
@@ -29,8 +30,12 @@ export default function VerViajes1() {
 
 	const { user } = useAuth();
 
+	const [loading, setLoading] = useState(false);
+
 	useEffect(() => {
+		setLoading(true);
 		getTravelsImg2(id);
+		setLoading(false);
 	}, []);
 
 	const tra = useMemo(() => travels?.travelCards, [travels]);
@@ -211,6 +216,7 @@ export default function VerViajes1() {
 					return null;
 				}
 			})}
+			{loading ? <Loading isLoading={loading} /> : null}
 		</ScrollView>
 	);
 }

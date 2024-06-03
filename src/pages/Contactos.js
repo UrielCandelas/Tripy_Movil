@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import GeneralText from "../components/GeneralComponents/GeneralText";
 import Arrowback from "../components/VerViajes/Arrowback";
 
 import ContactsContainer from "../components/Chat/ContactsContainer";
+import Loading from "../components/Loading/Loading";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../context/AuthContext";
 import { useUser } from "../context/UsersContext";
@@ -14,6 +15,7 @@ export default function Contactos() {
 	// const socket = useRef();
 	const { getUserContacts, contacts } = useUser();
 	const { user } = useAuth();
+	const [loading, setLoading] = useState(true);
 	/* const host = "http://192.168.0.10:3000";
   useEffect(() => {
     if (user) {
@@ -22,8 +24,11 @@ export default function Contactos() {
     }
   }, [user]); */
 	useEffect(() => {
+		setLoading(true);
 		getUserContacts(user?.id);
+		setLoading(false);
 	}, []);
+
 	const { t } = useTranslation();
 	return (
 		<View style={{ flex: 1, backgroundColor: "#FEFEFE" }}>
@@ -51,6 +56,7 @@ export default function Contactos() {
 				</View>
 			</View>
 			<ContactsContainer contacts={contacts} /* socket = {socket} */ />
+			{loading ? <Loading isLoading={loading} /> : null}
 		</View>
 	);
 }
