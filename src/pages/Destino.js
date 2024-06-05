@@ -125,21 +125,21 @@ export default function VerViajes1() {
 			</View>
 
 			{tra?.map((travel, i) => {
-				if (myId != travel.id_user1 && travel.isActive == true) {
+				if (myId != travel.travel.id_user1 && travel.travel.isActive == true) {
 					return (
 						<Viaje
 							key={i}
 							User={tra[i]?.user.userName}
-							Companions={travel.companions}
-							Date={travel.travel_date}
-							Expenses={ex[i]}
+							Companions={travel.travel.companions}
+							Date={travel.travel.travel_date}
+							Expenses={travel.expense.quantity}
 							onPress={() =>
 								navigation.navigate("UnirseViaje", {
 									name: tra[i],
-									companions: travel.companions,
-									expenses: ex[i],
-									typeofExpenses: exName[i],
-									extras: travel.id_extras,
+									companions: travel.travel.companions,
+									expenses: travel.expense.quantity,
+									typeofExpenses: travel.expense.expense,
+									extras: null,
 									destination: names.location_name,
 									id_travel: travel.id,
 									id_user1: travel.id_user1,

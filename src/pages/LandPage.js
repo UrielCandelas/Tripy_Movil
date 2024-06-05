@@ -14,10 +14,10 @@ import { useTranslation } from "react-i18next";
 export default function LandPage() {
 	const navigation = useNavigation();
 	const [visible, setVisible] = useState(false);
-	const { logout, user } = useAuth();
+	const { logoutFunc, user } = useAuth();
 
 	const logoutUser = async () => {
-		await logout();
+		await logoutFunc();
 		navigation.navigate("Bienvenido");
 	};
 

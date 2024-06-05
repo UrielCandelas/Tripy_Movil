@@ -43,6 +43,7 @@ import UserProvider from "./src/context/UsersContext.js";
 export default function App() {
 	const Stack = createNativeStackNavigator();
 	StatusBar.setBackgroundColor("#64CCC5");
+
 	return (
 		<I18nextProvider i18n={i18next}>
 			<AuthProvider>

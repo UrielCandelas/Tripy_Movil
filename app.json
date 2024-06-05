@@ -25,20 +25,31 @@
           "allowsExternalPlayback": true,
           "videoQuality": "720p"
         }
-      }
+      },
+      "bundleIdentifier": "com.tripy.mobile"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff",
-        "permissions": ["CAMERA"]
-      }
+        "permissions": [
+          "CAMERA"
+        ]
+      },
+      "package": "com.tripy.mobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-localization"
-    ]
+      "expo-localization",
+      "expo-secure-store"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "69c61fb2-2301-4071-8969-56ae3ce61e27"
+      }
+    },
+    "scheme": "client"
   }
 }

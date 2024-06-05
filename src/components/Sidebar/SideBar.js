@@ -42,7 +42,7 @@ const Sidebar = ({
 							fontWeight="bold"
 						/>
 						<Image
-							source={{ uri: user?.profileImg }}
+							source={{ uri: user ? user?.profileImg : "_" }}
 							style={styles.roundImage}
 							onPress={userNav}
 						/>
